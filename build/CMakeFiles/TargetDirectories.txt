@@ -1,3 +1,0 @@
-/home/zenmar/projects/MyEvolutionSim2/build/CMakeFiles/MyEvolutionSim2.dir
-/home/zenmar/projects/MyEvolutionSim2/build/CMakeFiles/edit_cache.dir
-/home/zenmar/projects/MyEvolutionSim2/build/CMakeFiles/rebuild_cache.dir
