@@ -43,12 +43,48 @@
             "id": "6f38562cc63985e8",
             "type": "leaf",
             "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/Sources/InputNode.cpp.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3bb370ff6a83eaaf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/Sources/InputNode.cpp.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "37715b0b76b5762b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/Sources/NeuronNode.cpp.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8c39533b07015036",
+            "type": "leaf",
+            "state": {
               "type": "graph",
               "state": {}
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -171,21 +207,28 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6f38562cc63985e8",
+  "active": "8c39533b07015036",
   "lastOpenFiles": [
+    "Code/Headers/Vector2.hpp.md",
+    "Code/Sources/Utils.cpp.md",
+    "Code/Headers/Cell.hpp.md",
+    "NeuronNode.hpp.md",
+    "Code/Headers/ActionNode.hpp.md",
+    "Code/Sources/ActionNode.cpp.md",
+    "Code/Sources/NeuronNode.cpp.md",
+    "Code/Sources/InputNode.cpp.md",
+    "Code/Headers/InputNode.hpp.md",
+    "Code/Headers/Untitled.md",
     "Code/utils.cpp.md",
     "Code/main.cpp.md",
     "Code/Sources/Directions.cpp.md",
     "Code/Headers/Grid.hpp.md",
-    "Code/Headers/Vector2.hpp.md",
     "Code/Sources/Grid.cpp.md",
     "Code/Headers/Window.hpp.md",
     "Code/Sources/Window.cpp.md",
-    "Code/Sources/Node.cpp.md",
     "Code/Headers/Node.hpp.md",
     "Code/Sources/Vector2.cpp.md",
     "Code/Sources/Cell.cpp.md",
-    "Code/Headers/Cell.hpp.md",
     "Code/Sources",
     "Code/Headers",
     "ToDo.md",

@@ -1,0 +1,100 @@
+<mxfile host="Electron" modified="2024-02-29T19:39:56.933Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="aDiZvTla5R2v9smZaBPN" version="23.1.5" type="device">
+  <diagram name="Page-1" id="T-5lhI4piRA1Wk0Vyas-">
+    <mxGraphModel dx="2074" dy="1134" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-1" target="JrSP3mpOHgf687Y7e9rM-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-1" target="JrSP3mpOHgf687Y7e9rM-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-1" value="New Input Node created&lt;br&gt;(if input type already existing, use that one)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="298" y="20" width="232" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-2" target="JrSP3mpOHgf687Y7e9rM-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-2" target="JrSP3mpOHgf687Y7e9rM-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-2" value="link to existing node" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="234" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-4" target="JrSP3mpOHgf687Y7e9rM-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-4" target="JrSP3mpOHgf687Y7e9rM-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-4" value="Generate new node" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="474" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="JrSP3mpOHgf687Y7e9rM-7" target="JrSP3mpOHgf687Y7e9rM-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-7" value="New Neuron Node&lt;br&gt;created and linked" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="474" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-9" value="New Action node&lt;br&gt;created and linked" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="604" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-11" value="Action Node linked" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="104" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-13" target="JrSP3mpOHgf687Y7e9rM-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-13" value="Existing Neuron node linked" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="234" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-15" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="153.99999999999977" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-15" target="JrSP3mpOHgf687Y7e9rM-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-15" target="JrSP3mpOHgf687Y7e9rM-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="JrSP3mpOHgf687Y7e9rM-15" target="JrSP3mpOHgf687Y7e9rM-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="JrSP3mpOHgf687Y7e9rM-15" target="JrSP3mpOHgf687Y7e9rM-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-15" value="what to do with the Neuron Node?" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-21" value="Create and link new Action Node" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="94" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-23" value="Connect to existing Action Node" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="484" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-25" value="Create and link new Neuron Node" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="224" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-27" value="Do Nothing" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="JrSP3mpOHgf687Y7e9rM-29" target="JrSP3mpOHgf687Y7e9rM-15" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="674" y="580" />
+              <mxPoint x="770" y="580" />
+              <mxPoint x="770" y="350" />
+              <mxPoint x="414" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JrSP3mpOHgf687Y7e9rM-29" value="Connect to existing Neuron Node" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="614" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

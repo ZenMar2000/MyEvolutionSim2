@@ -1,19 +1,19 @@
-#include <iostream>
-#include <string>
-
 #include "Headers/Vector2/Vector2.hpp"
 #include "Headers/Window/SDLWindow.hpp"
-
-using namespace std;
+#include "Headers/Cell/Cell.hpp"
+#include "Src/Utils.cpp"
 
 int main(){
-    uint width = 800;
-    uint height =600;
+
 
     Vector2 vect(1,1);
     vect.Print();
 
-    SDLWindow myWindow("My Sim",width,height);
+    // Cell cell1;
+    // cell1.position = Vector2(1,1);
+
+
+    SDLWindow myWindow("My Sim", WindowWidth, WindowHeight);
     SDL_SetRenderDrawColor(myWindow.renderer, 255, 0, 0, 255);
 
     while (true)
@@ -22,7 +22,6 @@ int main(){
         if(myWindow.event.type == SDL_QUIT){
            break;
        }  
-
     }
 
     SDL_Quit();
