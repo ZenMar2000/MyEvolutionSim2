@@ -173,6 +173,8 @@
   },
   "active": "6f38562cc63985e8",
   "lastOpenFiles": [
+    "Code/utils.cpp.md",
+    "Code/main.cpp.md",
     "Code/Sources/Directions.cpp.md",
     "Code/Headers/Grid.hpp.md",
     "Code/Headers/Vector2.hpp.md",
@@ -186,7 +188,6 @@
     "Code/Headers/Cell.hpp.md",
     "Code/Sources",
     "Code/Headers",
-    "Code/Sources/main.cpp.md",
     "ToDo.md",
     "Files",
     "Logic",
