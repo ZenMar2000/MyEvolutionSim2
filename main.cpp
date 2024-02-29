@@ -1,21 +1,11 @@
-#include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
 
 #include "Headers/Vector2/Vector2.hpp"
+#include "Headers/Window/SDLWindow.hpp"
 
  using namespace std;
 
-class SDLWindow{
-    SDL_Window* window;
-    public:
-    SDLWindow(const char* title): window(SDL_CreateWindow(title,0,0,800,600, SDL_WINDOW_SHOWN)){
-    }
-
-    ~SDLWindow(){
-        SDL_DestroyWindow(window);
-    }
-};
 
 
 int main(){
