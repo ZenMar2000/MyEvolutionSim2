@@ -3,8 +3,8 @@ project(MyEvolutionSim2)
 
 set(SourceFiles
     Headers/Vector2/Vector2.hpp
-    main.cpp
-   )
+    Src/Vector2/Vector2.cpp
+    main.cpp)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
