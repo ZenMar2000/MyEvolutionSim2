@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/zenmar/projects/MyEvolutionSim2/build",
+  "command": "/usr/bin/g++ -isystem /usr/local/include/SDL2 -g -o CMakeFiles/MyEvolutionSim2.dir/main.cpp.o -c /home/zenmar/projects/MyEvolutionSim2/main.cpp",
+  "file": "/home/zenmar/projects/MyEvolutionSim2/main.cpp"
+}
+]
