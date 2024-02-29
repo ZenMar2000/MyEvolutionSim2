@@ -1,0 +1,9 @@
+- [ ] Grafica
+- [ ] Implementare movimento singolo cella su griglia effettiva
+- [ ] Generatore Celle
+	- [ ] Generatore Nodi
+		- [ ] Generatore genoma derivato da nodo
+- [ ] Logica cibo
+- [ ] Ciclo per respawnare celle vive
+- [ ] Editor per parametri da file
+- [ ] 

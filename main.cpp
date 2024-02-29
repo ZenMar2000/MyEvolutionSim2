@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+#include "Headers/Vector2/Vector2.hpp"
+
  using namespace std;
 
 class SDLWindow{
@@ -17,13 +19,24 @@ class SDLWindow{
 
 
 int main(){
+    Vector2 vect(1,1);
+    vect.Print();
+
     if(SDL_Init(SDL_INIT_VIDEO) != 0){
         cout << SDL_GetError();
     }
     else
     {
      SDLWindow myWindow("New window");
-     SDL_Delay(5000);   
+     while (true)
+     {
+        SDL_Event event;
+        SDL_PollEvent(&event);
+
+        if(event.type == SDL_QUIT){
+            break;
+        }     
+     }
     }
 
     SDL_Quit();

@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.0.0)
 project(MyEvolutionSim2)
 
 set(SourceFiles
-    main.cpp)
+    Headers/Vector2/Vector2.hpp
+    main.cpp
+   )
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
