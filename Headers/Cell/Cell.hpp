@@ -1,17 +1,15 @@
 #ifndef CELL_H
 #define CELL_H
+
 #include "../Nodes/Node.hpp"
+#include "../Utils.hpp"
 
 class Cell{
-    protected:
-   
-
     public:
-    Cell(Vector2 pos){
-        position = pos;
-    };
+    Cell();
+    Cell(Vector2 spawnPosition);
     
-     Vector2 position;
+    Vector2 cellPosition;
 };
 
 #endif

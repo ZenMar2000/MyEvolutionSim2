@@ -2,7 +2,6 @@
 #define NODE_H
 
 #include "../Cell/Cell.hpp"
-#include "../../Src/Utils.cpp"
 
 #include <iostream>
 #include <list>
@@ -14,17 +13,16 @@ class Node{
     bool invertedOutput;
     int nodeId;
     char* nodeName;
-    Cell* parentCell;
     Node* parentNode;
     list<Node*> linkedNodes;
-
+    // Cell* parentCell;
 
     public:
 
 #pragma region "Constructors"
     Node();
-    Node(Cell* parentCell);
-    Node(Cell* parentCell, Node* parentNode);
+    Node(Node* parentNode);
+    // Node(Cell* parentCell, Node* parentNode);
 
 #pragma endregion
 

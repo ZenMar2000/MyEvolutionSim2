@@ -10,81 +10,66 @@
           {
             "id": "4a39d1bdfa774a75",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "graph",
-              "state": {}
+              "state": {},
+              "pinned": true
             }
           },
           {
-            "id": "5958ed688f75144e",
+            "id": "a57324fbc847f9e5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Sources/Window.cpp.md",
+                "file": "Code/Headers/SDLWindow.hpp.md",
                 "mode": "source",
+                "backlinks": true,
                 "source": false
               }
             }
           },
           {
-            "id": "5588b0e1eb8d3789",
+            "id": "2f5af0e54e174cda",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Sources/Window.cpp.md",
+                "file": "Code/Headers/SimulationHandler.hpp.md",
                 "mode": "source",
+                "backlinks": true,
                 "source": false
               }
             }
           },
           {
-            "id": "6f38562cc63985e8",
+            "id": "503f19860ba3aca2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Sources/InputNode.cpp.md",
+                "file": "Code/Sources/Utils.hpp.md",
                 "mode": "source",
+                "backlinks": true,
                 "source": false
               }
             }
           },
           {
-            "id": "3bb370ff6a83eaaf",
+            "id": "489390800b1449ec",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Sources/InputNode.cpp.md",
+                "file": "Utils.cpp.md",
                 "mode": "source",
+                "backlinks": true,
                 "source": false
               }
-            }
-          },
-          {
-            "id": "37715b0b76b5762b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Code/Sources/NeuronNode.cpp.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "8c39533b07015036",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {}
             }
           }
-        ],
-        "currentTab": 6
+        ]
       }
     ],
     "direction": "vertical"
@@ -207,28 +192,33 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8c39533b07015036",
+  "active": "4a39d1bdfa774a75",
   "lastOpenFiles": [
-    "Code/Headers/Vector2.hpp.md",
-    "Code/Sources/Utils.cpp.md",
-    "Code/Headers/Cell.hpp.md",
-    "NeuronNode.hpp.md",
-    "Code/Headers/ActionNode.hpp.md",
+    "Utils.cpp.md",
+    "Code/Sources/Utils.hpp.md",
+    "Code/Headers/SimulationHandler.hpp.md",
+    "Code/Headers/SDLWindow.hpp.md",
     "Code/Sources/ActionNode.cpp.md",
     "Code/Sources/NeuronNode.cpp.md",
-    "Code/Sources/InputNode.cpp.md",
-    "Code/Headers/InputNode.hpp.md",
-    "Code/Headers/Untitled.md",
-    "Code/utils.cpp.md",
-    "Code/main.cpp.md",
-    "Code/Sources/Directions.cpp.md",
-    "Code/Headers/Grid.hpp.md",
-    "Code/Sources/Grid.cpp.md",
     "Code/Headers/Window.hpp.md",
+    "Code/Headers/InputNode.hpp.md",
+    "Code/Sources/InputNode.cpp.md",
+    "Code/Headers/Grid.hpp.md",
+    "Code/Sources/SDLWindow.cpp.md",
+    "Code/Sources/SimulationHandler.cpp.md",
+    "Code/Headers/ActionNode.hpp.md",
     "Code/Sources/Window.cpp.md",
-    "Code/Headers/Node.hpp.md",
-    "Code/Sources/Vector2.cpp.md",
+    "Code/Headers/Cell.hpp.md",
     "Code/Sources/Cell.cpp.md",
+    "SimulationHandler.cpp.md",
+    "Code/Sources/Grid.cpp.md",
+    "Code/Headers/NeuronNode.hpp.md",
+    "Code/Headers/Vector2.hpp.md",
+    "Code/Sources/Vector2.cpp.md",
+    "Code/main.cpp.md",
+    "Code/Headers/Node.hpp.md",
+    "Code/utils.cpp.md",
+    "Code/Sources/Directions.cpp.md",
     "Code/Sources",
     "Code/Headers",
     "ToDo.md",

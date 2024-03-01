@@ -8,10 +8,10 @@ class InputNode_HDC: public Node{
     InputNode_HDC() : Node() {
     }
 
-    InputNode_HDC(Cell* parentCell) : Node (parentCell){
+    InputNode_HDC() : Node (){
         this-> nodeId = nodeId;
         this-> nodeName = nodeName;
-        this-> parentCell = parentCell;
+        // this-> parentCell = parentCell;
     }
 
     void Activate() override{
