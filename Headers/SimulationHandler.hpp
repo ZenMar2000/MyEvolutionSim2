@@ -9,6 +9,7 @@ class SimulationHandler{
     public:
     //Costructors
     SimulationHandler();
+    Utils Util = Utils(); 
 
     protected:
     // Utils utlt = Utils();

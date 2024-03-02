@@ -1,1 +1,2 @@
+#structure
 [[InputNode.hpp]]

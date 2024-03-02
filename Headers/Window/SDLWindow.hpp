@@ -6,16 +6,17 @@
 
 using namespace std;
 
-class SDLWindow{
+class SDLWindow
+{
 
-    public:
-    //Variables
-    SDL_Window* window;
+public:
+    // Variables
+    SDL_Window *window;
     SDL_Event event;
-    SDL_Renderer* renderer;
+    SDL_Renderer *renderer;
 
-    //Constructors
-    SDLWindow(const char* title, uint width, uint height);
+    // Constructors
+    SDLWindow(const char *title, uint width, uint height);
     ~SDLWindow();
 
 protected:

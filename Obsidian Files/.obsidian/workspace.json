@@ -18,12 +18,12 @@
             }
           },
           {
-            "id": "a57324fbc847f9e5",
+            "id": "75240d63897b546a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Headers/SDLWindow.hpp.md",
+                "file": "Logic/Adding a new NodeType and relative action.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -31,38 +31,12 @@
             }
           },
           {
-            "id": "2f5af0e54e174cda",
+            "id": "aa95925fe7942dbe",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Code/Headers/SimulationHandler.hpp.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "503f19860ba3aca2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Code/Sources/Utils.hpp.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "489390800b1449ec",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Utils.cpp.md",
+                "file": "Logic/Adding a new NodeType and relative action.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -194,34 +168,34 @@
   },
   "active": "4a39d1bdfa774a75",
   "lastOpenFiles": [
-    "Utils.cpp.md",
+    "Logic/Adding a new NodeType and relative action.md",
+    "Logic/Node Genome.md",
+    "Logic/Node ID.md",
+    "Code/Headers/Utils.cpp.md",
     "Code/Sources/Utils.hpp.md",
+    "Code/main.cpp.md",
+    "Code/Sources/Vector2.cpp.md",
+    "Code/Sources/SimulationHandler.cpp.md",
+    "Code/Sources/SDLWindow.cpp.md",
+    "Code/Sources/NeuronNode.cpp.md",
+    "Code/Sources/InputNode.cpp.md",
+    "Code/Sources/Grid.cpp.md",
+    "Code/Sources/Cell.cpp.md",
+    "Code/Sources/ActionNode.cpp.md",
+    "Code/Headers/Vector2.hpp.md",
     "Code/Headers/SimulationHandler.hpp.md",
     "Code/Headers/SDLWindow.hpp.md",
-    "Code/Sources/ActionNode.cpp.md",
-    "Code/Sources/NeuronNode.cpp.md",
-    "Code/Headers/Window.hpp.md",
-    "Code/Headers/InputNode.hpp.md",
-    "Code/Sources/InputNode.cpp.md",
-    "Code/Headers/Grid.hpp.md",
-    "Code/Sources/SDLWindow.cpp.md",
-    "Code/Sources/SimulationHandler.cpp.md",
-    "Code/Headers/ActionNode.hpp.md",
-    "Code/Sources/Window.cpp.md",
-    "Code/Headers/Cell.hpp.md",
-    "Code/Sources/Cell.cpp.md",
-    "SimulationHandler.cpp.md",
-    "Code/Sources/Grid.cpp.md",
-    "Code/Headers/NeuronNode.hpp.md",
-    "Code/Headers/Vector2.hpp.md",
-    "Code/Sources/Vector2.cpp.md",
-    "Code/main.cpp.md",
     "Code/Headers/Node.hpp.md",
-    "Code/utils.cpp.md",
-    "Code/Sources/Directions.cpp.md",
+    "Code/Headers/NeuronNode.hpp.md",
+    "Code/Headers/InputNode.hpp.md",
+    "Code/Headers/Grid.hpp.md",
+    "Code/Headers/Cell.hpp.md",
+    "Code/Headers/ActionNode.hpp.md",
+    "Code/Headers/Window.hpp.md",
+    "Code/Sources/Window.cpp.md",
+    "SimulationHandler.cpp.md",
     "Code/Sources",
     "Code/Headers",
-    "ToDo.md",
     "Files",
     "Logic",
     "Code"

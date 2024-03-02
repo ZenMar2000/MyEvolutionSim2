@@ -1,6 +1,7 @@
 #include "Headers/SimulationHandler.hpp"
 
 int main(){
+    SimulationHandler sim = SimulationHandler();
     // Vector2 vect(1,1);
     // vect.Print();
 

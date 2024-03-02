@@ -1,1 +1,2 @@
+#structure
 [[NeuronNode.hpp]]

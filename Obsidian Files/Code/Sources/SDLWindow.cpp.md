@@ -1,1 +1,2 @@
+#structure
 [[SDLWindow.hpp]]

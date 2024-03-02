@@ -4,8 +4,8 @@
 #include "../Window/SDLWindow.hpp"
 // #include "../../Src/Utils.cpp"
 
-class Grid{
-
+class Grid
+{
 };
 
 #endif
