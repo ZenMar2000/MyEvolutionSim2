@@ -1,7 +1,7 @@
 #include "../../../Headers/Nodes/InputNodes/InputNode.hpp"
 #pragma region "Constructors"
-
-InputNode::InputNode(){}
+using namespace std;
+InputNode::InputNode() {}
 
 InputNode::InputNode(NodeType type, Cell *parentCell)
 {
@@ -15,11 +15,13 @@ InputNode::InputNode(NodeType type, Cell *parentCell)
 #pragma region "Functions"
 void InputNode::Activate()
 {
-
 }
 
-int InputNode::GenerateNodeGenome()
-{
-    return 0;
-}
 #pragma endregion
+
+// std::string binary = std::bitset<3>(7).to_string(); // to binary
+// std::cout << binary << "\n";
+
+// unsigned long decimal = std::bitset<4>(binary).to_ulong();
+// std::cout << decimal << "\n";
+// return 0;

@@ -2,35 +2,28 @@
 #define NODE_H
 
 #include <iostream>
-#include <list>
+#include <bitset>
+#include <vector>
+#include <string>
+
 #include "../Utils.hpp"
 
 using namespace std;
 
 class Cell;
 
-
 class Node
 {
-protected:
-    bool invertedOutput;
-
-    NodeType nodeType;
-    Node *parentNode;
-    list<Node *> linkedChildNodes;
-    Utils *util;
-    Cell *parentCell;
-
 public:
 #pragma region "Constructors"
     Node();
-    Node(NodeType type, Cell* parentCell);
-    Node(NodeType type, Cell* parentCell, Node *parentNode);
+    Node(NodeType type, Cell *parentCell);
+    Node(NodeType type, Cell *parentCell, Node *parentNode);
 
 #pragma endregion
 
-#pragma Region "Implemented Functions"
-    // Get node id (used for genome generation)
+#pragma Region "Functions"
+ // Get node id (used for genome generation)
     NodeType GetNodeType();
 
     // Add node to the linkedNodes list
@@ -38,15 +31,39 @@ public:
 
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);
-#pragma endregion
 
-#pragma region "Virtual Functions"
     // function that must be implemented in children classes
     virtual void Activate();
-    virtual int GenerateNodeGenome();
+
+    // Get a vector containing all genomes of this node. Work only on Input an Neuron nodes. Action nodes does not have linked nodes.
+    virtual vector<string> GetNodeGenome();
 
 #pragma endregion
+
+protected:
+#pragma region "Variables for genome"
+    bool invertedOutput;
+    int linkWeight;
+    NodeType nodeType;
+    int genomeWeight;
+    Node *parentNode;
+
+    // vector containing all nodes linked to this node. They will get updated with the output value of this node.
+    vector<Node *> linkedChildNodes;
+#pragma endregion
+
+#pragma region "Other variables"
+
+    // vector containing the hexadecimal value of all genomes of this node
+    vector<string> nodeGenomeList;
+    Utils *util;
+    Cell *parentCell;
+#pragma endregion
+
+    // Clear the vector nodeGenomeList and regenerate all genome by using genome variables and linkedChildNodes
+    void GenerateNodeGenome();
 };
+
 #endif
 
 // #ifndef HDC_H

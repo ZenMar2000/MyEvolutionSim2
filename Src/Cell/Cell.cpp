@@ -20,4 +20,9 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util)
 void Cell::GenerateGenome(){
 
 }
+
+bool Cell::IsAlive(){
+    return isAlive;
+}
+
 #pragma endregion

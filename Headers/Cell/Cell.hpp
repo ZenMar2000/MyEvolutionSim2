@@ -18,6 +18,7 @@ public:
 
 #pragma region "Functions"
     void GenerateGenome();
+    bool IsAlive();
 
 #pragma endregion
 
@@ -31,6 +32,9 @@ protected:
 
     // Food counter. When reaching 0, the cell dies.
     int foodReserve;
+
+    //If the cell is alive
+    bool isAlive = true;
 
     // Which direction the cell is facing
     Vector2 direction;

@@ -43,10 +43,7 @@ void Node::RemoveLinkedNode(int index)
         cout << "The given index is greater than linkedNodes list size" << endl;
         return;
     }
-
-    list<Node *>::iterator it = linkedChildNodes.begin();
-    advance(it, index);
-    linkedChildNodes.erase(it);
+    linkedChildNodes.erase(linkedChildNodes.begin() + index);
 }
 
 void Node::Activate()
@@ -54,8 +51,27 @@ void Node::Activate()
     throw std::logic_error("Function 'Activate()' in Node.cpp is not implemented. Please use derived classes instead.");
 }
 
-int Node::GenerateNodeGenome()
+vector<string> Node::GetNodeGenome()
 {
-    throw std::logic_error("Function 'GenerateNodeGenome()' in Node.cpp is not implemented. Please use derived classes instead.");
+    nodeGenomeList.clear();
+    GenerateNodeGenome();
+    return nodeGenomeList;
 }
+
+void Node::GenerateNodeGenome()
+{
+    int genomeLen = sizeof(linkedChildNodes);
+    string singleGenome;
+
+    for (int i = 0; i < genomeLen; i++)
+    {
+        //Get binary value and convert in in Hexadecimal
+        singleGenome = util->bin_to_hex(to_string(invertedOutput) + bitset<3>(linkWeight).to_string()) +
+                       util->bin_to_hex(to_string(genomeWeight)) +
+                       util->bin_to_hex(std::bitset<8>(nodeType).to_string()) +
+                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i)->GetNodeType()).to_string());
+        nodeGenomeList.push_back(singleGenome);
+    }
+}
+
 #pragma endregion

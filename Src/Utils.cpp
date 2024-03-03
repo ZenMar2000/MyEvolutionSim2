@@ -32,10 +32,41 @@ NodeType Utils::GetRandom_ActionNode(){
 
 };
 
-void Utils::InstantiateNodesArrays(){
-  //TODO For each NodeType enum, check left most 2 bits and 
-  //Divide them in the 3 arrays InputNodes, NeuronNodes or ActionNodes
+void Utils::InstantiateNodesArrays()
+{
+  // TODO For each NodeType enum, check left most 2 bits and
+  // Divide them in the 3 arrays InputNodes, NeuronNodes or ActionNodes
 }
+
+string Utils::bin_to_hex(string binary)
+{
+  binary = string(binary.length() % 4 ? 4 - binary.length() % 4 : 0, '0') + binary;
+
+  string hexadecimal;
+  for (size_t i = 0; i < binary.length(); i += 4)
+  {
+    string group = binary.substr(i, 4);
+    hexadecimal += hex_dict[group];
+  }
+  return hexadecimal;
+}
+
+string Utils::hex_to_bin(string str)
+{
+  // TODO
+  string binary;
+  
+  char arr[str.length() + 1];
+  strcpy(arr, str.c_str());
+
+  for (int i = 0; i < str.length(); i++)
+  {
+    binary+= bin_dict.at(toupper(arr[i]));
+  }
+
+  return binary;
+}
+
 #pragma endregion
 
 // /*

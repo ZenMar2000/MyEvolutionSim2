@@ -13,8 +13,9 @@ public:
 
 #pragma region "Functions"
     virtual void Activate() override;
-    virtual int GenerateNodeGenome() override;
+    
 #pragma endregion
+
 };
 
 #endif
