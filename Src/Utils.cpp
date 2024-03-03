@@ -55,19 +55,23 @@ string Utils::bin_to_hex(string binary)
   return hexadecimal;
 }
 
-string Utils::hex_to_bin(string str)
+string Utils::hex_to_bin(string hexadecimal)
 {
   string binary;
 
-  char arr[str.length() + 1];
-  strcpy(arr, str.c_str());
+  char arr[hexadecimal.length() + 1];
+  strcpy(arr, hexadecimal.c_str());
 
-  for (int i = 0; i < str.length(); i++)
+  for (int i = 0; i < hexadecimal.length(); i++)
   {
     binary += bin_dict.at(toupper(arr[i]));
   }
 
   return binary;
+}
+
+int Utils::bin_to_int(string binary){
+  return stoi(binary, nullptr, 2);
 }
 
 #pragma endregion

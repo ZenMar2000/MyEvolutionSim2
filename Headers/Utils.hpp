@@ -86,6 +86,7 @@ public:
 
   string bin_to_hex(string binary);
   string hex_to_bin(string hexadecimal);
+  int bin_to_int(string binary);
 
 #pragma endregion
 

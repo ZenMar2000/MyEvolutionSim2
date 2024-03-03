@@ -13,4 +13,5 @@ SimulationHandler::SimulationHandler()
     // TODO Add option to edit simulation parameters
 
     // std::cout<< to_string(Util.GetDirection(1).x) << endl;
+
 }
