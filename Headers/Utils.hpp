@@ -78,7 +78,7 @@ public:
   Vector2 GetDirection(int DirectionIndex);
 
   // return a number between 0 and 1, where 0 is coordinate 0 and 1 is the max width or height of the grid
-  double NormalizeToGridimention(Vector2 position, Coordinate coordinate);
+  double NormalizeToGridDimention(Vector2 position, Coordinate coordinate);
 
   NodeType GetRandom_InputNode();
   NodeType GetRandom_NeuronNode();

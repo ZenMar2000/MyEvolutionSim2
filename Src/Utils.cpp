@@ -14,23 +14,27 @@ Vector2 Utils::GetDirection(int DirectionIndex)
   return Directions[DirectionIndex];
 }
 
-double Utils::NormalizeToGridimention(Vector2 position, Coordinate coordinate)
+double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
 {
+  // TODO
   std::cout << "Not implemented yet" << endl;
   return 0;
 }
 
-NodeType Utils::GetRandom_InputNode(){
+NodeType Utils::GetRandom_InputNode()
+{
+  // TODO
+}
 
-};
+NodeType Utils::GetRandom_NeuronNode()
+{
+  // TODO
+}
 
-NodeType Utils::GetRandom_NeuronNode(){
-
-};
-
-NodeType Utils::GetRandom_ActionNode(){
-
-};
+NodeType Utils::GetRandom_ActionNode()
+{
+  // TODO
+}
 
 void Utils::InstantiateNodesArrays()
 {
@@ -53,15 +57,14 @@ string Utils::bin_to_hex(string binary)
 
 string Utils::hex_to_bin(string str)
 {
-  // TODO
   string binary;
-  
+
   char arr[str.length() + 1];
   strcpy(arr, str.c_str());
 
   for (int i = 0; i < str.length(); i++)
   {
-    binary+= bin_dict.at(toupper(arr[i]));
+    binary += bin_dict.at(toupper(arr[i]));
   }
 
   return binary;
