@@ -44,9 +44,12 @@ class Utils
 public:
   // Variables
   static const int DirectionsAmount = 8;
-  static const int CellPixelsDimension = 5;
+  static const int CellPixelsDimension = 10;
   static const int WindowWidth = 800;
   static const int WindowHeight = 600;
+
+  static const int UpdateDelay = 100;
+
 
   Vector2 *Directions;
 
@@ -99,4 +102,11 @@ private:
   void InstantiateNodesArrays();
 };
 
+struct Color
+{
+  int r;
+  int g;
+  int b;
+  int a;
+};
 #endif

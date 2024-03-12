@@ -12,17 +12,27 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util)
     this->genomeLength = genomeLength;
     this->util = util;
     Genome = new Node[genomeLength]{};
-
+    direction = util->GetDirection(3);
 }
 #pragma endregion
 
-#pragma region "Functions"
-void Cell::GenerateGenome(){
-
+#pragma region "Public Functions"
+void Cell::GenerateGenome()
+{
 }
 
-bool Cell::IsAlive(){
+bool Cell::IsAlive()
+{
     return isAlive;
 }
 
+Color Cell::GetCellColor()
+{
+    return cellColor;
+}
+
+void Cell::PerformAction()
+{
+   cellPosition = cellPosition.Sum(direction);
+}
 #pragma endregion

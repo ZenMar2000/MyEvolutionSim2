@@ -16,14 +16,17 @@ public:
 
 #pragma endregion
 
-#pragma region "Functions"
+#pragma region "Public Functions"
     void GenerateGenome();
     bool IsAlive();
+    Color GetCellColor();
+
+    void PerformAction();
 
 #pragma endregion
 
 protected:
-#pragma region "Variables"
+#pragma region "Protected Variables"
     // Max length of the genome array
     int genomeLength;
 
@@ -41,6 +44,8 @@ protected:
 
     // Pointer to the Util instance
     Utils *util;
+
+    Color cellColor;
 
 #pragma endregion
 };

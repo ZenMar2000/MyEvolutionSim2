@@ -1,20 +1,43 @@
 #ifndef SIMHANDLER_H
 #define SIMHANDLER_H
 
+#include <vector>
+
 #include "Cell/Cell.hpp"
 #include "Grid/Grid.hpp"
 #include "Utils.hpp"
 
+using namespace std;
+
 class SimulationHandler
 {
 public:
-    // Costructors
-    SimulationHandler();
+#pragma region "Public Variables"
     Utils Util = Utils();
+#pragma endregion
+
+#pragma region "Constructors"
+    SimulationHandler();
+#pragma endregion
+
+#pragma region "Public Functions"
+    void GenerateCell();
+    void Run();
+#pragma endregion
 
 protected:
+#pragma region "Protected Variables"
     Grid grid = Grid();
-    // Utils utlt = Utils();
+    vector<Cell> cellsAlive;
+    bool isRunning = false;
+
+#pragma endregion
+
+#pragma region "Protected Functions"
+    void CheckIfExitRequested();
+    void PerformCellActions();
+    void CleanUpDeactivatedCells();
+#pragma endregion
 };
 
 #endif

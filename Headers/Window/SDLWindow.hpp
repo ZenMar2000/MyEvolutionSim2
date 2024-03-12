@@ -19,17 +19,21 @@ public:
 
 #pragma region "Public Functions"
     void ClearWindow();
-    void DrawPixel(uint r, uint g, uint b, Vector2 position);
+    void DrawPixel(Color cellColor, Vector2 position);
     void UpdateWindow();
 
 #pragma endregion
 
 protected:
 #pragma region "Protected Variables"
-    void Init(uint width, uint height);
     Utils *util;
     SDL_Window *window;
     SDL_Renderer *renderer;
+
+#pragma endregion
+
+#pragma region "Protected functions"
+    void Init(const char *title, uint width, uint height);
 #pragma endregion
 };
 

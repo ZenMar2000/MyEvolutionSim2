@@ -2,11 +2,11 @@
 #include <bitset>
 #include <stdio.h>
 
-
 int main()
 {
-    SimulationHandler sim = SimulationHandler();
-
+    SimulationHandler *sim = new SimulationHandler();
+    sim->GenerateCell();
+    sim->Run();
     // std::string binary = std::bitset<3>(7).to_string(); // to binary
     // std::cout << binary << "\n";
 

@@ -1,22 +1,38 @@
 #ifndef GRID_H
 #define GRID_H
 
+#include <vector>
+
 #include "../Window/SDLWindow.hpp"
 #include "../Utils.hpp"
+#include "../Cell/Cell.hpp"
 
+using namespace std;
 class Grid
 {
 public:
+#pragma region "Constructors"
     Grid();
-    Grid(char *title, uint width, uint heightn, Utils *util);
+    Grid(char *title, uint width, uint heightn, Utils *util, vector<Cell> *cellsAlive);
+
+#pragma endregion
+
+#pragma region "Public Functions"
+    void RefreshGrid();
+
+#pragma endregion
 
 protected:
-    int *gridArray;
-    SDLWindow window;
+#pragma region "Protected Variables"
+    SDLWindow *window;
     Utils *util;
 
     int gridWidth;
     int gridHeight;
+
+    vector<Cell> *cellsAlive;
+
+#pragma endregion
 };
 
 #endif
