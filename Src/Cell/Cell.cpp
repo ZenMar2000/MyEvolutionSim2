@@ -33,6 +33,7 @@ Color Cell::GetCellColor()
 
 void Cell::PerformAction()
 {
+    //TODO Remove dumb forward movement and add All node logic
    cellPosition = cellPosition.Sum(direction);
 }
 #pragma endregion

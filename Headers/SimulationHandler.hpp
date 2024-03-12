@@ -27,7 +27,12 @@ public:
 
 protected:
 #pragma region "Protected Variables"
+    //Object containing generalized info of the cells. It prepares and feed data to the SDLWindow object.
     Grid grid = Grid();
+
+    //Vector containing all cells currently alive. 
+    //Used by this class to perform single cell actions 
+    //  and from the grid to update the graphical position
     vector<Cell> cellsAlive;
     bool isRunning = false;
 

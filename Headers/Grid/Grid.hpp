@@ -24,6 +24,7 @@ public:
 
 protected:
 #pragma region "Protected Variables"
+    //Object used ONLY for handling the graphic aspect
     SDLWindow *window;
     Utils *util;
 
