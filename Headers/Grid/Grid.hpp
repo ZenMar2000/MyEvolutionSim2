@@ -2,10 +2,21 @@
 #define GRID_H
 
 #include "../Window/SDLWindow.hpp"
-// #include "../../Src/Utils.cpp"
+#include "../Utils.hpp"
 
 class Grid
 {
+public:
+    Grid();
+    Grid(char *title, uint width, uint heightn, Utils *util);
+
+protected:
+    int *gridArray;
+    SDLWindow window;
+    Utils *util;
+
+    int gridWidth;
+    int gridHeight;
 };
 
 #endif

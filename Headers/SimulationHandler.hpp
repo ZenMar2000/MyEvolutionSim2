@@ -5,13 +5,15 @@
 #include "Grid/Grid.hpp"
 #include "Utils.hpp"
 
-class SimulationHandler{
-    public:
-    //Costructors
+class SimulationHandler
+{
+public:
+    // Costructors
     SimulationHandler();
-    Utils Util = Utils(); 
+    Utils Util = Utils();
 
-    protected:
+protected:
+    Grid grid = Grid();
     // Utils utlt = Utils();
 };
 

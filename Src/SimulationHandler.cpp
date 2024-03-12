@@ -4,6 +4,9 @@
 
 SimulationHandler::SimulationHandler()
 {
+    char* title = (char*)"MySim";
+    grid = Grid(title, 800, 600, &Util);
+
     // TODO Instantiate Graph, and generate random cells
 
     // TODO Create simulation loop
@@ -13,5 +16,4 @@ SimulationHandler::SimulationHandler()
     // TODO Add option to edit simulation parameters
 
     // std::cout<< to_string(Util.GetDirection(1).x) << endl;
-
 }
