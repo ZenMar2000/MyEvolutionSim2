@@ -7,7 +7,7 @@ class InputNode : public Node
 public:
 #pragma region "Constructors"
     InputNode();
-    InputNode(NodeType type, Cell *parentCell);
+    InputNode(NodeId id, Cell *parentCell);
 
 #pragma endregion
 

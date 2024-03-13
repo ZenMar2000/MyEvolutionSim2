@@ -81,8 +81,22 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "16f5f46e4c11bd3b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Logic/Node Genome.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -148,6 +162,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Logic/Node Genome.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -164,6 +179,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Logic/Node Genome.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -185,7 +201,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Logic/Node Genome.md"
+              }
             }
           }
         ]
@@ -205,13 +223,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4a39d1bdfa774a75",
+  "active": "16f5f46e4c11bd3b",
   "lastOpenFiles": [
+    "Logic/Node ID.md",
     "Code/Headers/Grid.hpp.md",
     "Code/Headers/SDLWindow.hpp.md",
     "Logic/Adding a new NodeType and relative action.md",
     "Logic/Node Genome.md",
-    "Logic/Node ID.md",
     "Code/Headers/Utils.cpp.md",
     "Code/Sources/Utils.hpp.md",
     "Code/main.cpp.md",

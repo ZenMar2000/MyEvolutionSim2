@@ -17,14 +17,14 @@ class Node
 public:
 #pragma region "Constructors"
     Node();
-    Node(NodeType type, Cell *parentCell);
-    Node(NodeType type, Cell *parentCell, Node *parentNode);
+    Node(NodeId id, Cell *parentCell);
+    Node(NodeId id, Cell *parentCell, Node *parentNode);
 
 #pragma endregion
 
 #pragma Region "Functions"
  // Get node id (used for genome generation)
-    NodeType GetNodeType();
+    NodeId GetNodeId();
 
     // Add node to the linkedNodes list
     void AddLinkedNode(Node *node);
@@ -44,7 +44,7 @@ protected:
 #pragma region "Variables for genome"
     bool invertedOutput;
     int linkWeight;
-    NodeType nodeType;
+    NodeId nodeId;
     int genomeWeight;
     Node *parentNode;
 

@@ -1,8 +1,13 @@
 #ifndef CELL_H
 #define CELL_H
 
+#include <vector>
+
 #include "../Utils.hpp"
 #include "../Nodes/Node.hpp"
+
+using namespace std;
+
 class Node;
 
 class Cell
@@ -12,7 +17,7 @@ public:
 
 #pragma region "Constructors"
     Cell();
-    Cell(int genomeLength, Vector2 spawnPosition, Utils *util);
+    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int startingFood = 10);
 
 #pragma endregion
 
@@ -30,13 +35,15 @@ protected:
     // Max length of the genome array
     int genomeLength;
 
-    // Array containing all nodes
-    Node *Genome;
+    // Node *Genome;
+
+    // Array containing all nodes. Positions inside the array corresponds to the first 2 binary values of enum NodeType
+    vector<Node> GenomeArray[3];
 
     // Food counter. When reaching 0, the cell dies.
     int foodReserve;
 
-    //If the cell is alive
+    // If the cell is alive
     bool isAlive = true;
 
     // Which direction the cell is facing
@@ -46,6 +53,10 @@ protected:
     Utils *util;
 
     Color cellColor;
+
+#pragma endregion
+
+#pragma region "Protected Functions"
 
 #pragma endregion
 };

@@ -3,11 +3,11 @@
 using namespace std;
 InputNode::InputNode() {}
 
-InputNode::InputNode(NodeType type, Cell *parentCell)
+InputNode::InputNode(NodeId id, Cell *parentCell)
 {
-    if (type > 63)
+    if (id > 63)
     {
-        throw std::logic_error("Wrong NodeType used during generation. InputNode cannot accept NodeType: " + type);
+        throw std::logic_error("Wrong NodeId used during generation. InputNode cannot accept NodeType: " + id);
     }
 }
 #pragma endregion
@@ -16,7 +16,6 @@ InputNode::InputNode(NodeType type, Cell *parentCell)
 void InputNode::Activate()
 {
 }
-
 #pragma endregion
 
 // std::string binary = std::bitset<3>(7).to_string(); // to binary

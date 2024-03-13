@@ -22,7 +22,7 @@ void Grid::RefreshGrid()
     // 1) Clear window graphic
     window->ClearWindow();
 
-    // 2)Move cells
+    // 2)Update cells graphic position
     if (cellCount > 0)
     {
         for (int i = 0; i < cellCount; i++)

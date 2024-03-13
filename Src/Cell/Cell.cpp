@@ -6,13 +6,14 @@ Cell::Cell()
     cellPosition = Vector2(0, 0);
 };
 
-Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util)
+Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int startingFood)
 {
     cellPosition = spawnPosition;
     this->genomeLength = genomeLength;
     this->util = util;
-    Genome = new Node[genomeLength]{};
+    // Genome = new Node[genomeLength]{};
     direction = util->GetDirection(3);
+    foodReserve = startingFood;
 }
 #pragma endregion
 
@@ -33,7 +34,20 @@ Color Cell::GetCellColor()
 
 void Cell::PerformAction()
 {
-    //TODO Remove dumb forward movement and add All node logic
-   cellPosition = cellPosition.Sum(direction);
+    if (foodReserve < 0)
+    {
+        isAlive = false;
+        return;
+    }
+    foodReserve --;
+
+    // TODO Remove dumb forward movement and add All node logic
+    cellPosition = cellPosition.Sum(direction);
 }
+
+#pragma endregion
+
+
+#pragma region "Protected Functions"
+
 #pragma endregion

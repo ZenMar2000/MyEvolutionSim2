@@ -4,24 +4,24 @@
 #pragma region "Constructors"
 Node::Node(){};
 
-Node::Node(NodeType type, Cell *parentCell)
+Node::Node(NodeId id, Cell *parentCell)
 {
     this->parentCell = parentCell;
-    nodeType = type;
+    nodeId = id;
 }
 
-Node::Node(NodeType type, Cell *parentCell, Node *parentNode)
+Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
 {
     this->parentCell = parentCell;
     this->parentNode = parentNode;
-    nodeType = type;
+    nodeId = id;
 }
 #pragma endregion
 
 #pragma Region "Functions"
-NodeType Node::GetNodeType()
+NodeId Node::GetNodeId()
 {
-    return nodeType;
+    return nodeId;
 }
 
 void Node::AddLinkedNode(Node *node)
@@ -68,8 +68,8 @@ void Node::GenerateNodeGenome()
         //Get binary value and convert in in Hexadecimal
         singleGenome = util->bin_to_hex(to_string(invertedOutput) + bitset<3>(linkWeight).to_string()) +
                        util->bin_to_hex(to_string(genomeWeight)) +
-                       util->bin_to_hex(std::bitset<8>(nodeType).to_string()) +
-                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i)->GetNodeType()).to_string());
+                       util->bin_to_hex(std::bitset<8>(nodeId).to_string()) +
+                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i)->GetNodeId()).to_string());
         nodeGenomeList.push_back(singleGenome);
     }
 }

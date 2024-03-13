@@ -24,4 +24,4 @@ First            Second       Third            Fourth           Fifth           
 	Current [[Node ID]] 
 
 - 17 to 24
-	Linked [[Node ID]] where this node will write his output value
+	Linked [[Node ID]] where this node will write his output value.

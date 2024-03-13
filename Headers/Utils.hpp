@@ -14,7 +14,7 @@ Directions indexes
     6	5	4
 */
 
-enum NodeType
+enum NodeId
 {
   // Input from 0 to 63
   INPUT_HDC = 0, // Horizontal distance from left border
@@ -34,9 +34,10 @@ enum NodeType
   ACTION_TCW = 128, // Turn clockwise
   ACTION_TCC = 129, // Turn counterclockwise
   ACTION_ADV = 130, // Advance forth
-  ACTION_PRM = 131  // Release pheromones
+  ACTION_PRM = 131, // Release pheromones
 
   // Free range from 192 to 255
+  FREE = 192
 };
 
 class Utils
@@ -50,20 +51,13 @@ public:
 
   static const int UpdateDelay = 100;
 
-
   Vector2 *Directions;
 
   unordered_map<std::string, char> hex_dict = {
-      {"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'}, 
-      {"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'}, 
-      {"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'}, 
-      {"1100", 'C'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}};
+      {"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'}, {"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'}, {"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'}, {"1100", 'C'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}};
 
   unordered_map<char, string> bin_dict = {
-      {'0', "0000"}, {'1', "0001"}, {'2', "0010"}, {'3', "0011"},
-      {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"},
-      {'8', "1000"}, {'9', "1001"}, {'A', "1010"}, {'B', "1011"},
-      {'C', "1100"}, {'D', "1101"}, {'E', "1110"}, {'F', "1111"}};
+      {'0', "0000"}, {'1', "0001"}, {'2', "0010"}, {'3', "0011"}, {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"}, {'8', "1000"}, {'9', "1001"}, {'A', "1010"}, {'B', "1011"}, {'C', "1100"}, {'D', "1101"}, {'E', "1110"}, {'F', "1111"}};
 
   enum Coordinate
   {
@@ -83,9 +77,11 @@ public:
   // return a number between 0 and 1, where 0 is coordinate 0 and 1 is the max width or height of the grid
   double NormalizeToGridDimention(Vector2 position, Coordinate coordinate);
 
-  NodeType GetRandom_InputNode();
-  NodeType GetRandom_NeuronNode();
-  NodeType GetRandom_ActionNode();
+  NodeId GetRandom_InputNode();
+  NodeId GetRandom_NeuronNode();
+  NodeId GetRandom_ActionNode();
+
+  int GetNodeType(NodeId id);
 
   string bin_to_hex(string binary);
   string hex_to_bin(string hexadecimal);
@@ -95,9 +91,9 @@ public:
 
 private:
   // Arrays of NodeTypes used for subdividing the Enum. Used for random generation
-  NodeType *InputNodes;
-  NodeType *NeuronNodes;
-  NodeType *ActionNodes;
+  NodeId *InputNodes;
+  NodeId *NeuronNodes;
+  NodeId *ActionNodes;
 
   void InstantiateNodesArrays();
 };

@@ -21,19 +21,25 @@ double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
   return 0;
 }
 
-NodeType Utils::GetRandom_InputNode()
+NodeId Utils::GetRandom_InputNode()
 {
   // TODO
 }
 
-NodeType Utils::GetRandom_NeuronNode()
+NodeId Utils::GetRandom_NeuronNode()
 {
   // TODO
 }
 
-NodeType Utils::GetRandom_ActionNode()
+NodeId Utils::GetRandom_ActionNode()
 {
   // TODO
+}
+
+int Utils::GetNodeType(NodeId id)
+{
+  // string binary = bitset<8>(id).to_string();
+  return bin_to_int(bitset<8>(id).to_string().substr(0, 2));
 }
 
 void Utils::InstantiateNodesArrays()
@@ -70,7 +76,8 @@ string Utils::hex_to_bin(string hexadecimal)
   return binary;
 }
 
-int Utils::bin_to_int(string binary){
+int Utils::bin_to_int(string binary)
+{
   return stoi(binary, nullptr, 2);
 }
 
