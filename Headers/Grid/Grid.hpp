@@ -20,6 +20,12 @@ public:
 #pragma region "Public Functions"
     void RefreshGrid();
 
+    void SpawnCells(vector<Cell> *cellsAlive);
+    void SpawnSingleCell(Cell cell);
+
+    void SpawnFoodPips(/* TODO ADD FOOD CLASS */);
+    void RespawnSingleFoodPip(/* TODO ADD FOOD CLASS */);
+
 #pragma endregion
 
 protected:
@@ -31,7 +37,14 @@ protected:
     int gridWidth;
     int gridHeight;
 
-    vector<Cell> *cellsAlive;
+    vector<Cell> *cellsInSimulation;
+    bool **CellCollisionGrid;
+    bool **FoodCollisionGrid;
+
+#pragma endregion
+
+#pragma region "Protected Functions"
+void CheckBorderCollisions(Vector2 &position);
 
 #pragma endregion
 };

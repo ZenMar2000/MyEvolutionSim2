@@ -41,11 +41,10 @@ void SimulationHandler::Run()
     }
 }
 
-void SimulationHandler::GenerateCell()
+void SimulationHandler::GenerateCell(Vector2 position, int direction)
 {
-    Cell newCell = Cell(5, Vector2(40, 30), &Util, 100);
+    Cell newCell = Cell(5, position, &Util, direction, 100);
     cellsAlive.push_back(newCell);
-    
 }
 #pragma endregion
 

@@ -18,10 +18,11 @@ public:
 
 #pragma region "Constructors"
     SimulationHandler();
+
 #pragma endregion
 
 #pragma region "Public Functions"
-    void GenerateCell();
+    void GenerateCell(Vector2 position, int direction);
     void Run();
 #pragma endregion
 

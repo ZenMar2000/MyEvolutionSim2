@@ -5,14 +5,14 @@ Cell::Cell()
     cellPosition = Vector2(0, 0);
 };
 
-Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int startingFood)
+Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, int startingFood)
 {
     cellPosition = spawnPosition;
     this->genomeLength = genomeLength;
     this->util = util;
     // Genome = new Node[genomeLength]{};
-    directionIndex = 3;
     foodReserve = startingFood;
+    directionIndex = direction%util->DirectionsAmount;
 }
 #pragma endregion
 
@@ -74,30 +74,53 @@ Color Cell::GetCellColor()
 
 void Cell::PerformAction()
 {
-    foodReserve--;
     if (foodReserve <= 0)
     {
         isAlive = false;
         return;
     }
 
-    AdvanceForth();
-    Turn(1);
+    // TODO Replace with all node logic
+    WantToMove = true;
 }
 
-void Cell::AdvanceForth()
+void Cell::MoveTo(Vector2 newPos)
 {
-    cellPosition.Sum(util->GetDirection(directionIndex));
+    if (cellPosition.x != newPos.x && cellPosition.y != newPos.y)
+    {
+        foodReserve--;
+    }
+
+    cellPosition.x = newPos.x;
+    cellPosition.y = newPos.y;
+    WantToMove = false;
 }
 
 void Cell::Turn(int rotation)
 {
     directionIndex = util->GetDirectionIndex(directionIndex + rotation);
 }
+
+bool Cell::ShouldMove()
+{
+    return WantToMove;
+}
+
+int Cell::GetDirectionIndex()
+{
+    return directionIndex;
+}
+
+int Cell::GetFoodReserve()
+{
+    return foodReserve;
+}
+
 #pragma endregion
 
 #pragma region "Protected Functions"
 void Cell::LinkAllNodes(vector<string> cellGenome)
 {
 }
+
 #pragma endregion

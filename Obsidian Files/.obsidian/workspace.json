@@ -95,8 +95,7 @@
               }
             }
           }
-        ],
-        "currentTab": 6
+        ]
       }
     ],
     "direction": "vertical"
@@ -162,7 +161,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Logic/Adding a new NodeType and relative action.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -179,7 +177,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Logic/Adding a new NodeType and relative action.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -201,9 +198,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Logic/Adding a new NodeType and relative action.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -223,13 +218,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "16f5f46e4c11bd3b",
+  "active": "4a39d1bdfa774a75",
   "lastOpenFiles": [
+    "Logic/Adding a new NodeType and relative action.md",
     "Logic/Node Genome.md",
     "Logic/Node ID.md",
     "Code/Headers/Grid.hpp.md",
     "Code/Headers/SDLWindow.hpp.md",
-    "Logic/Adding a new NodeType and relative action.md",
     "Code/Headers/Utils.cpp.md",
     "Code/Sources/Utils.hpp.md",
     "Code/main.cpp.md",

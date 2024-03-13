@@ -35,3 +35,4 @@ void Vector2::Print(){
     cout << "X: " + to_string(x) + " Y: " + to_string(y) << endl;
 }
 
+Vector2 Zero(0,0);

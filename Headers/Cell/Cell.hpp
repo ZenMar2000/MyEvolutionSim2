@@ -15,7 +15,7 @@ public:
 
 #pragma region "Constructors"
     Cell();
-    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int startingFood = 10);
+    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, int startingFood = 10);
 
 #pragma endregion
 
@@ -31,7 +31,7 @@ public:
     // Load a single Genome into the cell from hex values.
     void LoadSingleCellGenome(string singleCellGenome);
 
-    //Reset the cell genome, removing all nodes and links between them.
+    // Reset the cell genome, removing all nodes and links between them.
     void ClearCellGenome();
 
     vector<string> GetCellGenome();
@@ -43,13 +43,20 @@ public:
     // Nodes are elaborated in order: Input nodes, Neuron nodes, Action nodes
     void PerformAction();
 
-    //Move cell forward by 1 square
-    void AdvanceForth();
+    // if this cell should move in the next step. Used for passing data to Grid.cpp
+    bool ShouldMove();
 
-    //Turn cell facing direction clockwise or counterclockwise. 1 = -45deg, -1 = +45deg. 
-    //Positive values are clockwise rotations, while negative values are counter clockwise.
-    //Usually rotated by 1 or -1
+    // Move cell forward by 1 square. Called from Grid.cpp after collision checking.
+    void MoveTo(Vector2 newPos);
+
+    // Turn cell facing direction clockwise or counterclockwise. 1 = -45deg, -1 = +45deg.
+    // Positive values are clockwise rotations, while negative values are counter clockwise.
+    // Usually rotated by 1 or -1
     void Turn(int rotation);
+
+    int GetDirectionIndex();
+
+    int GetFoodReserve();
 
 #pragma endregion
 
@@ -58,7 +65,7 @@ protected:
     // Max length of the genome array
     int genomeLength;
     int currentGenomeLength = 0;
-    
+
     // Node *Genome;
 
     // Array containing all nodes. Positions inside the array corresponds to the first 2 binary values of enum NodeType
@@ -72,6 +79,8 @@ protected:
 
     // Which direction the cell is facing
     int directionIndex;
+
+    bool WantToMove = false;
 
     // Pointer to the Util instance
     Utils *util;

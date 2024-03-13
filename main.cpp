@@ -4,9 +4,10 @@
 
 int main()
 {
-    SimulationHandler *sim = new SimulationHandler();
-    sim->GenerateCell();
-    sim->Run();
+    SimulationHandler sim = SimulationHandler();
+    sim.GenerateCell(Vector2(10, 30), 3);
+    sim.GenerateCell(Vector2(70, 30), 7);
+    sim.Run();
 
     // std::string binary = std::bitset<3>(7).to_string(); // to binary
     // std::cout << binary << "\n";

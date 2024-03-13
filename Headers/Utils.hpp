@@ -17,16 +17,17 @@ Directions indexes
 enum NodeId
 {
   // Input from 0 to 63
-  INPUT_HDC = 0, // Horizontal distance from left border
-  INPUT_VDC = 1, // Vertical distance from top border
-  INPUT_FPD = 2, // Forward population density
-  INPUT_FRC = 3, // Food reserve counter
-  INPUT_FSD = 4, // Closest food source distance
-  INPUT_FSA = 5, // Closest food source angle, relative to forward direction
-  INPUT_CCD = 6, // Closest cell distance
-  INPUT_CCA = 7, // Closest cell angle, relative to forward direction
-  INPUT_CCC = 8, // Closest cell compatibility (how similar their genome is)
-  INPUT_OSC = 9, // Oscilloscope
+  INPUT_HDC = 0,  // Horizontal distance from left border
+  INPUT_VDC = 1,  // Vertical distance from top border
+  INPUT_FPD = 2,  // Forward population density
+  INPUT_FRC = 3,  // Food reserve counter
+  INPUT_FSD = 4,  // Closest food source distance
+  INPUT_FSA = 5,  // Closest food source angle, relative to forward direction
+  INPUT_CCD = 6,  // Closest cell distance
+  INPUT_CCA = 7,  // Closest cell angle, relative to forward direction
+  INPUT_CCC = 8,  // Closest cell compatibility (how similar their genome is)
+  INPUT_OSC = 9,  // Oscilloscope
+  INPUT_RND = 10, // Random input
 
   // Neurons from 64 to 127
   NEURON = 64, // Neuron
@@ -100,7 +101,7 @@ protected:
   // 0 = Input, 1 = Neuron, 2 = Action, 3 = Free
   vector<NodeId> NodeTypeList[4] = {
       // Input Nodes
-      {INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA, INPUT_CCC, INPUT_OSC},
+      {INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA, INPUT_CCC, INPUT_OSC, INPUT_RND},
 
       // Neuron
       {NEURON},
