@@ -43,7 +43,7 @@ void SimulationHandler::Run()
 
 void SimulationHandler::GenerateCell()
 {
-    Cell newCell = Cell(5, Vector2(40, 30), &Util);
+    Cell newCell = Cell(5, Vector2(40, 30), &Util, 100);
     cellsAlive.push_back(newCell);
     
 }

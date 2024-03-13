@@ -23,7 +23,7 @@ public:
 #pragma endregion
 
 #pragma Region "Functions"
- // Get node id (used for genome generation)
+    // Get node id (used for genome generation)
     NodeId GetNodeId();
 
     // Add node to the linkedNodes list
@@ -53,15 +53,16 @@ protected:
 #pragma endregion
 
 #pragma region "Other variables"
-
-    // vector containing the hexadecimal value of all genomes of this node
+    // vector containing the hexadecimal value of all single genomes of this node
     vector<string> nodeGenomeList;
     Utils *util;
     Cell *parentCell;
+
 #pragma endregion
 
-    // Clear the vector nodeGenomeList and regenerate all genome by using genome variables and linkedChildNodes
-    void GenerateNodeGenome();
+#pragma region "Protected Functions"
+
+#pragma endregion
 };
 
 #endif

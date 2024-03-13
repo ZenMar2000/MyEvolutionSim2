@@ -3,15 +3,34 @@
 #pragma region "Constructors"
 Utils::Utils()
 {
-  Directions = new Vector2[8]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0)};
-  InstantiateNodesArrays();
+  Directions = new Vector2[DirectionsAmount]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0)};
+  // InstantiateNodesArrays();
 }
 #pragma endregion
 
 #pragma region "Functions"
-Vector2 Utils::GetDirection(int DirectionIndex)
+Vector2 Utils::GetDirection(int directionIndex)
 {
-  return Directions[DirectionIndex];
+  directionIndex %= DirectionsAmount;
+
+  return Directions[directionIndex];
+}
+
+int Utils::GetDirectionIndex(Vector2 direction)
+{
+  for (int i = 0; i < DirectionsAmount; i++)
+  {
+    if (Directions[i].x == direction.x && Directions[i].y == direction.y)
+    {
+      return i;
+    }
+  }
+  return -1;
+}
+
+int Utils::GetDirectionIndex(int directionIndex)
+{
+  return directionIndex%DirectionsAmount;
 }
 
 double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
@@ -40,12 +59,6 @@ int Utils::GetNodeType(NodeId id)
 {
   // string binary = bitset<8>(id).to_string();
   return bin_to_int(bitset<8>(id).to_string().substr(0, 2));
-}
-
-void Utils::InstantiateNodesArrays()
-{
-  // TODO For each NodeType enum, check left most 2 bits and
-  // Divide them in the 3 arrays InputNodes, NeuronNodes or ActionNodes
 }
 
 string Utils::bin_to_hex(string binary)
@@ -83,6 +96,31 @@ int Utils::bin_to_int(string binary)
 
 #pragma endregion
 
+#pragma region "Protected Functions"
+
+// void Utils::InstantiateNodesArrays()
+// {
+//   NodeId currentNodeId;
+//   int currentNodeType;
+
+//   for (int i = 0; i < LAST; i++)
+//   {
+//     try
+//     {
+//       currentNodeId = static_cast<NodeId>(i); // static_cast<NodeId>(i)
+//       // if(currentNodeId.to_string().size() > 3){
+
+//       // }
+//       currentNodeType = GetNodeType(currentNodeId);
+//       NodeTypeList[currentNodeType].push_back(currentNodeId);
+//     }
+//     catch (const std::exception &e)
+//     {
+//       continue;
+//     }
+//   }
+// }
+#pragma endregion
 // /*
 //  Directions indexes
 //  0   1   2

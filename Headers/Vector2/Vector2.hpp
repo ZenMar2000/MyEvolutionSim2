@@ -20,7 +20,8 @@ public:
     int Length() const;
     int Distance(const Vector2 &v) const;
     int Dot(const Vector2 &v) const;
-    Vector2 Sum(const Vector2 &v) const;
+
+    void Sum(Vector2 v);
     void Print();
 };
 

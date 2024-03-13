@@ -26,6 +26,7 @@ enum NodeId
   INPUT_CCD = 6, // Closest cell distance
   INPUT_CCA = 7, // Closest cell angle, relative to forward direction
   INPUT_CCC = 8, // Closest cell compatibility (how similar their genome is)
+  INPUT_OSC = 9, // Oscilloscope
 
   // Neurons from 64 to 127
   NEURON = 64, // Neuron
@@ -37,7 +38,8 @@ enum NodeId
   ACTION_PRM = 131, // Release pheromones
 
   // Free range from 192 to 255
-  FREE = 192
+  FREE = 192,
+  LAST = 256
 };
 
 class Utils
@@ -53,7 +55,7 @@ public:
 
   Vector2 *Directions;
 
-  unordered_map<std::string, char> hex_dict = {
+  unordered_map<string, char> hex_dict = {
       {"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'}, {"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'}, {"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'}, {"1100", 'C'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}};
 
   unordered_map<char, string> bin_dict = {
@@ -72,7 +74,9 @@ public:
 
 #pragma region "Functions"
   // Return a normalized vector corresponding to the direction index passed
-  Vector2 GetDirection(int DirectionIndex);
+  Vector2 GetDirection(int directionIndex);
+  int GetDirectionIndex(Vector2 direction);
+  int GetDirectionIndex(int directionIndex);
 
   // return a number between 0 and 1, where 0 is coordinate 0 and 1 is the max width or height of the grid
   double NormalizeToGridDimention(Vector2 position, Coordinate coordinate);
@@ -89,20 +93,37 @@ public:
 
 #pragma endregion
 
-private:
+protected:
+#pragma region "Protected Variables"
   // Arrays of NodeTypes used for subdividing the Enum. Used for random generation
-  NodeId *InputNodes;
-  NodeId *NeuronNodes;
-  NodeId *ActionNodes;
+  // Use the GetNodeType() function to get the correct vector:
+  // 0 = Input, 1 = Neuron, 2 = Action, 3 = Free
+  vector<NodeId> NodeTypeList[4] = {
+      // Input Nodes
+      {INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA, INPUT_CCC, INPUT_OSC},
 
-  void InstantiateNodesArrays();
+      // Neuron
+      {NEURON},
+
+      // Action Nodes
+      {ACTION_TCW, ACTION_TCC, ACTION_ADV, ACTION_PRM},
+
+      // Free
+      {FREE, LAST}};
+
+#pragma endregion
+
+#pragma region
+  // void InstantiateNodesArrays();
+
+#pragma endregion
 };
 
 struct Color
 {
-  int r;
-  int g;
-  int b;
-  int a;
+  int r; // red component
+  int g; // green component
+  int b; // blue component
+  int a; // alpha
 };
 #endif

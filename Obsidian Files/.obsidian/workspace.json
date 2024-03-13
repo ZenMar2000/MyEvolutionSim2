@@ -88,7 +88,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logic/Node Genome.md",
+                "file": "Logic/Adding a new NodeType and relative action.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -162,7 +162,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Logic/Node Genome.md",
+                "file": "Logic/Adding a new NodeType and relative action.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -179,7 +179,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Logic/Node Genome.md",
+                "file": "Logic/Adding a new NodeType and relative action.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -202,7 +202,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Logic/Node Genome.md"
+                "file": "Logic/Adding a new NodeType and relative action.md"
               }
             }
           }
@@ -225,11 +225,11 @@
   },
   "active": "16f5f46e4c11bd3b",
   "lastOpenFiles": [
+    "Logic/Node Genome.md",
     "Logic/Node ID.md",
     "Code/Headers/Grid.hpp.md",
     "Code/Headers/SDLWindow.hpp.md",
     "Logic/Adding a new NodeType and relative action.md",
-    "Logic/Node Genome.md",
     "Code/Headers/Utils.cpp.md",
     "Code/Sources/Utils.hpp.md",
     "Code/main.cpp.md",

@@ -25,9 +25,11 @@ int Vector2::Dot(const Vector2 &v) const{
     return x * v.x + y * v.y;
 }
 
-Vector2 Vector2::Sum(const Vector2 &v) const {
-    return Vector2(x + v.x, y + v.y);
+void Vector2::Sum(Vector2 v) {
+    x = x + v.x;
+    y += v.y;
 }
+
 
 void Vector2::Print(){
     cout << "X: " + to_string(x) + " Y: " + to_string(y) << endl;

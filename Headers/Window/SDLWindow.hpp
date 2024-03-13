@@ -6,7 +6,6 @@
 #include "../Utils.hpp"
 
 using namespace std;
-
 class SDLWindow
 {
 
