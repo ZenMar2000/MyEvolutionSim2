@@ -21,14 +21,17 @@ enum NodeId
   INPUT_HDC = 0,  // Horizontal distance from left border
   INPUT_VDC = 1,  // Vertical distance from top border
   INPUT_FPD = 2,  // Forward population density
-  INPUT_FRC = 3,  // Food reserve counter
-  INPUT_FSD = 4,  // Closest food source distance
-  INPUT_FSA = 5,  // Closest food source angle, relative to forward direction
-  INPUT_CCD = 6,  // Closest cell distance
-  INPUT_CCA = 7,  // Closest cell angle, relative to forward direction
-  INPUT_CCC = 8,  // Closest cell compatibility (how similar their genome is)
-  INPUT_OSC = 9,  // Oscilloscope
-  INPUT_RND = 10, // Random input
+  INPUT_LPD = 3,  // Left population density
+  INPUT_RPD = 4,  // Right population density
+  INPUT_FRC = 5,  // Food reserve counter
+  INPUT_FSD = 6,  // Closest food source distance
+  INPUT_FSA = 7,  // Closest food source angle, relative to forward direction
+  INPUT_CCD = 8,  // Closest cell distance
+  INPUT_CCA = 9,  // Closest cell angle, relative to forward direction
+  INPUT_CCC = 10, // Closest cell compatibility (how similar their genome is)
+  INPUT_OSC = 11, // Oscilloscope
+  INPUT_RND = 12, // Random input
+  INPUT_BLK = 13, // Next forward space is blocked
 
   // Neurons from 64 to 127
   NEURON = 64, // Neuron
@@ -36,8 +39,13 @@ enum NodeId
   // Actions from 128 to 191
   ACTION_TCW = 128, // Turn clockwise
   ACTION_TCC = 129, // Turn counterclockwise
-  ACTION_ADV = 130, // Advance forth
-  ACTION_PRM = 131, // Release pheromones
+  ACTION_MFW = 130, // Move forward
+  ACTION_MBW = 131, // Move backward
+  ACTION_CXM = 132, // Cartesian movement on X axis
+  ACTION_CYM = 133, // Cartesian movement on Y axis
+  ACTION_PRM = 134, // Release pheromones.
+  ACTION_TGL = 135, // Trigger level. usually set to 0.5. It increase or reduce the % needed to trigger all action nodes.
+  ACTION_SOC = 136, // Set oscilloscope frequency
 
   // Free range from 192 to 255
   FREE = 192,
@@ -51,7 +59,6 @@ enum NodeType
   TYPE_ACTION = 2,
   TYPE_FREE = 3
 };
-
 
 class Utils
 {
@@ -114,13 +121,16 @@ protected:
   // 0 = Input, 1 = Neuron, 2 = Action, 3 = Free
   vector<NodeId> NodeTypeList[4] = {
       // Input Nodes
-      {INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA, INPUT_CCC, INPUT_OSC, INPUT_RND},
+      {INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FPD, INPUT_RPD,
+       INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA,
+       INPUT_CCC, INPUT_OSC, INPUT_RND, INPUT_BLK},
 
       // Neuron
       {NEURON},
 
       // Action Nodes
-      {ACTION_TCW, ACTION_TCC, ACTION_ADV, ACTION_PRM},
+      {ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXM,
+       ACTION_CYM, ACTION_PRM, ACTION_TGL, ACTION_SOC},
 
       // Free
       {FREE, LAST}};

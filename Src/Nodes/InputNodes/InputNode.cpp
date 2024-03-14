@@ -21,7 +21,7 @@ void InputNode::AddToInput(double input)
 void InputNode::Activate()
 {
     double output = 0;
-    // TODO specific action for each NodeId
+    // Do specific action, selected by NodeId
     switch (nodeId)
     {
     case INPUT_CCA:
@@ -32,12 +32,12 @@ void InputNode::Activate()
         break;
     }
 
-    // TODO write output to each linked child node
+    //Write output data to all linked child nodes
     for (int i = 0; i < linkedChildNodes.size(); i++)
     {
         linkInfo info = linkedChildNodes.at(i);
         output *= info.invertedOutput?-1:1;
-        
+
         info.node->AddToInput(output * info.linkWeight);
     }
 }

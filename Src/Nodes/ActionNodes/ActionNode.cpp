@@ -17,18 +17,11 @@ void ActionNode::Activate()
 {
     switch(nodeId)
     {
-        case ACTION_ADV: //advance
+        case ACTION_MFW: //Move forward
 
-        break;
-
-        case ACTION_PRM: //release pheromone
-        break;
-
-        case ACTION_TCC: //turn clockwise
-        break;
-
-        case ACTION_TCW: //turn counter clockwuse
         break;
     }
 }
 #pragma endregion
+
+//tanh(inputs) = range between -1 and 1
