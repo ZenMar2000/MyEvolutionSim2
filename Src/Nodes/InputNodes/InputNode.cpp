@@ -13,8 +13,33 @@ InputNode::InputNode(NodeId id, Cell *parentCell)
 #pragma endregion
 
 #pragma region "Functions"
+void InputNode::AddToInput(double input)
+{
+    throw std::logic_error("Function 'InputToNode()' in InputNode.cpp not callable. InputNode class does not accept any input from other nodes.");
+}
+
 void InputNode::Activate()
 {
+    double output = 0;
+    // TODO specific action for each NodeId
+    switch (nodeId)
+    {
+    case INPUT_CCA:
+        break;
+
+    default:
+        output = 0;
+        break;
+    }
+
+    // TODO write output to each linked child node
+    for (int i = 0; i < linkedChildNodes.size(); i++)
+    {
+        linkInfo info = linkedChildNodes.at(i);
+        output *= info.invertedOutput?-1:1;
+        
+        info.node->AddToInput(output * info.linkWeight);
+    }
 }
 #pragma endregion
 

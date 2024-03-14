@@ -25,15 +25,15 @@ NodeId Node::GetNodeId()
     return nodeId;
 }
 
-void Node::AddLinkedNode(Node *node)
+void Node::AddLinkedNode(Node *node, double linkWeight)
 {
-    int nodeTp = util->GetNodeType(nodeId);
-    if( nodeTp >= 3)
+    NodeType nodeTp = util->GetNodeType(nodeId);
+    if (nodeTp >= 3)
     {
         cout << "Current node " + to_string(nodeTp) + " cannot accept linked nodes. It's an Action or Free node" << endl;
         return;
     }
-    linkedChildNodes.push_back(node);
+    linkedChildNodes.push_back(linkInfo(node, linkWeight, false));
 }
 
 void Node::RemoveLinkedNode(int index)
@@ -53,9 +53,15 @@ void Node::RemoveLinkedNode(int index)
     linkedChildNodes.erase(linkedChildNodes.begin() + index);
 }
 
+void Node::AddToInput(double input)
+{
+    inputReceived += input;
+}
+
 void Node::Activate()
 {
-    throw std::logic_error("Function 'Activate()' in Node.cpp is not implemented. Please use derived classes instead.");
+    inputReceived = 0;
+    // throw std::logic_error("Function 'Activate()' in Node.cpp is not implemented. Please use derived classes instead.");
 }
 
 vector<string> Node::GetNodeGenome()
@@ -68,10 +74,10 @@ vector<string> Node::GetNodeGenome()
     for (int i = 0; i < genomeLen; i++)
     {
         // Get binary value and convert in in Hexadecimal
-        singleGenome = util->bin_to_hex(to_string(invertedOutput) + bitset<3>(linkWeight).to_string()) +
+        singleGenome = util->bin_to_hex(to_string(linkedChildNodes.at(i).invertedOutput) + bitset<3>(linkedChildNodes.at(i).linkWeight).to_string()) +
                        util->bin_to_hex(to_string(genomeWeight)) +
                        util->bin_to_hex(std::bitset<8>(nodeId).to_string()) +
-                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i)->GetNodeId()).to_string());
+                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i).node->GetNodeId()).to_string());
         nodeGenomeList.push_back(singleGenome);
     }
 

@@ -14,6 +14,7 @@ class Cell;
 
 class Node
 {
+
 public:
 #pragma region "Constructors"
     Node();
@@ -27,10 +28,12 @@ public:
     NodeId GetNodeId();
 
     // Add node to the linkedNodes list
-    void AddLinkedNode(Node *node);
+    void AddLinkedNode(Node *node, double linkWeight);
 
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);
+
+    virtual void AddToInput(double input);
 
     // function that must be implemented in children classes
     virtual void Activate();
@@ -40,16 +43,32 @@ public:
 
 #pragma endregion
 
+#pragma region "Structs"
+    struct linkInfo
+    {
+        Node *node;
+        double linkWeight;
+        bool invertedOutput;
+
+        linkInfo(Node *childNode, double weight, bool inverted)
+        {
+            node = childNode;
+            linkWeight = weight;
+            invertedOutput = inverted;
+        }
+    };
+#pragma endregion
+
 protected:
 #pragma region "Variables for genome"
-    bool invertedOutput;
-    int linkWeight;
     NodeId nodeId;
     int genomeWeight;
     Node *parentNode;
 
+    double inputReceived;
+
     // vector containing all nodes linked to this node. They will get updated with the output value of this node.
-    vector<Node *> linkedChildNodes;
+    vector<linkInfo> linkedChildNodes;
 #pragma endregion
 
 #pragma region "Other variables"

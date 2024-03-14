@@ -30,7 +30,7 @@ int Utils::GetDirectionIndex(Vector2 direction)
 
 int Utils::GetDirectionIndex(int directionIndex)
 {
-  return directionIndex%DirectionsAmount;
+  return directionIndex % DirectionsAmount;
 }
 
 double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
@@ -55,10 +55,10 @@ NodeId Utils::GetRandom_ActionNode()
   // TODO
 }
 
-int Utils::GetNodeType(NodeId id)
+NodeType Utils::GetNodeType(NodeId id)
 {
   // string binary = bitset<8>(id).to_string();
-  return bin_to_int(bitset<8>(id).to_string().substr(0, 2));
+  return (NodeType)bin_to_int(bitset<8>(id).to_string().substr(0, 2));
 }
 
 string Utils::bin_to_hex(string binary)
@@ -92,6 +92,16 @@ string Utils::hex_to_bin(string hexadecimal)
 int Utils::bin_to_int(string binary)
 {
   return stoi(binary, nullptr, 2);
+}
+
+int Utils::GetRandomInt(int min, int max)
+{
+  return (rand() + min) % max;
+}
+double Utils::GetRandomPercent()
+{
+  uniform_real_distribution<double> unif(lower_bound, upper_bound);
+  return unif(re);
 }
 
 #pragma endregion

@@ -60,6 +60,8 @@ vector<string> Cell::GetCellGenome()
             }
         }
     }
+
+    return cellGenome;
 }
 
 bool Cell::IsAlive()

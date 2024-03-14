@@ -12,10 +12,10 @@ public:
 #pragma endregion
 
 #pragma region "Functions"
-    virtual void Activate() override;
-    
-#pragma endregion
+    void AddToInput(double input) override;
+    void Activate() override;
 
+#pragma endregion
 };
 
 #endif

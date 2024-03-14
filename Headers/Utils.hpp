@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <bits/stdc++.h>
+#include <random>
 
 #include "Vector2/Vector2.hpp"
 
@@ -42,6 +43,15 @@ enum NodeId
   FREE = 192,
   LAST = 256
 };
+
+enum NodeType
+{
+  TYPE_INPUT = 0,
+  TYPE_NEURON = 1,
+  TYPE_ACTION = 2,
+  TYPE_FREE = 3
+};
+
 
 class Utils
 {
@@ -86,11 +96,14 @@ public:
   NodeId GetRandom_NeuronNode();
   NodeId GetRandom_ActionNode();
 
-  int GetNodeType(NodeId id);
+  NodeType GetNodeType(NodeId id);
 
   string bin_to_hex(string binary);
   string hex_to_bin(string hexadecimal);
   int bin_to_int(string binary);
+
+  double GetRandomPercent();
+  int GetRandomInt(int min = 0, int max = 100);
 
 #pragma endregion
 
@@ -111,6 +124,10 @@ protected:
 
       // Free
       {FREE, LAST}};
+
+  double lower_bound = 0;
+  double upper_bound = 1;
+  default_random_engine re;
 
 #pragma endregion
 
