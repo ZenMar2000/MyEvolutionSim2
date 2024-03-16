@@ -15,7 +15,6 @@ class Node
 {
 
 public:
-
     struct linkInfo
     {
         Node *node;
@@ -29,7 +28,7 @@ public:
             invertedOutput = inverted;
         }
     };
-    
+
 #pragma region "Constructors"
     Node();
     Node(NodeId id, Cell *parentCell);
@@ -76,6 +75,9 @@ protected:
 #pragma endregion
 
 #pragma region "Protected Functions"
+    // Normalize variable inputReceived to a range between -1 and 1
+    void NormalizeInputValue();
+    bool NodeTriggered();
 
 #pragma endregion
 };

@@ -99,9 +99,7 @@ public:
   // return a number between 0 and 1, where 0 is coordinate 0 and 1 is the max width or height of the grid
   double NormalizeToGridDimention(Vector2 position, Coordinate coordinate);
 
-  NodeId GetRandom_InputNode();
-  NodeId GetRandom_NeuronNode();
-  NodeId GetRandom_ActionNode();
+  NodeId GetRandomNode(NodeType nodeType);
 
   NodeType GetNodeType(NodeId id);
 
@@ -109,7 +107,9 @@ public:
   string hex_to_bin(string hexadecimal);
   int bin_to_int(string binary);
 
+  //Get a value between 0 and 1
   double GetRandomPercent();
+
   int GetRandomInt(int min = 0, int max = 100);
 
 #pragma endregion

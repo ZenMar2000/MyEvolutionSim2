@@ -40,19 +40,9 @@ double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
   return 0;
 }
 
-NodeId Utils::GetRandom_InputNode()
+NodeId Utils::GetRandomNode(NodeType nodeType)
 {
-  // TODO
-}
-
-NodeId Utils::GetRandom_NeuronNode()
-{
-  // TODO
-}
-
-NodeId Utils::GetRandom_ActionNode()
-{
-  // TODO
+  return NodeTypeList[nodeType][GetRandomInt(0, NodeTypeList[nodeType].size())];
 }
 
 NodeType Utils::GetNodeType(NodeId id)

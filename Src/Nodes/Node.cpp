@@ -85,3 +85,22 @@ vector<string> Node::GetNodeGenome()
 }
 
 #pragma endregion
+
+#pragma region "Protected Functions"
+void Node::NormalizeInputValue()
+{
+    inputReceived = tanh(inputReceived);
+}
+
+bool Node::NodeTriggered()
+{
+    if (inputReceived > 0)
+    {
+        if (util->GetRandomPercent() <= inputReceived)
+        {
+            return false;
+        }
+    }
+    return false;
+}
+#pragma endregion

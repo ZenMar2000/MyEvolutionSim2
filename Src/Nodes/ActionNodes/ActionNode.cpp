@@ -15,13 +15,18 @@ ActionNode::ActionNode(NodeId id, Cell *parentCell) : Node(id, parentCell)
 #pragma region "Functions"
 void ActionNode::Activate()
 {
-    switch (nodeId)
+    NormalizeInputValue();
+    if (NodeTriggered())
     {
-    case ACTION_MFW: // Move forward
-        parentCell->WantToMove = true;
-        break;
+        switch (nodeId)
+        {
+        case ACTION_MFW: // Move forward
+            parentCell->WantToMove = true;
+            break;
+        }
+
     }
+
+    Node::Activate();
 }
 #pragma endregion
-
-// tanh(inputs) = range between -1 and 1
