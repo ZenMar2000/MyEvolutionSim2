@@ -1,9 +1,9 @@
 #include "../../../Headers/Nodes/InputNodes/InputNode.hpp"
 #pragma region "Constructors"
 using namespace std;
-InputNode::InputNode() {}
+InputNode::InputNode() : Node() {}
 
-InputNode::InputNode(NodeId id, Cell *parentCell)
+InputNode::InputNode(NodeId id, Cell *parentCell) : Node(id, parentCell)
 {
     if (id > 63)
     {
@@ -32,11 +32,11 @@ void InputNode::Activate()
         break;
     }
 
-    //Write output data to all linked child nodes
+    // Write output data to all linked child nodes
     for (int i = 0; i < linkedChildNodes.size(); i++)
     {
         linkInfo info = linkedChildNodes.at(i);
-        output *= info.invertedOutput?-1:1;
+        output *= info.invertedOutput ? -1 : 1;
 
         info.node->AddToInput(output * info.linkWeight);
     }

@@ -7,15 +7,29 @@
 #include <string>
 
 #include "../Utils.hpp"
-
+#include "../Cell/Cell.hpp"
 using namespace std;
 
 class Cell;
-
 class Node
 {
 
 public:
+
+    struct linkInfo
+    {
+        Node *node;
+        double linkWeight;
+        bool invertedOutput;
+
+        linkInfo(Node *childNode, double weight, bool inverted)
+        {
+            node = childNode;
+            linkWeight = weight;
+            invertedOutput = inverted;
+        }
+    };
+    
 #pragma region "Constructors"
     Node();
     Node(NodeId id, Cell *parentCell);
@@ -43,22 +57,6 @@ public:
 
 #pragma endregion
 
-#pragma region "Structs"
-    struct linkInfo
-    {
-        Node *node;
-        double linkWeight;
-        bool invertedOutput;
-
-        linkInfo(Node *childNode, double weight, bool inverted)
-        {
-            node = childNode;
-            linkWeight = weight;
-            invertedOutput = inverted;
-        }
-    };
-#pragma endregion
-
 protected:
 #pragma region "Variables for genome"
     NodeId nodeId;
@@ -69,9 +67,7 @@ protected:
 
     // vector containing all nodes linked to this node. They will get updated with the output value of this node.
     vector<linkInfo> linkedChildNodes;
-#pragma endregion
 
-#pragma region "Other variables"
     // vector containing the hexadecimal value of all single genomes of this node
     vector<string> nodeGenomeList;
     Utils *util;
@@ -111,4 +107,6 @@ protected:
 //     }
 // };
 
-// #endif
+// #endif#pragma region "Structs"
+
+#pragma endregion

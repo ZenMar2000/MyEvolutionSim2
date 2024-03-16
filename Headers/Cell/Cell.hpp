@@ -11,7 +11,12 @@ class Node;
 class Cell
 {
 public:
+#pragma region "Public Variables"
     Vector2 cellPosition;
+
+    // if this cell should move in the next step. Used for passing data to Grid.cpp
+    bool WantToMove = false;
+#pragma endregion
 
 #pragma region "Constructors"
     Cell();
@@ -42,9 +47,6 @@ public:
     // Perform 1 step, signal to all nodes to elaborate data.
     // Nodes are elaborated in order: Input nodes, Neuron nodes, Action nodes
     void PerformAction();
-
-    // if this cell should move in the next step. Used for passing data to Grid.cpp
-    bool ShouldMove();
 
     // Move cell forward by 1 square. Called from Grid.cpp after collision checking.
     void MoveTo(Vector2 newPos);
@@ -81,7 +83,6 @@ protected:
     // Which direction the cell is facing
     int directionIndex;
 
-    bool WantToMove = false;
 
     // Pointer to the Util instance
     Utils *util;

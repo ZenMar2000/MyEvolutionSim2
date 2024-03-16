@@ -2,7 +2,6 @@
 #define ACTIONODE_H
 
 #include "../Node.hpp"
-
 class ActionNode : public Node
 {
 #pragma region "Constructors"

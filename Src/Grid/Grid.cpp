@@ -41,7 +41,7 @@ void Grid::RefreshGrid()
         {
             Cell &c = cellsInSimulation->at(i);
 
-            if (c.ShouldMove())
+            if (c.WantToMove)
             {
                 Vector2 newPosition = c.cellPosition;
                 newPosition.Sum(util->GetDirection(c.GetDirectionIndex()));

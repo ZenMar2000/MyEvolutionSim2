@@ -103,11 +103,6 @@ void Cell::Turn(int rotation)
     directionIndex = util->GetDirectionIndex(directionIndex + rotation);
 }
 
-bool Cell::ShouldMove()
-{
-    return WantToMove;
-}
-
 int Cell::GetDirectionIndex()
 {
     return directionIndex;
