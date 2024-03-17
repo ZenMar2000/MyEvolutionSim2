@@ -20,6 +20,7 @@ public:
 #pragma region "Public Variables"
     Vector2 cellPosition;
     Grid *grid;
+    vector<Node> GenomeArray[3];
 
 #pragma endregion
 
@@ -38,9 +39,6 @@ public:
     // Use GenerateGenome() to get a random sequence.
     void LoadCellGenome(vector<string> cellGenome);
 
-    // Load a single Genome into the cell from hex values.
-    void LoadSingleCellGenome(string singleCellGenome);
-
     // Reset the cell genome, removing all nodes and links between them.
     void ClearCellGenome();
 
@@ -56,7 +54,7 @@ public:
     // Move forward or backward, relative to the facing direction of the cell
     void DirectionalMove(bool isBackward = false);
 
-    //Move dictated by cartesian logic and not by direction. Move Up, down, left or right.
+    // Move dictated by cartesian logic and not by direction. Move Up, down, left or right.
     void CartesianMove(DirectionsIndex directionIndex);
 
     // Turn cell facing direction clockwise or counterclockwise. 1 = -45deg, -1 = +45deg.
@@ -80,7 +78,6 @@ protected:
 
     // Array containing all nodes.
     // Positions inside the array corresponds to the first 2 binary values of enum NodeType
-    vector<Node> GenomeArray[3];
 
     // Food counter. When reaching 0, the cell dies.
     int foodReserve;
@@ -102,6 +99,7 @@ protected:
     // Use the generated or loaded genome to create and physically link nodes.
     void LinkAllNodes(vector<string> cellGenome);
     void ReduceFood();
+    void ActivateNodes(NodeType type);
 #pragma endregion
 };
 

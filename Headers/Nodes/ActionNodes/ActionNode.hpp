@@ -4,6 +4,7 @@
 #include "../Node.hpp"
 class ActionNode : public Node
 {
+public:
 #pragma region "Constructors"
     ActionNode();
     ActionNode(NodeId id, Cell *parentCell);
@@ -12,9 +13,8 @@ class ActionNode : public Node
 
 #pragma region "Functions"
     virtual void Activate() override;
-    
-#pragma endregion
 
+#pragma endregion
 };
 
 #endif

@@ -32,6 +32,8 @@ public:
 #pragma region "Constructors"
     Node();
     Node(NodeId id, Cell *parentCell);
+
+    //TODO Understand if useful
     Node(NodeId id, Cell *parentCell, Node *parentNode);
 
 #pragma endregion
@@ -41,7 +43,7 @@ public:
     NodeId GetNodeId();
 
     // Add node to the linkedNodes list
-    void AddLinkedNode(Node *node, double linkWeight);
+    void AddLinkedNode(Node *nodeToLink, double linkWeight);
 
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);

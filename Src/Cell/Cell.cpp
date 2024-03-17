@@ -34,42 +34,6 @@ void Cell::LoadCellGenome(vector<string> cellGenome)
 {
 }
 
-void Cell::LoadSingleCellGenome(string singleCellGenome)
-{
-    string binGenome[4];
-    // Inverted logic and link weight
-    binGenome[0] = util->hex_to_bin(to_string(singleCellGenome[0]));
-
-    // Genome weight
-    binGenome[1] = util->hex_to_bin(to_string(singleCellGenome[1]));
-
-    // current node id
-    binGenome[2] = util->hex_to_bin(to_string(singleCellGenome[2] + singleCellGenome[3]));
-
-    // child node id linked to current node
-    binGenome[3] = util->hex_to_bin(to_string(singleCellGenome[4] + singleCellGenome[5]));
-
-    NodeType type = util->GetNodeType(binGenome[2]);
-    Node newNode;
-
-    switch (type)
-    {
-    case TYPE_INPUT:
-        // newNode = InputNode();
-        break;
-
-    case TYPE_NEURON:
-        break;
-
-    case TYPE_ACTION:
-        break;
-
-    default:
-        break;
-    }
-    GenomeArray[type].push_back(newNode);
-}
-
 void Cell::ClearCellGenome()
 {
 }
@@ -115,9 +79,10 @@ void Cell::PerformAction()
         isAlive = false;
         return;
     }
-
-    // TODO Replace with all node logic
-    // WantToMove = true;
+    
+    ActivateNodes(TYPE_INPUT);
+    ActivateNodes(TYPE_NEURON);
+    ActivateNodes(TYPE_ACTION);
 }
 
 void Cell::DirectionalMove(bool isBackward)
@@ -182,6 +147,14 @@ void Cell::LinkAllNodes(vector<string> cellGenome)
 void Cell::ReduceFood()
 {
     foodReserve--;
+}
+
+void Cell::ActivateNodes(NodeType type)
+{
+    for (int i = 0; i < GenomeArray[type].size(); i++)
+    {
+        // (InputNode)GenomeArray[type][i].Activate();
+    }
 }
 
 #pragma endregion

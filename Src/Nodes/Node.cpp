@@ -17,6 +17,7 @@ Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
     this->parentNode = parentNode;
     nodeId = id;
 }
+
 #pragma endregion
 
 #pragma Region "Functions"
@@ -25,7 +26,7 @@ NodeId Node::GetNodeId()
     return nodeId;
 }
 
-void Node::AddLinkedNode(Node *node, double linkWeight)
+void Node::AddLinkedNode(Node *nodeToLink, double linkWeight)
 {
     NodeType nodeTp = util->GetNodeType(nodeId);
     if (nodeTp >= 3)
@@ -33,7 +34,16 @@ void Node::AddLinkedNode(Node *node, double linkWeight)
         cout << "Current node " + to_string(nodeTp) + " cannot accept linked nodes. It's an Action or Free node" << endl;
         return;
     }
-    linkedChildNodes.push_back(linkInfo(node, linkWeight, false));
+
+    for (int i = 0; i < linkedChildNodes.size(); i++)
+    {
+        if (linkedChildNodes[i].node->GetNodeId() == nodeToLink->GetNodeId())
+        {
+            linkedChildNodes.erase(linkedChildNodes.begin() + i);
+            break;
+        }
+    }
+    linkedChildNodes.push_back(linkInfo(nodeToLink, linkWeight, false));
 }
 
 void Node::RemoveLinkedNode(int index)
