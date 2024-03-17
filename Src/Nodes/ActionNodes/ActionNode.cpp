@@ -20,11 +20,22 @@ void ActionNode::Activate()
     {
         switch (nodeId)
         {
+        case ACTION_TCW: // Turn clockwise
+            parentCell->Turn(1);
+            break;
+        case ACTION_TCC: // Turn counter clockwise
+            parentCell->Turn(-1);
+            break;
+
         case ACTION_MFW: // Move forward
             parentCell->WantToMove = true;
             break;
-        }
 
+        case ACTION_MBW:
+            parentCell->WantToMove = true;
+            parentCell->BackwardMove = true;
+            break;
+        }
     }
 
     Node::Activate();

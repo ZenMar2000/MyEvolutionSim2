@@ -94,6 +94,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "c9d547757f40354c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Code/Headers/Cell.hpp.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
           }
         ]
       }
@@ -220,6 +233,7 @@
   },
   "active": "4a39d1bdfa774a75",
   "lastOpenFiles": [
+    "Code/Headers/Cell.hpp.md",
     "Logic/Adding a new NodeType and relative action.md",
     "Logic/Node Genome.md",
     "Logic/Node ID.md",
@@ -241,7 +255,6 @@
     "Code/Headers/Node.hpp.md",
     "Code/Headers/NeuronNode.hpp.md",
     "Code/Headers/InputNode.hpp.md",
-    "Code/Headers/Cell.hpp.md",
     "Code/Headers/ActionNode.hpp.md",
     "Code/Headers/Window.hpp.md",
     "Code/Sources/Window.cpp.md",

@@ -24,7 +24,12 @@ void InputNode::Activate()
     // Do specific action, selected by NodeId
     switch (nodeId)
     {
-    case INPUT_CCA:
+    case INPUT_RND:
+        output = RND_Logic();
+        break;
+
+    case INPUT_BLK:
+        output = BLK_Logic();
         break;
 
     default:
@@ -41,6 +46,19 @@ void InputNode::Activate()
         info.node->AddToInput(output * info.linkWeight);
     }
 }
+#pragma endregion
+
+#pragma region "Protected Functions"
+double InputNode::BLK_Logic()
+{
+    return parentCell->grid->CheckPosition(parentCell->cellPosition.GetSum(util->GetDirection(parentCell->GetDirectionIndex(0))));
+}
+
+double InputNode::RND_Logic()
+{
+    return util->GetRandomPercent();
+}
+
 #pragma endregion
 
 // std::string binary = std::bitset<3>(7).to_string(); // to binary

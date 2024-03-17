@@ -5,14 +5,16 @@ Cell::Cell()
     cellPosition = Vector2(0, 0);
 };
 
-Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, int startingFood)
+Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, Grid *grid, int startingFood)
 {
     cellPosition = spawnPosition;
     this->genomeLength = genomeLength;
     this->util = util;
+    this->grid = grid;
+    
     // Genome = new Node[genomeLength]{};
     foodReserve = startingFood;
-    directionIndex = direction%util->DirectionsAmount;
+    directionIndex = direction % util->DirectionsAmount;
 }
 #pragma endregion
 
@@ -106,6 +108,11 @@ void Cell::Turn(int rotation)
 int Cell::GetDirectionIndex()
 {
     return directionIndex;
+}
+
+int Cell::GetDirectionIndex(int offset)
+{
+    return directionIndex + offset;
 }
 
 int Cell::GetFoodReserve()

@@ -5,9 +5,11 @@
 
 #include "../Utils.hpp"
 #include "../Nodes/Node.hpp"
+#include "../Grid/Grid.hpp"
 
 using namespace std;
 class Node;
+class Grid;
 class Cell
 {
 public:
@@ -16,11 +18,14 @@ public:
 
     // if this cell should move in the next step. Used for passing data to Grid.cpp
     bool WantToMove = false;
+    bool BackwardMove = false;
+    Grid *grid;
+
 #pragma endregion
 
 #pragma region "Constructors"
     Cell();
-    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, int startingFood = 10);
+    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, Grid* grid, int startingFood = 10);
 
 #pragma endregion
 
@@ -57,6 +62,7 @@ public:
     void Turn(int rotation);
 
     int GetDirectionIndex();
+    int GetDirectionIndex(int offset = 0);
 
     int GetFoodReserve();
 
@@ -70,8 +76,8 @@ protected:
 
     // Node *Genome;
 
-    // Array containing all nodes. 
-    //Positions inside the array corresponds to the first 2 binary values of enum NodeType
+    // Array containing all nodes.
+    // Positions inside the array corresponds to the first 2 binary values of enum NodeType
     vector<Node> GenomeArray[3];
 
     // Food counter. When reaching 0, the cell dies.
@@ -82,7 +88,6 @@ protected:
 
     // Which direction the cell is facing
     int directionIndex;
-
 
     // Pointer to the Util instance
     Utils *util;

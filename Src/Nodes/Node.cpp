@@ -61,7 +61,6 @@ void Node::AddToInput(double input)
 void Node::Activate()
 {
     inputReceived = 0;
-    // throw std::logic_error("Function 'Activate()' in Node.cpp is not implemented. Please use derived classes instead.");
 }
 
 vector<string> Node::GetNodeGenome()

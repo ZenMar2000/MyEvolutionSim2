@@ -18,8 +18,8 @@ Directions indexes
 enum NodeId
 {
   // Input from 0 to 63
-  INPUT_HDC = 0,  // Horizontal distance from left border
-  INPUT_VDC = 1,  // Vertical distance from top border
+  INPUT_HDC = 0,  // Normalized Horizontal distance from left border
+  INPUT_VDC = 1,  // Normalized Vertical distance from top border
   INPUT_FPD = 2,  // Forward population density
   INPUT_LPD = 3,  // Left population density
   INPUT_RPD = 4,  // Right population density
@@ -30,7 +30,7 @@ enum NodeId
   INPUT_CCA = 9,  // Closest cell angle, relative to forward direction
   INPUT_CCC = 10, // Closest cell compatibility (how similar their genome is)
   INPUT_OSC = 11, // Oscilloscope
-  INPUT_RND = 12, // Random input
+  INPUT_RND = 12, // Random valuse
   INPUT_BLK = 13, // Next forward space is blocked
 
   // Neurons from 64 to 127

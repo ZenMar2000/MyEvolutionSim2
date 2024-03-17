@@ -21,7 +21,12 @@ public:
     int Distance(const Vector2 &v) const;
     int Dot(const Vector2 &v) const;
 
+    //Sum the vector2 passed to the current vector2
     void Sum(Vector2 v);
+
+    //Get the sum between current vector2 and the vector passed. Performs NO operations to the current Vector2
+    Vector2 GetSum(Vector2 v);
+
     void Print();
 };
 
