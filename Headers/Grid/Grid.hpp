@@ -37,6 +37,12 @@ public:
     // Joined functions CheckIfSpaceOccupied() and CheckIfOutsideBorder()
     bool CheckPosition(Vector2 position);
 
+    // Check if movement goes out of grid. If true, fix it
+    void FixBorderCollisions(Vector2 *position);
+
+    //Update collision grid. Used after a cell moved
+    void UpdateCollisionGrid(Vector2 oldPos, Vector2 newPos);
+
 #pragma endregion
 
 protected:
@@ -55,9 +61,6 @@ protected:
 #pragma endregion
 
 #pragma region "Protected Functions"
-
-    // Check if movement goes out of grid. If true, fix it
-    void FixBorderCollisions(Vector2 *position);
 
 #pragma endregion
 };

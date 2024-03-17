@@ -28,12 +28,27 @@ void ActionNode::Activate()
             break;
 
         case ACTION_MFW: // Move forward
-            parentCell->WantToMove = true;
+            parentCell->DirectionalMove();
             break;
 
         case ACTION_MBW:
-            parentCell->WantToMove = true;
-            parentCell->BackwardMove = true;
+            parentCell->DirectionalMove(true);
+            break;
+
+        case ACTION_CXP:
+            parentCell->CartesianMove(DIRECTION_E);
+            break;
+
+        case ACTION_CXN:
+            parentCell->CartesianMove(DIRECTION_W);
+            break;
+
+        case ACTION_CYP:
+            parentCell->CartesianMove(DIRECTION_S);
+            break;
+
+        case ACTION_CYN:
+            parentCell->CartesianMove(DIRECTION_N);
             break;
         }
     }

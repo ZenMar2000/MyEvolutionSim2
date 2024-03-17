@@ -14,6 +14,18 @@ Directions indexes
     7		3
     6	5	4
 */
+enum DirectionsIndex
+{
+  DIRECTION_NW = 0,
+  DIRECTION_N = 1,
+  DIRECTION_NE = 2,
+  DIRECTION_E = 3,
+  DIRECTION_SE = 4,
+  DIRECTION_S = 5,
+  DIRECTION_SW = 6,
+  DIRECTION_W = 7,
+  DIRECTION_NULL = 8
+};
 
 enum NodeId
 {
@@ -41,11 +53,13 @@ enum NodeId
   ACTION_TCC = 129, // Turn counterclockwise
   ACTION_MFW = 130, // Move forward
   ACTION_MBW = 131, // Move backward
-  ACTION_CXM = 132, // Cartesian movement on X axis
-  ACTION_CYM = 133, // Cartesian movement on Y axis
-  ACTION_PRM = 134, // Release pheromones.
-  ACTION_TGL = 135, // Trigger level. usually set to 0.5. It increase or reduce the % needed to trigger all action nodes.
-  ACTION_SOC = 136, // Set oscilloscope frequency
+  ACTION_CXP = 132, // Cartesian movement on X axis, positive
+  ACTION_CXN = 133, // Cartesian movement on X axis, negative
+  ACTION_CYP = 134, // Cartesian movement on Y axis, positive
+  ACTION_CYN = 135, // Cartesian movement on Y axis, negative
+  ACTION_PRM = 136, // Release pheromones.
+  ACTION_TGL = 137, // Trigger level. usually set to 0.5. It increase or reduce the % needed to trigger all action nodes.
+  ACTION_SOC = 138, // Set oscilloscope frequency
 
   // Free range from 192 to 255
   FREE = 192,
@@ -92,9 +106,9 @@ public:
 
 #pragma region "Functions"
   // Return a normalized vector corresponding to the direction index passed
-  Vector2 GetDirection(int directionIndex);
-  int GetDirectionIndex(Vector2 direction);
-  int GetDirectionIndex(int directionIndex);
+  Vector2 GetDirection(DirectionsIndex directionIndex);
+  DirectionsIndex GetDirectionIndex(Vector2 direction);
+  DirectionsIndex GetDirectionIndex(DirectionsIndex directionIndex);
 
   // return a number between 0 and 1, where 0 is coordinate 0 and 1 is the max width or height of the grid
   double NormalizeToGridDimention(Vector2 position, Coordinate coordinate);
@@ -107,7 +121,7 @@ public:
   string hex_to_bin(string hexadecimal);
   int bin_to_int(string binary);
 
-  //Get a value between 0 and 1
+  // Get a value between 0 and 1
   double GetRandomPercent();
 
   int GetRandomInt(int min = 0, int max = 100);
@@ -129,8 +143,9 @@ protected:
       {NEURON},
 
       // Action Nodes
-      {ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXM,
-       ACTION_CYM, ACTION_PRM, ACTION_TGL, ACTION_SOC},
+      {ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXP,
+       ACTION_CXN, ACTION_CYP, ACTION_CYN, ACTION_PRM, ACTION_TGL,
+       ACTION_SOC},
 
       // Free
       {FREE, LAST}};

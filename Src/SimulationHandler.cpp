@@ -41,7 +41,7 @@ void SimulationHandler::Run()
     }
 }
 
-void SimulationHandler::GenerateCell(Vector2 position, int direction)
+void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction)
 {
     Cell newCell = Cell(5, position, &Util, direction, &grid, 100);
     cellsAlive.push_back(newCell);

@@ -5,16 +5,16 @@ Cell::Cell()
     cellPosition = Vector2(0, 0);
 };
 
-Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, Grid *grid, int startingFood)
+Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex direction, Grid *grid, int startingFood)
 {
     cellPosition = spawnPosition;
     this->genomeLength = genomeLength;
     this->util = util;
     this->grid = grid;
-    
+
     // Genome = new Node[genomeLength]{};
     foodReserve = startingFood;
-    directionIndex = direction % util->DirectionsAmount;
+    directionIndex = (DirectionsIndex)(direction % util->DirectionsAmount);
 }
 #pragma endregion
 
@@ -85,34 +85,54 @@ void Cell::PerformAction()
     }
 
     // TODO Replace with all node logic
-    WantToMove = true;
+    // WantToMove = true;
 }
 
-void Cell::MoveTo(Vector2 newPos)
+void Cell::DirectionalMove(bool isBackward)
 {
-    if (cellPosition.x != newPos.x && cellPosition.y != newPos.y)
-    {
-        foodReserve--;
-    }
+    Vector2 newPos = cellPosition;
 
-    cellPosition.x = newPos.x;
-    cellPosition.y = newPos.y;
-    WantToMove = false;
+    newPos.Sum(util->GetDirection(GetDirectionIndex(isBackward ? 4 : 0)));
+
+    // Check and fix movements outside grid
+    grid->FixBorderCollisions(&newPos);
+
+    // Check destination space if occupied
+    if (!grid->CheckIfSpaceOccupied(newPos))
+    {
+        grid->UpdateCollisionGrid(cellPosition, newPos);
+        cellPosition.x = newPos.x;
+        cellPosition.y = newPos.y;
+    }
+    ReduceFood();
+}
+
+void Cell::CartesianMove(DirectionsIndex directionIndex)
+{
+    Vector2 newPos = cellPosition;
+    newPos.Sum(util->GetDirection(directionIndex));
+
+    // Check and fix movements outside grid
+    grid->FixBorderCollisions(&newPos);
+
+    // Check destination space if occupied
+    if (!grid->CheckIfSpaceOccupied(newPos))
+    {
+        grid->UpdateCollisionGrid(cellPosition, newPos);
+        cellPosition.x = newPos.x;
+        cellPosition.y = newPos.y;
+    }
+    ReduceFood();
 }
 
 void Cell::Turn(int rotation)
 {
-    directionIndex = util->GetDirectionIndex(directionIndex + rotation);
+    directionIndex = util->GetDirectionIndex((DirectionsIndex)(directionIndex + rotation));
 }
 
-int Cell::GetDirectionIndex()
+DirectionsIndex Cell::GetDirectionIndex(int offset)
 {
-    return directionIndex;
-}
-
-int Cell::GetDirectionIndex(int offset)
-{
-    return directionIndex + offset;
+    return (DirectionsIndex)((directionIndex + offset)% util->DirectionsAmount);
 }
 
 int Cell::GetFoodReserve()
@@ -125,6 +145,11 @@ int Cell::GetFoodReserve()
 #pragma region "Protected Functions"
 void Cell::LinkAllNodes(vector<string> cellGenome)
 {
+}
+
+void Cell::ReduceFood()
+{
+    foodReserve--;
 }
 
 #pragma endregion

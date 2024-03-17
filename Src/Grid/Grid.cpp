@@ -34,28 +34,12 @@ void Grid::RefreshGrid()
     // 1) Clear window graphic
     window->ClearWindow();
 
-    // 2)Update cells actual and graphical position
+    // 2)Update cells raphical position
     if (cellCount > 0)
     {
         for (int i = 0; i < cellCount; i++)
         {
             Cell &c = cellsInSimulation->at(i);
-
-            if (c.WantToMove)
-            {
-                Vector2 newPosition = c.cellPosition;
-                newPosition.Sum(util->GetDirection(c.GetDirectionIndex(c.BackwardMove ? 4 : 0)));
-
-                FixBorderCollisions(&newPosition);
-                //   Check destination space if occupied                OR  if new position is the same as before
-                if (!CheckIfSpaceOccupied(newPosition) || (newPosition.x == c.cellPosition.x && newPosition.y == c.cellPosition.y))
-                {
-                    CellCollisionGrid[c.cellPosition.x][c.cellPosition.y] = false;
-                    CellCollisionGrid[newPosition.x][newPosition.y] = true;
-                    c.MoveTo(newPosition);
-                }
-            }
-
             window->DrawPixel(c.GetCellColor(), c.cellPosition);
         }
     }
@@ -91,10 +75,6 @@ bool Grid::CheckPosition(Vector2 position)
     return (CheckIfOutsideBorder(position) || CheckIfSpaceOccupied(position));
 }
 
-#pragma endregion
-
-#pragma region "Protected Functions"
-
 void Grid::FixBorderCollisions(Vector2 *position)
 {
     if (position->x >= gridWidth)
@@ -121,5 +101,15 @@ bool Grid::CheckIfOutsideBorder(Vector2 position)
     }
     return false;
 }
+
+void Grid::UpdateCollisionGrid(Vector2 oldPosition, Vector2 newPosition)
+{
+    CellCollisionGrid[oldPosition.x][oldPosition.y] = false;
+    CellCollisionGrid[newPosition.x][newPosition.y] = true;
+}
+
+#pragma endregion
+
+#pragma region "Protected Functions"
 
 #pragma endregion

@@ -51,7 +51,7 @@ void InputNode::Activate()
 #pragma region "Protected Functions"
 double InputNode::BLK_Logic()
 {
-    return parentCell->grid->CheckPosition(parentCell->cellPosition.GetSum(util->GetDirection(parentCell->GetDirectionIndex(0))));
+    return parentCell->grid->CheckPosition(parentCell->cellPosition.GetSum(util->GetDirection(parentCell->GetDirectionIndex())));
 }
 
 double InputNode::RND_Logic()

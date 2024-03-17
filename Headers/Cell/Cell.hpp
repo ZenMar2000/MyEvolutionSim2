@@ -15,17 +15,13 @@ class Cell
 public:
 #pragma region "Public Variables"
     Vector2 cellPosition;
-
-    // if this cell should move in the next step. Used for passing data to Grid.cpp
-    bool WantToMove = false;
-    bool BackwardMove = false;
     Grid *grid;
 
 #pragma endregion
 
 #pragma region "Constructors"
     Cell();
-    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, int direction, Grid* grid, int startingFood = 10);
+    Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex direction, Grid *grid, int startingFood = 10);
 
 #pragma endregion
 
@@ -53,16 +49,18 @@ public:
     // Nodes are elaborated in order: Input nodes, Neuron nodes, Action nodes
     void PerformAction();
 
-    // Move cell forward by 1 square. Called from Grid.cpp after collision checking.
-    void MoveTo(Vector2 newPos);
+    // Move forward or backward, relative to the facing direction of the cell
+    void DirectionalMove(bool isBackward = false);
+
+    //Move dictated by cartesian logic and not by direction. Move Up, down, left or right.
+    void CartesianMove(DirectionsIndex directionIndex);
 
     // Turn cell facing direction clockwise or counterclockwise. 1 = -45deg, -1 = +45deg.
     // Positive values are clockwise rotations, while negative values are counter clockwise.
     // Usually rotated by 1 or -1
     void Turn(int rotation);
 
-    int GetDirectionIndex();
-    int GetDirectionIndex(int offset = 0);
+    DirectionsIndex GetDirectionIndex(int offset = 0);
 
     int GetFoodReserve();
 
@@ -87,7 +85,7 @@ protected:
     bool isAlive = true;
 
     // Which direction the cell is facing
-    int directionIndex;
+    DirectionsIndex directionIndex;
 
     // Pointer to the Util instance
     Utils *util;
@@ -99,7 +97,7 @@ protected:
 #pragma region "Protected Functions"
     // Use the generated or loaded genome to create and physically link nodes.
     void LinkAllNodes(vector<string> cellGenome);
-
+    void ReduceFood();
 #pragma endregion
 };
 

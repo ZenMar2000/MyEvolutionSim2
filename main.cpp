@@ -5,8 +5,8 @@
 int main()
 {
     SimulationHandler sim = SimulationHandler();
-    sim.GenerateCell(Vector2(10, 30), 3);
-    sim.GenerateCell(Vector2(70, 30), 7);
+    sim.GenerateCell(Vector2(10, 30), DIRECTION_E);
+    sim.GenerateCell(Vector2(70, 30), DIRECTION_W);
     sim.Run();
 
     // std::string binary = std::bitset<3>(7).to_string(); // to binary

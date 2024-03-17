@@ -9,28 +9,28 @@ Utils::Utils()
 #pragma endregion
 
 #pragma region "Functions"
-Vector2 Utils::GetDirection(int directionIndex)
+Vector2 Utils::GetDirection(DirectionsIndex directionIndex)
 {
-  directionIndex %= DirectionsAmount;
+  directionIndex = (DirectionsIndex)(directionIndex%DirectionsAmount);
 
   return Directions[directionIndex];
 }
 
-int Utils::GetDirectionIndex(Vector2 direction)
+DirectionsIndex Utils::GetDirectionIndex(Vector2 direction)
 {
   for (int i = 0; i < DirectionsAmount; i++)
   {
     if (Directions[i].x == direction.x && Directions[i].y == direction.y)
     {
-      return i;
+      return (DirectionsIndex)i;
     }
   }
-  return -1;
+  return DIRECTION_NULL;
 }
 
-int Utils::GetDirectionIndex(int directionIndex)
+DirectionsIndex Utils::GetDirectionIndex(DirectionsIndex directionIndex)
 {
-  return directionIndex % DirectionsAmount;
+  return (DirectionsIndex)(directionIndex % DirectionsAmount);
 }
 
 double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
