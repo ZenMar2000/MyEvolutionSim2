@@ -36,7 +36,7 @@ void SimulationHandler::Run()
         PerformCellActions();
         CleanUpDeactivatedCells();
 
-        // refresh the grid with updated positions of the cells
+        // refresh the graphical grid with updated positions of the cells
         grid.RefreshGrid();
     }
 }
@@ -44,6 +44,13 @@ void SimulationHandler::Run()
 void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction)
 {
     Cell newCell = Cell(5, position, &Util, direction, &grid, 100);
+
+    //TODO GENERATE RANDOM GENOME
+
+    //TEST SINGLE GENOME, LINK INPUT_BLK to ACTION_MFW
+    
+    newCell.LoadSingleCellGenome("110D82");
+
     cellsAlive.push_back(newCell);
 }
 #pragma endregion

@@ -36,6 +36,38 @@ void Cell::LoadCellGenome(vector<string> cellGenome)
 
 void Cell::LoadSingleCellGenome(string singleCellGenome)
 {
+    string binGenome[4];
+    // Inverted logic and link weight
+    binGenome[0] = util->hex_to_bin(to_string(singleCellGenome[0]));
+
+    // Genome weight
+    binGenome[1] = util->hex_to_bin(to_string(singleCellGenome[1]));
+
+    // current node id
+    binGenome[2] = util->hex_to_bin(to_string(singleCellGenome[2] + singleCellGenome[3]));
+
+    // child node id linked to current node
+    binGenome[3] = util->hex_to_bin(to_string(singleCellGenome[4] + singleCellGenome[5]));
+
+    NodeType type = util->GetNodeType(binGenome[2]);
+    Node newNode;
+
+    switch (type)
+    {
+    case TYPE_INPUT:
+        // newNode = InputNode();
+        break;
+
+    case TYPE_NEURON:
+        break;
+
+    case TYPE_ACTION:
+        break;
+
+    default:
+        break;
+    }
+    GenomeArray[type].push_back(newNode);
 }
 
 void Cell::ClearCellGenome()
@@ -132,7 +164,7 @@ void Cell::Turn(int rotation)
 
 DirectionsIndex Cell::GetDirectionIndex(int offset)
 {
-    return (DirectionsIndex)((directionIndex + offset)% util->DirectionsAmount);
+    return (DirectionsIndex)((directionIndex + offset) % util->DirectionsAmount);
 }
 
 int Cell::GetFoodReserve()

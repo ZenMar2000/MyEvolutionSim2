@@ -5,11 +5,15 @@
 
 #include "../Utils.hpp"
 #include "../Nodes/Node.hpp"
+// #include "../Nodes/InputNodes/InputNode.hpp"
+// #include "../Nodes/ActionNodes/ActionNode.hpp"
 #include "../Grid/Grid.hpp"
 
 using namespace std;
 class Node;
 class Grid;
+class InputNode;
+class ActionNode;
 class Cell
 {
 public:
@@ -45,7 +49,7 @@ public:
     bool IsAlive();
     Color GetCellColor();
 
-    // Perform 1 step, signal to all nodes to elaborate data.
+    // Signal to all nodes to elaborate data.
     // Nodes are elaborated in order: Input nodes, Neuron nodes, Action nodes
     void PerformAction();
 

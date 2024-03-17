@@ -116,6 +116,7 @@ public:
   NodeId GetRandomNode(NodeType nodeType);
 
   NodeType GetNodeType(NodeId id);
+  NodeType GetNodeType(string id);
 
   string bin_to_hex(string binary);
   string hex_to_bin(string hexadecimal);

@@ -64,6 +64,12 @@ string Utils::bin_to_hex(string binary)
   return hexadecimal;
 }
 
+NodeType Utils::GetNodeType(string id)
+{
+  // string binary = bitset<8>(id).to_string();
+  return (NodeType)bin_to_int(bitset<8>(id).to_string().substr(0, 2));
+}
+
 string Utils::hex_to_bin(string hexadecimal)
 {
   string binary;
