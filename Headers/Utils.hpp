@@ -169,5 +169,12 @@ struct Color
   int g; // green component
   int b; // blue component
   int a; // alpha
+
+  Color(int red, int green, int blue)
+  {
+    r = red;
+    g = green;
+    b = blue;
+  }
 };
 #endif

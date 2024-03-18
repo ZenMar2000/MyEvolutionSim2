@@ -9,6 +9,7 @@ ActionNode::ActionNode(NodeId id, Cell *parentCell) : Node(id, parentCell)
     {
         throw std::logic_error("Wrong NodeId used during generation. ActionNode cannot accept NodeType: " + id);
     }
+    
 }
 #pragma endregion
 

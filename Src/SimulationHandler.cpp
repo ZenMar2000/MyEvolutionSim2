@@ -129,32 +129,33 @@ void SimulationHandler::LoadSingleCellGenome(string singleCellGenome, Cell *targ
 
     newCurrentNode.AddLinkedNode(&newLinkedNode, Util.bin_to_int(binGenome[0].substr(1,3)));
 
-    targetCell->GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
-    targetCell->GenomeArray[newLinkedNodeType].push_back(newLinkedNode);
+    targetCell->GenomeArray[newCurrentNodetype].push_back(&newCurrentNode);
+    targetCell->GenomeArray[newLinkedNodeType].push_back(&newLinkedNode);
+
 }
 
 void SimulationHandler::SpecializeNode(Node *nodeToSpecialize, NodeId nodeId, Cell *targetCell)
 {
-    NodeType type = Util.GetNodeType(nodeId);
-    switch (type)
-    {
-    case TYPE_INPUT:
-        nodeToSpecialize = new InputNode((NodeId)(nodeId), targetCell);
-        break;
+    // NodeType type = Util.GetNodeType(nodeId);
+    // switch (type)
+    // {
+    // case TYPE_INPUT:
+    //     (InputNode)nodeToSpecialize = new InputNode((NodeId)(nodeId), targetCell);
+    //     break;
 
-    case TYPE_NEURON:
-        // nodeToSpecialize =  NeuronNode();
-        break;
+    // case TYPE_NEURON:
+    //     //nodeToSpecialize =  NeuronNode();
+    //     break;
 
-    case TYPE_ACTION:
-        nodeToSpecialize = new ActionNode((NodeId)(nodeId), targetCell);
+    // case TYPE_ACTION:
+    //     nodeToSpecialize = new ActionNode((NodeId)(nodeId), targetCell);
 
-        break;
+    //     break;
 
-    default:
-        throw std::logic_error("Error in SimulationHandler::LoadSingleCellGenome(). Only TYPE_INPUT and TYPE_NEURON nodes have linked child nodes. Current TYPE is instead " + type);
-        break;
-    }
+    // default:
+    //     throw std::logic_error("Error in SimulationHandler::LoadSingleCellGenome(). Only TYPE_INPUT and TYPE_NEURON nodes have linked child nodes. Current TYPE is instead " + type);
+    //     break;
+    // }
 }
 
 #pragma endregion

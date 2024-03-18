@@ -37,7 +37,7 @@ void Node::AddLinkedNode(Node *nodeToLink, double linkWeight)
 
     for (int i = 0; i < linkedChildNodes.size(); i++)
     {
-        if (linkedChildNodes[i].node->GetNodeId() == nodeToLink->GetNodeId())
+        if (linkedChildNodes[i].linkedNode->GetNodeId() == nodeToLink->GetNodeId())
         {
             linkedChildNodes.erase(linkedChildNodes.begin() + i);
             break;
@@ -86,7 +86,7 @@ vector<string> Node::GetNodeGenome()
         singleGenome = util->bin_to_hex(to_string(linkedChildNodes.at(i).invertedOutput) + bitset<3>(linkedChildNodes.at(i).linkWeight).to_string()) +
                        util->bin_to_hex(to_string(genomeWeight)) +
                        util->bin_to_hex(std::bitset<8>(nodeId).to_string()) +
-                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i).node->GetNodeId()).to_string());
+                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i).linkedNode->GetNodeId()).to_string());
         nodeGenomeList.push_back(singleGenome);
     }
 

@@ -43,7 +43,7 @@ void InputNode::Activate()
         linkInfo info = linkedChildNodes.at(i);
         output *= info.invertedOutput ? -1 : 1;
 
-        info.node->AddToInput(output * info.linkWeight);
+        info.linkedNode->AddToInput(output * info.linkWeight);
     }
 }
 #pragma endregion

@@ -12,10 +12,15 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex
     this->util = util;
     this->grid = grid;
 
-    // Genome = new Node[genomeLength]{};
     foodReserve = startingFood;
     directionIndex = (DirectionsIndex)(direction % util->DirectionsAmount);
+
+    for (int i = 0; i < GenomeArray->size(); i++)
+    {
+        GenomeArray[i].clear();
+    }
 }
+
 #pragma endregion
 
 #pragma region "Public Functions"
@@ -47,7 +52,7 @@ vector<string> Cell::GetCellGenome()
         {
             for (int singleNodeIndex = 0; singleNodeIndex < GenomeArray[nodeTypeIndex].size(); singleNodeIndex++)
             {
-                vector<string> nodeGenome = GenomeArray[nodeTypeIndex][singleNodeIndex].GetNodeGenome();
+                vector<string> nodeGenome = GenomeArray[nodeTypeIndex][singleNodeIndex]->GetNodeGenome();
                 if (nodeGenome.size() > 0)
                 {
                     for (int i = 0; i < nodeGenome.size(); i++)
@@ -79,7 +84,7 @@ void Cell::PerformAction()
         isAlive = false;
         return;
     }
-    
+
     ActivateNodes(TYPE_INPUT);
     ActivateNodes(TYPE_NEURON);
     ActivateNodes(TYPE_ACTION);
@@ -153,7 +158,7 @@ void Cell::ActivateNodes(NodeType type)
 {
     for (int i = 0; i < GenomeArray[type].size(); i++)
     {
-        // (InputNode)GenomeArray[type][i].Activate();
+        GenomeArray[type][i]->Activate();
     }
 }
 

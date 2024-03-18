@@ -18,9 +18,9 @@ class Cell
 {
 public:
 #pragma region "Public Variables"
-    Vector2 cellPosition;
-    Grid *grid;
-    vector<Node> GenomeArray[3];
+    Vector2 cellPosition = Vector2(-1, -1);
+    Grid *grid = NULL;
+    vector<Node *> GenomeArray[3];
 
 #pragma endregion
 
@@ -71,7 +71,7 @@ public:
 protected:
 #pragma region "Protected Variables"
     // Max length of the genome array
-    int genomeLength;
+    int genomeLength = 0;
     int currentGenomeLength = 0;
 
     // Node *Genome;
@@ -80,18 +80,18 @@ protected:
     // Positions inside the array corresponds to the first 2 binary values of enum NodeType
 
     // Food counter. When reaching 0, the cell dies.
-    int foodReserve;
+    int foodReserve = 0;
 
     // If the cell is alive
     bool isAlive = true;
 
     // Which direction the cell is facing
-    DirectionsIndex directionIndex;
+    DirectionsIndex directionIndex = DIRECTION_NULL;
 
     // Pointer to the Util instance
-    Utils *util;
+    Utils *util = NULL;
 
-    Color cellColor;
+    Color cellColor = Color(0,0,0);
 
 #pragma endregion
 

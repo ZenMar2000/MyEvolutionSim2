@@ -17,13 +17,13 @@ class Node
 public:
     struct linkInfo
     {
-        Node *node;
-        double linkWeight;
-        bool invertedOutput;
+        Node *linkedNode = NULL;
+        double linkWeight = 0;
+        bool invertedOutput = false;
 
-        linkInfo(Node *childNode, double weight, bool inverted)
+        linkInfo(Node *newLinkedNode, double weight, bool inverted)
         {
-            node = childNode;
+            linkedNode = newLinkedNode;
             linkWeight = weight;
             invertedOutput = inverted;
         }
@@ -33,9 +33,8 @@ public:
     Node();
     Node(NodeId id, Cell *parentCell);
 
-    //TODO Understand if useful
+    // TODO Understand if useful
     Node(NodeId id, Cell *parentCell, Node *parentNode);
-
 #pragma endregion
 
 #pragma Region "Functions"
@@ -60,19 +59,19 @@ public:
 
 protected:
 #pragma region "Variables for genome"
-    NodeId nodeId;
-    int genomeWeight;
-    Node *parentNode;
+    NodeId nodeId = FREE;
+    int genomeWeight = 0;
+    Node *parentNode = NULL;
 
-    double inputReceived;
+    double inputReceived = 0;
 
     // vector containing all nodes linked to this node. They will get updated with the output value of this node.
     vector<linkInfo> linkedChildNodes;
 
     // vector containing the hexadecimal value of all single genomes of this node
     vector<string> nodeGenomeList;
-    Utils *util;
-    Cell *parentCell;
+    Utils *util = NULL;
+    Cell *parentCell = NULL;
 
 #pragma endregion
 
