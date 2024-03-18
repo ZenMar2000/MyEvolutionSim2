@@ -21,7 +21,7 @@ public:
 #pragma region "Public Functions"
     void RefreshGrid();
 
-    void SpawnCells(vector<Cell*> *cellsAlive);
+    void SpawnCells(vector<Cell*> &cellsAlive);
     void SpawnSingleCell(Cell cell);
 
     void SpawnFoodPips(/* TODO ADD FOOD CLASS */);

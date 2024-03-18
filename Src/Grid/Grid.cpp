@@ -20,8 +20,6 @@ Grid::Grid(char *title, uint width, uint height, Utils *util, vector<Cell *> *ce
         CellCollisionGrid[i] = new bool[gridHeight];
         FoodCollisionGrid[i] = new bool[gridHeight];
     }
-
-    SpawnCells(cellsAlive);
 }
 
 #pragma endregion
@@ -48,9 +46,9 @@ void Grid::RefreshGrid()
     window->UpdateWindow();
 }
 
-void Grid::SpawnCells(vector<Cell *> *cellsAlive)
+void Grid::SpawnCells(vector<Cell *> &cellsAlive)
 {
-    cellsInSimulation = cellsAlive;
+    cellsInSimulation = &cellsAlive;
     for (int i = 0; i < cellsInSimulation->size(); i++)
     {
         Cell *c = cellsInSimulation->at(i);

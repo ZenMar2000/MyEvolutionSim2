@@ -21,6 +21,7 @@ SimulationHandler::SimulationHandler(int maxCells)
 void SimulationHandler::Run()
 {
     isRunning = true;
+    grid.SpawnCells(cellsAlive);
     while (isRunning)
     {
         // Check if exit button pressed (escape button)
@@ -43,9 +44,9 @@ void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction
 
     // TEST SINGLE GENOME, LINK INPUT_BLK to ACTION_MFW
     cellsPool[currentCellPoolIndex].LoadSingleCellGenome("110D82");
-    currentCellPoolIndex++;
-    
     cellsAlive.push_back(&(cellsPool[currentCellPoolIndex]));
+
+    currentCellPoolIndex++;
 }
 #pragma endregion
 
