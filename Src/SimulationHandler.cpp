@@ -6,13 +6,13 @@
 SimulationHandler::SimulationHandler(int maxCells)
 {
     char *title = (char *)"MySim";
-    grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util, &cellsAlive);
+    grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util);
     cellsAlive.clear();
 
-    for (int i = 0; i < maxCells; i++)
-    {
-        cellsPool.push_back(Cell());
-    }
+    // for (int i = 0; i < maxCells; i++)
+    // {
+    //     cellsPool.push_back(Cell());
+    // }
 }
 
 #pragma endregion
@@ -39,14 +39,14 @@ void SimulationHandler::Run()
 void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction)
 {
     // Cell newCell = Cell(5, position, &Util, direction, &grid, 100);
-    cellsPool[currentCellPoolIndex] = Cell(5, position, &Util, direction, &grid, 100);
+    Cell newCell = Cell(5, position, &Util, direction, &grid, 100);
     // TODO GENERATE RANDOM GENOME
 
     // TEST SINGLE GENOME, LINK INPUT_BLK to ACTION_MFW
-    cellsPool[currentCellPoolIndex].LoadSingleCellGenome("110D82");
-    cellsAlive.push_back(&(cellsPool[currentCellPoolIndex]));
+    cellsAlive.push_back(newCell);
+    cellsAlive.back().LoadSingleCellGenome("110D82");
 
-    currentCellPoolIndex++;
+    // currentCellPoolIndex++;
 }
 #pragma endregion
 
@@ -76,7 +76,7 @@ void SimulationHandler::PerformCellActions()
 
     for (int i = 0; i < cellsCount; i++)
     {
-        cellsAlive[i]->PerformAction();
+        cellsAlive[i].PerformAction();
     }
 }
 
@@ -90,7 +90,7 @@ void SimulationHandler::CleanUpDeactivatedCells()
 
     for (int i = cellsCount - 1; i >= 0; i--)
     {
-        if (!cellsAlive[i]->IsAlive())
+        if (!cellsAlive[i].IsAlive())
         {
             cellsAlive.erase(cellsAlive.begin() + i);
         }

@@ -15,7 +15,7 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex
     foodReserve = startingFood;
     directionIndex = (DirectionsIndex)(direction % util->DirectionsAmount);
 
-    cellColor = Color(util->GetRandomInt(10,240),util->GetRandomInt(10,240),util->GetRandomInt(10,240));
+    cellColor = Color(util->GetRandomInt(10, 240), util->GetRandomInt(10, 240), util->GetRandomInt(10, 240));
     for (int i = 0; i < GenomeArray->size(); i++)
     {
         GenomeArray[i].clear();
@@ -66,14 +66,14 @@ void Cell::LoadSingleCellGenome(string singleCellGenome)
     NodeType newLinkedNodeType = util->GetNodeType(binGenome[3]);
     Node newLinkedNode = Node((NodeId)util->bin_to_int(binGenome[3]), this);
 
-    //Add child node to the Genome Array
+    // Add current node to the Genome Array
+    GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
+
+    // Add child node to the Genome Array
     GenomeArray[newLinkedNodeType].push_back(newLinkedNode);
 
-    //Link the child node to the current node
-    newCurrentNode.AddLinkedNode(&(GenomeArray[newLinkedNodeType].back()), util->bin_to_int(binGenome[0].substr(1, 3)));
-
-    //Add current node to the Genome Array
-    GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
+    // Link the child node to the current node
+    GenomeArray[newCurrentNodetype].back().AddLinkedNode(&(GenomeArray[newLinkedNodeType].back()), util->bin_to_int(binGenome[0].substr(1, 3)));
 
     return;
 }

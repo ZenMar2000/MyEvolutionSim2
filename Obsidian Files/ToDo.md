@@ -13,6 +13,7 @@
 
 ## Importanti
 - [ ] Aggiungere controllo a SimulationHandler::LoadSingleCellGenome se nodi esistono gia, crea solo link.
-- [ ] Spostare logica attivazione su SimulationHandler o capire come usare classi derivate in Cell
+- [x] Spostare logica attivazione su SimulationHandler o capire come usare classi derivate in Cell
+- [ ] Creare logica per generare genoma random
 
  

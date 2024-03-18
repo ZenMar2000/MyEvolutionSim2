@@ -14,14 +14,14 @@ class Grid
 public:
 #pragma region "Constructors"
     Grid();
-    Grid(char *title, uint width, uint heightn, Utils *util, vector<Cell*> *cellsAlive);
+    Grid(char *title, uint width, uint heightn, Utils *util);
 
 #pragma endregion
 
 #pragma region "Public Functions"
     void RefreshGrid();
 
-    void SpawnCells(vector<Cell*> &cellsAlive);
+    void SpawnCells(vector<Cell> &cellsAlive);
     void SpawnSingleCell(Cell cell);
 
     void SpawnFoodPips(/* TODO ADD FOOD CLASS */);
@@ -54,7 +54,7 @@ protected:
     int gridWidth;
     int gridHeight;
 
-    vector<Cell*> *cellsInSimulation;
+    vector<Cell> *cellsInSimulation;
     bool **CellCollisionGrid;
     bool **FoodCollisionGrid;
 

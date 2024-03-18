@@ -4,7 +4,7 @@
 int counter = 0;
 
 Grid::Grid() {}
-Grid::Grid(char *title, uint width, uint height, Utils *util, vector<Cell *> *cellsAlive)
+Grid::Grid(char *title, uint width, uint height, Utils *util)
 {
     this->util = util;
     window = new SDLWindow(title, width, height);
@@ -37,7 +37,7 @@ void Grid::RefreshGrid()
     {
         for (int i = 0; i < cellCount; i++)
         {
-            Cell *c = cellsInSimulation->at(i);
+            Cell *c = &cellsInSimulation->at(i);
             window->DrawPixel(c->GetCellColor(), c->cellPosition);
         }
     }
@@ -46,13 +46,14 @@ void Grid::RefreshGrid()
     window->UpdateWindow();
 }
 
-void Grid::SpawnCells(vector<Cell *> &cellsAlive)
+void Grid::SpawnCells(vector<Cell> &cellsAlive)
 {
     cellsInSimulation = &cellsAlive;
+    Cell c;
     for (int i = 0; i < cellsInSimulation->size(); i++)
     {
-        Cell *c = cellsInSimulation->at(i);
-        CellCollisionGrid[c->cellPosition.x][c->cellPosition.y] = true;
+        c = cellsInSimulation->at(i);
+        CellCollisionGrid[c.cellPosition.x][c.cellPosition.y] = true;
     }
 }
 

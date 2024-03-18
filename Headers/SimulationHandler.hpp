@@ -35,11 +35,11 @@ protected:
     // Vector containing all cells currently alive.
     // Used by this class to perform single cell actions
     //   and from the grid to update the graphical position
-    vector<Cell*> cellsAlive;
+    vector<Cell> cellsAlive;
     bool isRunning = false;
 
-    vector<Cell> cellsPool;
-    int currentCellPoolIndex = 0;
+    // vector<Cell> cellsPool;
+    // int currentCellPoolIndex = 0;
 
     // Load a single Genome into the cell from hex values.
 
