@@ -136,17 +136,17 @@ protected:
   // 0 = Input, 1 = Neuron, 2 = Action, 3 = Free
   vector<NodeId> NodeTypeList[4] = {
       // Input Nodes
-      {INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FPD, INPUT_RPD,
+      {/* INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FPD, INPUT_RPD,
        INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA,
-       INPUT_CCC, INPUT_OSC, INPUT_RND, INPUT_BLK},
+       INPUT_CCC, INPUT_OSC,  */INPUT_RND, INPUT_BLK},
 
       // Neuron
       {NEURON},
 
       // Action Nodes
       {ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXP,
-       ACTION_CXN, ACTION_CYP, ACTION_CYN, ACTION_PRM, ACTION_TGL,
-       ACTION_SOC},
+       ACTION_CXN, ACTION_CYP, ACTION_CYN/* , ACTION_PRM, ACTION_TGL,
+       ACTION_SOC */},
 
       // Free
       {FREE, LAST}};

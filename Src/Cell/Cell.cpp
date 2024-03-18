@@ -15,6 +15,7 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex
     foodReserve = startingFood;
     directionIndex = (DirectionsIndex)(direction % util->DirectionsAmount);
 
+    cellColor = Color(util->GetRandomInt(10,240),util->GetRandomInt(10,240),util->GetRandomInt(10,240));
     for (int i = 0; i < GenomeArray->size(); i++)
     {
         GenomeArray[i].clear();
@@ -41,6 +42,40 @@ void Cell::LoadCellGenome(vector<string> cellGenome)
 
 void Cell::ClearCellGenome()
 {
+}
+
+void Cell::LoadSingleCellGenome(string singleCellGenome)
+{
+    string binGenome[4];
+    // Inverted logic and link weight
+    string test = singleCellGenome.substr(0, 1);
+    binGenome[0] = util->hex_to_bin(singleCellGenome.substr(0, 1));
+
+    // Genome weight
+    binGenome[1] = util->hex_to_bin(singleCellGenome.substr(1, 1));
+
+    // current node id
+    binGenome[2] = util->hex_to_bin(singleCellGenome.substr(2, 2));
+
+    // child node id linked to current node
+    binGenome[3] = util->hex_to_bin(singleCellGenome.substr(4, 2));
+
+    NodeType newCurrentNodetype = util->GetNodeType(binGenome[2]);
+    Node newCurrentNode = Node((NodeId)util->bin_to_int(binGenome[2]), this);
+
+    NodeType newLinkedNodeType = util->GetNodeType(binGenome[3]);
+    Node newLinkedNode = Node((NodeId)util->bin_to_int(binGenome[3]), this);
+
+    //Add child node to the Genome Array
+    GenomeArray[newLinkedNodeType].push_back(newLinkedNode);
+
+    //Link the child node to the current node
+    newCurrentNode.AddLinkedNode(&(GenomeArray[newLinkedNodeType].back()), util->bin_to_int(binGenome[0].substr(1, 3)));
+
+    //Add current node to the Genome Array
+    GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
+
+    return;
 }
 
 vector<string> Cell::GetCellGenome()

@@ -42,9 +42,9 @@ void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction
     // TODO GENERATE RANDOM GENOME
 
     // TEST SINGLE GENOME, LINK INPUT_BLK to ACTION_MFW
-
-    LoadSingleCellGenome("110D82", &cellsPool[currentCellPoolIndex]);
-
+    cellsPool[currentCellPoolIndex].LoadSingleCellGenome("110D82");
+    currentCellPoolIndex++;
+    
     cellsAlive.push_back(&(cellsPool[currentCellPoolIndex]));
 }
 #pragma endregion
@@ -96,38 +96,38 @@ void SimulationHandler::CleanUpDeactivatedCells()
     }
 }
 
-void SimulationHandler::LoadSingleCellGenome(string singleCellGenome, Cell *targetCell)
-{
-    string binGenome[4];
-    // Inverted logic and link weight
-    string test = singleCellGenome.substr(0, 1);
-    binGenome[0] = Util.hex_to_bin(singleCellGenome.substr(0, 1));
+// void SimulationHandler::LoadSingleCellGenome(string singleCellGenome, Cell *targetCell)
+// {
+//     string binGenome[4];
+//     // Inverted logic and link weight
+//     string test = singleCellGenome.substr(0, 1);
+//     binGenome[0] = Util.hex_to_bin(singleCellGenome.substr(0, 1));
 
-    // Genome weight
-    binGenome[1] = Util.hex_to_bin(singleCellGenome.substr(1, 1));
+//     // Genome weight
+//     binGenome[1] = Util.hex_to_bin(singleCellGenome.substr(1, 1));
 
-    // current node id
-    binGenome[2] = Util.hex_to_bin(singleCellGenome.substr(2, 2));
+//     // current node id
+//     binGenome[2] = Util.hex_to_bin(singleCellGenome.substr(2, 2));
 
-    // child node id linked to current node
-    binGenome[3] = Util.hex_to_bin(singleCellGenome.substr(4, 2));
+//     // child node id linked to current node
+//     binGenome[3] = Util.hex_to_bin(singleCellGenome.substr(4, 2));
 
-    NodeType newCurrentNodetype = Util.GetNodeType(binGenome[2]);
-    Node newCurrentNode = Node((NodeId)Util.bin_to_int(binGenome[2]), targetCell);
+//     NodeType newCurrentNodetype = Util.GetNodeType(binGenome[2]);
+//     Node newCurrentNode = Node((NodeId)Util.bin_to_int(binGenome[2]), targetCell);
 
-    NodeType newLinkedNodeType = Util.GetNodeType(binGenome[3]);
-    Node newLinkedNode = Node((NodeId)Util.bin_to_int(binGenome[3]), targetCell);
+//     NodeType newLinkedNodeType = Util.GetNodeType(binGenome[3]);
+//     Node newLinkedNode = Node((NodeId)Util.bin_to_int(binGenome[3]), targetCell);
 
-    //Add child node to the Genome Array
-    targetCell->GenomeArray[newLinkedNodeType].push_back(newLinkedNode);
+//     //Add child node to the Genome Array
+//     targetCell->GenomeArray[newLinkedNodeType].push_back(newLinkedNode);
 
-    //Link the child node to the current node
-    newCurrentNode.AddLinkedNode(&(targetCell->GenomeArray[newLinkedNodeType].back()), Util.bin_to_int(binGenome[0].substr(1, 3)));
+//     //Link the child node to the current node
+//     newCurrentNode.AddLinkedNode(&(targetCell->GenomeArray[newLinkedNodeType].back()), Util.bin_to_int(binGenome[0].substr(1, 3)));
 
-    //Add current node to the Genome Array
-    targetCell->GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
+//     //Add current node to the Genome Array
+//     targetCell->GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
 
-    return;
-}
+//     return;
+// }
 
 #pragma endregion

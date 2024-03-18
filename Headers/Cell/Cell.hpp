@@ -42,6 +42,8 @@ public:
 
     vector<string> GetCellGenome();
 
+    void LoadSingleCellGenome(string singleCellGenome);
+    
     bool IsAlive();
     Color GetCellColor();
 
@@ -89,7 +91,7 @@ protected:
     // Pointer to the Util instance
     Utils *util = NULL;
 
-    Color cellColor = Color(255,0,0);
+    Color cellColor = Color(255, 0, 0);
 
 #pragma endregion
 

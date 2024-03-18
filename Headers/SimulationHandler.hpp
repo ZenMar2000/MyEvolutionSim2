@@ -49,7 +49,6 @@ protected:
     void CheckIfExitRequested();
     void PerformCellActions();
     void CleanUpDeactivatedCells();
-    void LoadSingleCellGenome(string singleCellGenome, Cell *targetCell);
 #pragma endregion
 };
 
