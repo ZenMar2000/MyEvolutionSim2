@@ -186,6 +186,16 @@ double Node::RND_Logic()
 #pragma region "NEURON NODE"
 void Node::Activate_NeuronNode()
 {
+    double output = 0;
+    NormalizeInputValue();
+    
+    for (int i = 0; i < linkedChildNodes.size(); i++)
+    {
+        linkInfo &info = linkedChildNodes[i];
+        output *= info.invertedOutput ? -1 : 1;
+
+        info.linkedNode->inputReceived = (output * info.linkWeight);
+    }
 }
 #pragma endregion
 
