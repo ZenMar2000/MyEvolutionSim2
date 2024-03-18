@@ -3,17 +3,15 @@
 #pragma region "Constructors"
 Utils::Utils()
 {
-  Directions = new Vector2[DirectionsAmount]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0)};
-  // InstantiateNodesArrays();
 }
 #pragma endregion
 
 #pragma region "Functions"
 Vector2 Utils::GetDirection(DirectionsIndex directionIndex)
 {
-  directionIndex = (DirectionsIndex)(directionIndex%DirectionsAmount);
+  directionIndex = (DirectionsIndex)(directionIndex % DirectionsAmount);
 
-  return Directions[directionIndex];
+  return Directions[(int)directionIndex];
 }
 
 DirectionsIndex Utils::GetDirectionIndex(Vector2 direction)
@@ -96,7 +94,8 @@ int Utils::GetRandomInt(int min, int max)
 }
 double Utils::GetRandomPercent()
 {
-  uniform_real_distribution<double> unif(lower_bound, upper_bound);
+  uniform_real_distribution<double> unif(0, 1);
+  default_random_engine re;
   return unif(re);
 }
 

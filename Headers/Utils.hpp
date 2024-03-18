@@ -74,6 +74,8 @@ enum NodeType
   TYPE_FREE = 3
 };
 
+static const Vector2 Directions[8]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0)};
+
 class Utils
 {
 public:
@@ -84,8 +86,6 @@ public:
   static const int WindowHeight = 600;
 
   static const int UpdateDelay = 100;
-
-  Vector2 *Directions;
 
   unordered_map<string, char> hex_dict = {
       {"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'}, {"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'}, {"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'}, {"1100", 'C'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}};
@@ -150,10 +150,6 @@ protected:
 
       // Free
       {FREE, LAST}};
-
-  double lower_bound = 0;
-  double upper_bound = 1;
-  default_random_engine re;
 
 #pragma endregion
 

@@ -52,7 +52,7 @@ vector<string> Cell::GetCellGenome()
         {
             for (int singleNodeIndex = 0; singleNodeIndex < GenomeArray[nodeTypeIndex].size(); singleNodeIndex++)
             {
-                vector<string> nodeGenome = GenomeArray[nodeTypeIndex][singleNodeIndex]->GetNodeGenome();
+                vector<string> nodeGenome = GenomeArray[nodeTypeIndex][singleNodeIndex].GetNodeGenome();
                 if (nodeGenome.size() > 0)
                 {
                     for (int i = 0; i < nodeGenome.size(); i++)
@@ -88,6 +88,8 @@ void Cell::PerformAction()
     ActivateNodes(TYPE_INPUT);
     ActivateNodes(TYPE_NEURON);
     ActivateNodes(TYPE_ACTION);
+
+    ReduceFood();
 }
 
 void Cell::DirectionalMove(bool isBackward)
@@ -100,13 +102,12 @@ void Cell::DirectionalMove(bool isBackward)
     grid->FixBorderCollisions(&newPos);
 
     // Check destination space if occupied
-    if (!grid->CheckIfSpaceOccupied(newPos))
+    if (grid->CheckIfSpaceFree(newPos))
     {
         grid->UpdateCollisionGrid(cellPosition, newPos);
         cellPosition.x = newPos.x;
         cellPosition.y = newPos.y;
     }
-    ReduceFood();
 }
 
 void Cell::CartesianMove(DirectionsIndex directionIndex)
@@ -118,13 +119,12 @@ void Cell::CartesianMove(DirectionsIndex directionIndex)
     grid->FixBorderCollisions(&newPos);
 
     // Check destination space if occupied
-    if (!grid->CheckIfSpaceOccupied(newPos))
+    if (grid->CheckIfSpaceFree(newPos))
     {
         grid->UpdateCollisionGrid(cellPosition, newPos);
         cellPosition.x = newPos.x;
         cellPosition.y = newPos.y;
     }
-    ReduceFood();
 }
 
 void Cell::Turn(int rotation)
@@ -158,7 +158,7 @@ void Cell::ActivateNodes(NodeType type)
 {
     for (int i = 0; i < GenomeArray[type].size(); i++)
     {
-        GenomeArray[type][i]->Activate();
+        GenomeArray[type][i].ActivateBase();
     }
 }
 

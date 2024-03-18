@@ -6,10 +6,7 @@
 #include "Cell/Cell.hpp"
 #include "Grid/Grid.hpp"
 #include "Utils.hpp"
-
-#include "Nodes/InputNodes/InputNode.hpp"
-#include "Nodes/ActionNodes/ActionNode.hpp"
-#include "Nodes/NeuronNodes/NeuronNode.hpp"
+#include "Nodes/Node.hpp"
 
 using namespace std;
 
@@ -21,7 +18,7 @@ public:
 #pragma endregion
 
 #pragma region "Constructors"
-    SimulationHandler();
+    SimulationHandler(int maxCells);
 
 #pragma endregion
 
@@ -38,8 +35,11 @@ protected:
     // Vector containing all cells currently alive.
     // Used by this class to perform single cell actions
     //   and from the grid to update the graphical position
-    vector<Cell> cellsAlive;
+    vector<Cell*> cellsAlive;
     bool isRunning = false;
+
+    vector<Cell> cellsPool;
+    int currentCellPoolIndex = 0;
 
     // Load a single Genome into the cell from hex values.
 
@@ -50,7 +50,6 @@ protected:
     void PerformCellActions();
     void CleanUpDeactivatedCells();
     void LoadSingleCellGenome(string singleCellGenome, Cell *targetCell);
-    void SpecializeNode(Node *nodeToSpecialize, NodeId nodeId, Cell *targetCell);
 #pragma endregion
 };
 

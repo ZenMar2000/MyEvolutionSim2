@@ -5,8 +5,6 @@
 
 #include "../Utils.hpp"
 #include "../Nodes/Node.hpp"
-// #include "../Nodes/InputNodes/InputNode.hpp"
-// #include "../Nodes/ActionNodes/ActionNode.hpp"
 #include "../Grid/Grid.hpp"
 
 using namespace std;
@@ -19,8 +17,8 @@ class Cell
 public:
 #pragma region "Public Variables"
     Vector2 cellPosition = Vector2(-1, -1);
-    Grid *grid = NULL;
-    vector<Node *> GenomeArray[3];
+    Grid *grid;
+    vector<Node> GenomeArray[3];
 
 #pragma endregion
 
@@ -91,7 +89,7 @@ protected:
     // Pointer to the Util instance
     Utils *util = NULL;
 
-    Color cellColor = Color(0,0,0);
+    Color cellColor = Color(255,0,0);
 
 #pragma endregion
 

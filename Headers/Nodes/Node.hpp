@@ -17,13 +17,13 @@ class Node
 public:
     struct linkInfo
     {
-        Node *linkedNode = NULL;
+        Node *linkedNode;
         double linkWeight = 0;
         bool invertedOutput = false;
 
-        linkInfo(Node *newLinkedNode, double weight, bool inverted)
+        linkInfo(Node &newLinkedNode, double weight, bool inverted)
         {
-            linkedNode = newLinkedNode;
+            linkedNode = &newLinkedNode;
             linkWeight = weight;
             invertedOutput = inverted;
         }
@@ -40,6 +40,7 @@ public:
 #pragma Region "Functions"
     // Get node id (used for genome generation)
     NodeId GetNodeId();
+    NodeType GetNodeType();
 
     // Add node to the linkedNodes list
     void AddLinkedNode(Node *nodeToLink, double linkWeight);
@@ -47,23 +48,25 @@ public:
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);
 
-    virtual void AddToInput(double input);
+    void AddToInput(double input);
 
     // function that must be implemented in children classes
-    virtual void Activate();
+    void ActivateBase();
 
     // Get a vector containing all genomes of this node. Work only on Input an Neuron nodes. Action nodes does not have linked nodes.
     virtual vector<string> GetNodeGenome();
 
+    double inputReceived = 0;
+
 #pragma endregion
 
 protected:
-#pragma region "Variables for genome"
+#pragma region "Protected Variables"
     NodeId nodeId = FREE;
+    NodeType nodeType = TYPE_FREE;
+
     int genomeWeight = 0;
     Node *parentNode = NULL;
-
-    double inputReceived = 0;
 
     // vector containing all nodes linked to this node. They will get updated with the output value of this node.
     vector<linkInfo> linkedChildNodes;
@@ -80,36 +83,25 @@ protected:
     void NormalizeInputValue();
     bool NodeTriggered();
 
+#pragma region "INPUT NODE"
+    void Activate_InputNode();
+    double BLK_Logic();
+    double RND_Logic();
+#pragma endregion
+
+#pragma region "NEURON NODE"
+    void Activate_NeuronNode();
+
+#pragma endregion
+
+#pragma region "ACTION NODE"
+    void Activate_ActionNode();
+
+#pragma endregion
+
 #pragma endregion
 };
 
 #endif
-
-// #ifndef HDC_H
-// #define HDC_H
-
-// #include "../Node.hpp"
-
-// class InputNode_HDC: public Node{
-//     public:
-//     InputNode_HDC() : Node() {
-//     }
-
-//     InputNode_HDC() : Node (){
-//         this-> nodeId = nodeId;
-//         this-> nodeName = nodeName;
-//         // this-> parentCell = parentCell;
-//     }
-
-//     void Activate() override{
-
-//     }
-
-//     int GenerateNodeGenome() override {
-
-//     }
-// };
-
-// #endif#pragma region "Structs"
 
 #pragma endregion

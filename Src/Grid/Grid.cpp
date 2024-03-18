@@ -4,7 +4,7 @@
 int counter = 0;
 
 Grid::Grid() {}
-Grid::Grid(char *title, uint width, uint height, Utils *util, vector<Cell> *cellsAlive)
+Grid::Grid(char *title, uint width, uint height, Utils *util, vector<Cell *> *cellsAlive)
 {
     this->util = util;
     window = new SDLWindow(title, width, height);
@@ -39,8 +39,8 @@ void Grid::RefreshGrid()
     {
         for (int i = 0; i < cellCount; i++)
         {
-            Cell &c = cellsInSimulation->at(i);
-            window->DrawPixel(c.GetCellColor(), c.cellPosition);
+            Cell *c = cellsInSimulation->at(i);
+            window->DrawPixel(c->GetCellColor(), c->cellPosition);
         }
     }
 
@@ -48,19 +48,19 @@ void Grid::RefreshGrid()
     window->UpdateWindow();
 }
 
-void Grid::SpawnCells(vector<Cell> *cellsAlive)
+void Grid::SpawnCells(vector<Cell *> *cellsAlive)
 {
     cellsInSimulation = cellsAlive;
     for (int i = 0; i < cellsInSimulation->size(); i++)
     {
-        Cell c = cellsInSimulation->at(i);
-        CellCollisionGrid[c.cellPosition.x][c.cellPosition.y] = true;
+        Cell *c = cellsInSimulation->at(i);
+        CellCollisionGrid[c->cellPosition.x][c->cellPosition.y] = true;
     }
 }
 
 void Grid::SpawnSingleCell(Cell cell)
 {
-    cellsInSimulation->push_back(cell);
+    // cellsInSimulation->push_back(cell);
 }
 
 void Grid::SpawnFoodPips(){
@@ -72,7 +72,8 @@ void Grid::RespawnSingleFoodPip(){
 
 bool Grid::CheckPosition(Vector2 position)
 {
-    return (CheckIfOutsideBorder(position) || CheckIfSpaceOccupied(position));
+    FixBorderCollisions(&position);
+    return (CheckIfInsideBorder(position) || CheckIfSpaceFree(position));
 }
 
 void Grid::FixBorderCollisions(Vector2 *position)
@@ -88,14 +89,15 @@ void Grid::FixBorderCollisions(Vector2 *position)
         position->y = 0;
 };
 
-bool Grid::CheckIfSpaceOccupied(Vector2 position)
+bool Grid::CheckIfSpaceFree(Vector2 position)
 {
-    return CellCollisionGrid[position.x][position.y];
+    bool ret = !CellCollisionGrid[position.x][position.y];
+    return ret;
 }
 
-bool Grid::CheckIfOutsideBorder(Vector2 position)
+bool Grid::CheckIfInsideBorder(Vector2 position)
 {
-    if (position.x >= gridWidth || position.x < 0 || position.y >= gridHeight || position.y < 0)
+    if (position.x < gridWidth && position.x >= 0 && position.y < gridHeight && position.y >= 0)
     {
         return true;
     }
