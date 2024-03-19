@@ -65,6 +65,7 @@ protected:
 
 #pragma endregion
 
+
 #pragma region "Protected Functions"
 
 #pragma endregion
