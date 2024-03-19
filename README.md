@@ -25,6 +25,8 @@ That said, if someone find it useful or has some suggestions, let me know!
 # Can I edit / copy / contribute / etc...?
 Sure you can, just put me in the credits if you use it. 
 
+For contributors, I'd like to keep it as is.
+
 ## Credits
 
 Video inspiration, some stuff implemented is loosely inspired by it: https://www.youtube.com/watch?v=N3tRFayqVtk
