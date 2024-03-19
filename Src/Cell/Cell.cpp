@@ -50,9 +50,14 @@ void Cell::LoadSingleCellGenome(string singleCellGenome)
     // TODO Add logic for checking if nodes already exists
 
     string binGenome[4];
+    bool invertedLogic;
+    int linkWeight;
 
     // Inverted logic and link weight
     binGenome[0] = util->hex_to_bin(singleCellGenome.substr(0, 1));
+
+    invertedLogic = util->bin_to_int(binGenome[0].substr(0, 1)); // == "0" ? false : true;
+    linkWeight = util->bin_to_int(binGenome[0].substr(1, 3));
 
     // Genome weight
     binGenome[1] = util->hex_to_bin(singleCellGenome.substr(1, 1));
@@ -64,20 +69,45 @@ void Cell::LoadSingleCellGenome(string singleCellGenome)
     binGenome[3] = util->hex_to_bin(singleCellGenome.substr(4, 2));
 
     // Get current node type
-    NodeType newCurrentNodetype = util->GetNodeType(binGenome[2]);
+    NodeId newCurrentNodeId = (NodeId)util->bin_to_int(binGenome[2]);
+    NodeType newCurrentNodetype = util->GetNodeType(newCurrentNodeId);
+    Node *currNode;
 
     // Get linked node type
-    NodeType newLinkedNodeType = util->GetNodeType(binGenome[3]);
+    NodeId newLinkedNodeId = (NodeId)util->bin_to_int(binGenome[3]);
+    NodeType newLinkedNodeType = util->GetNodeType(newLinkedNodeId);
+    // Node *linkedNode;
 
-    // Add current node to the Genome Array
-    GenomeArray[newCurrentNodetype].push_back(Node((NodeId)util->bin_to_int(binGenome[2]), this));
-    Node *currNode = &GenomeArray[newCurrentNodetype].back();
+    int linkedNodeIndex;
 
-    // Add child node to the Genome Array
-    GenomeArray[newLinkedNodeType].push_back(Node((NodeId)util->bin_to_int(binGenome[3]), this));
+    // Check if currentNode already exists
+    int nodeCheck = CheckIfNodeExists(newCurrentNodeId, newCurrentNodetype);
+    if (nodeCheck == -1)
+    {
+        // Create and push_back the new node
+        GenomeArray[newCurrentNodetype].push_back(Node(newCurrentNodeId, this));
+        currNode = &GenomeArray[newCurrentNodetype].back();
+    }
+    else
+    {
+        // Node is already added, use it instead of creating a new one
+        currNode = &GenomeArray[newCurrentNodetype][nodeCheck];
+    }
 
-    // Link the child node to the current node
-    currNode->AddLinkedNode( GenomeArray[newLinkedNodeType].size() - 1, newLinkedNodeType, util->bin_to_int(binGenome[0].substr(1, 3)));
+    // Check if linkedNode already exists
+    nodeCheck = CheckIfNodeExists(newLinkedNodeId, newLinkedNodeType);
+    if (CheckIfNodeExists(newLinkedNodeId, newLinkedNodeType) == -1)
+    {
+        GenomeArray[newLinkedNodeType].push_back(Node(newLinkedNodeId, this));
+        linkedNodeIndex = GenomeArray[newLinkedNodeType].size() - 1;
+    }
+    else
+    {
+        // Node is already added, use it instead of creating a new one
+        linkedNodeIndex = nodeCheck;
+    }
+
+    currNode->AddLinkedNode(GenomeArray[newLinkedNodeType].size() - 1, newLinkedNodeType, linkWeight, invertedLogic);
 }
 
 void Cell::ClearCellGenome()
@@ -87,6 +117,8 @@ void Cell::ClearCellGenome()
 vector<string> Cell::GetCellGenome()
 {
     vector<string> cellGenome;
+    // TODO Refactor code
+
     // for (int nodeTypeIndex = 0; nodeTypeIndex < 4; nodeTypeIndex++)
     // {
     //     if (GenomeArray[nodeTypeIndex].size() > 0)
@@ -186,13 +218,28 @@ int Cell::GetFoodReserve()
 #pragma endregion
 
 #pragma region "Protected Functions"
-void Cell::LinkAllNodes(vector<string> cellGenome)
+// void Cell::LinkAllNodes(vector<string> cellGenome)
+// {
+// }
+
+int Cell::CheckIfNodeExists(NodeId nodeId, NodeType nodeType)
 {
+    for (int i = 0; i < GenomeArray[nodeType].size(); i++)
+    {
+        if (GenomeArray[nodeType][i].GetNodeId() == nodeId)
+        {
+            return i;
+        }
+    }
+    return -1;
 }
 
 void Cell::ReduceFood()
 {
-    foodReserve--;
+    if (util->foodEnabled)
+    {
+        foodReserve--;
+    }
 }
 
 void Cell::ActivateNodes(NodeType type)

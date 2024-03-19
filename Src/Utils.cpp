@@ -94,35 +94,13 @@ int Utils::GetRandomInt(int min, int max)
 }
 double Utils::GetRandomPercent()
 {
-  return GetRandomInt(0,100)*0.01;
+  return GetRandomInt(0, 100) * 0.01;
 }
 
 #pragma endregion
 
 #pragma region "Protected Functions"
 
-// void Utils::InstantiateNodesArrays()
-// {
-//   NodeId currentNodeId;
-//   int currentNodeType;
-
-//   for (int i = 0; i < LAST; i++)
-//   {
-//     try
-//     {
-//       currentNodeId = static_cast<NodeId>(i); // static_cast<NodeId>(i)
-//       // if(currentNodeId.to_string().size() > 3){
-
-//       // }
-//       currentNodeType = GetNodeType(currentNodeId);
-//       NodeTypeList[currentNodeType].push_back(currentNodeId);
-//     }
-//     catch (const std::exception &e)
-//     {
-//       continue;
-//     }
-//   }
-// }
 #pragma endregion
 // /*
 //  Directions indexes

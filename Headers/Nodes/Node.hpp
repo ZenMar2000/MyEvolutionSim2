@@ -37,7 +37,7 @@ public:
     Node(NodeId id, Cell *parentCell);
 
     // TODO Understand if useful
-    Node(NodeId id, Cell *parentCell, Node *parentNode);
+    // Node(NodeId id, Cell *parentCell, Node *parentNode);
 #pragma endregion
 
 #pragma Region "Functions"
@@ -46,7 +46,7 @@ public:
     NodeType GetNodeType();
 
     // Add node to the linkedNodes list
-    void AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight);
+    void AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight, bool invertedLogic);
 
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);
@@ -69,7 +69,7 @@ protected:
     double inputReceived = 0;
 
     int genomeWeight = 0;
-    Node *parentNode = NULL;
+    // Node *parentNode = NULL;
 
     // vector containing all nodes linked to this node. They will get updated with the output value of this node.
     vector<linkInfo> linkedChildNodes;

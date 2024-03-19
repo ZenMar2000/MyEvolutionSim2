@@ -7,9 +7,8 @@
 #include <random>
 
 #include "Vector2/Vector2.hpp"
-
-/*
-Directions indexes
+class Cell;
+/*Directions indexes
     0	1	2
     7		3
     6	5	4
@@ -79,13 +78,13 @@ static const Vector2 Directions[8]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -
 class Utils
 {
 public:
-  // Variables
+  // Simulation Variables
   static const int DirectionsAmount = 8;
   static const int CellPixelsDimension = 10;
   static const int WindowWidth = 800;
   static const int WindowHeight = 600;
-
   static const int UpdateDelay = 100;
+  bool foodEnabled = true;
 
   unordered_map<string, char> hex_dict = {
       {"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'}, {"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'}, {"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'}, {"1100", 'C'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}};
@@ -122,10 +121,8 @@ public:
   string hex_to_bin(string hexadecimal);
   int bin_to_int(string binary);
 
-  // Get a value between 0 and 1
-  double GetRandomPercent();
-
   int GetRandomInt(int min = 0, int max = 100);
+  double GetRandomPercent();
 
 #pragma endregion
 
@@ -138,15 +135,17 @@ protected:
       // Input Nodes
       {/* INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FPD, INPUT_RPD,
        INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA,
-       INPUT_CCC, INPUT_OSC,  */INPUT_RND, INPUT_BLK},
+       INPUT_CCC, INPUT_OSC,  */
+       INPUT_RND, INPUT_BLK},
 
       // Neuron
       {NEURON},
 
       // Action Nodes
       {ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXP,
-       ACTION_CXN, ACTION_CYP, ACTION_CYN/* , ACTION_PRM, ACTION_TGL,
-       ACTION_SOC */},
+       ACTION_CXN, ACTION_CYP, ACTION_CYN /* , ACTION_PRM, ACTION_TGL,
+        ACTION_SOC */
+      },
 
       // Free
       {FREE, LAST}};

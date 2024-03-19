@@ -19,12 +19,12 @@ Node::Node(NodeId id, Cell *parentCell)
     }
 }
 
-Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
-{
-    this->parentCell = parentCell;
-    this->parentNode = parentNode;
-    nodeId = id;
-}
+// Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
+// {
+//     this->parentCell = parentCell;
+//     this->parentNode = parentNode;
+//     nodeId = id;
+// }
 
 #pragma endregion
 
@@ -40,7 +40,7 @@ NodeType Node::GetNodeType()
     return nodeType;
 }
 
-void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight)
+void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight, bool invertedLogic)
 {
     NodeType nodeTp = util->GetNodeType(nodeId);
     if (nodeTp >= 3)
@@ -58,7 +58,7 @@ void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double li
     //     }
     // }
 
-    linkInfo info = linkInfo(nodeToLinkIndex, nodeToLinkType, linkWeight, false);
+    linkInfo info = linkInfo(nodeToLinkIndex, nodeToLinkType, linkWeight, invertedLogic);
     linkedChildNodes.push_back(info);
 }
 

@@ -96,8 +96,15 @@ protected:
 
 #pragma region "Protected Functions"
     // Use the generated or loaded genome to create and physically link nodes.
-    void LinkAllNodes(vector<string> cellGenome);
+    // void LinkAllNodes(vector<string> cellGenome);
+    
+    //Check if a node is already existing in the GenomeArray. Return -1 if nothing is found
+    int CheckIfNodeExists(NodeId nodeId, NodeType nodeType);
+
+
     void ReduceFood();
+
+    //Pass all nodes in the GenomeArray specified by the type and activate each one, performing all relative instructions 
     void ActivateNodes(NodeType type);
 #pragma endregion
 };

@@ -3,16 +3,18 @@
 #include "../Headers/SimulationHandler.hpp"
 
 #pragma region "Constructors"
-SimulationHandler::SimulationHandler(int maxCells)
+SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
 {
     char *title = (char *)"MySim";
     grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util);
     cellsAlive.clear();
 
-    // for (int i = 0; i < maxCells; i++)
-    // {
-    //     cellsPool.push_back(Cell());
-    // }
+    Util.foodEnabled = foodEnabled;
+
+    for (int i = 0; i < maxCells; i++)
+    {
+        GenerateCell(Vector2(Util.GetRandomInt(0, Util.WindowWidth/Util.CellPixelsDimension), Util.GetRandomInt(0, Util.WindowHeight/Util.CellPixelsDimension)),(DirectionsIndex)Util.GetRandomInt(0,8));
+    }
 }
 
 #pragma endregion
@@ -43,6 +45,7 @@ void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction
 
     cellsAlive.back().LoadSingleCellGenome("110C80");
     cellsAlive.back().LoadSingleCellGenome("110D82");
+    cellsAlive.back().LoadSingleCellGenome("A10C82");
 
     // cellsAlive.back().LoadCellGenome(vector<string>{"110C80", "110D82"});
 }

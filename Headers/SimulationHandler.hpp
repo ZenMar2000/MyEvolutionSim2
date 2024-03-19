@@ -18,7 +18,7 @@ public:
 #pragma endregion
 
 #pragma region "Constructors"
-    SimulationHandler(int maxCells);
+    SimulationHandler(int maxCells, bool foodEnabled);
 
 #pragma endregion
 
