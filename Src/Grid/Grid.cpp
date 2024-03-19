@@ -12,13 +12,23 @@ Grid::Grid(char *title, uint width, uint height, Utils *util)
     gridWidth = floor(width / util->CellPixelsDimension);
     gridHeight = floor(height / util->CellPixelsDimension);
 
-    CellCollisionGrid = new bool *[gridWidth];
-    FoodCollisionGrid = new bool *[gridWidth];
+    CellCollisionGrid.clear();
+    FoodCollisionGrid.clear();
+    // CellCollisionGrid = new bool *[gridWidth];
+    // FoodCollisionGrid = new bool *[gridWidth];
 
-    for (int i = 0; i < gridWidth; i++)
+    for (int w = 0; w < gridWidth; w++)
     {
-        CellCollisionGrid[i] = new bool[gridHeight];
-        FoodCollisionGrid[i] = new bool[gridHeight];
+        vector<bool> newVecCell;
+        vector<bool> newVecFood;
+        for (int h = 0; h < gridHeight; h++)
+        {
+            newVecCell.push_back(false);
+            newVecFood.push_back(false);
+        }
+
+        CellCollisionGrid.push_back(newVecCell);
+        FoodCollisionGrid.push_back(newVecFood);
     }
 }
 

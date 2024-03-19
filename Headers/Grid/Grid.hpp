@@ -40,7 +40,7 @@ public:
     // Check if movement goes out of grid. If true, fix it
     void FixBorderCollisions(Vector2 *position);
 
-    //Update collision grid. Used after a cell moved
+    // Update collision grid. Used after a cell moved
     void UpdateCollisionGrid(Vector2 oldPos, Vector2 newPos);
 
     void SetGridSpace(Vector2 positionToSet);
@@ -60,8 +60,8 @@ protected:
     int gridHeight;
 
     vector<Cell> *cellsInSimulation;
-    bool **CellCollisionGrid;
-    bool **FoodCollisionGrid;
+    vector<vector<bool>> CellCollisionGrid;
+    vector<vector<bool>> FoodCollisionGrid;
 
 #pragma endregion
 

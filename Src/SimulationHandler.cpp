@@ -5,27 +5,31 @@
 #pragma region "Constructors"
 SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
 {
-    int dimensionalCheck = Util.WindowWidth / Util.CellPixelsDimension * Util.WindowHeight / Util.CellPixelsDimension;
-    if (maxCells >= dimensionalCheck)
+    Vector2 spawnPos;
+    int winwidthUnit = Util.WindowWidth / Util.CellPixelsDimension;
+    int winheightUnit = Util.WindowHeight / Util.CellPixelsDimension;
+    char *title = (char *)"MySim";
+
+    int dimensionalCheck = winwidthUnit * winheightUnit;
+    dimensionalCheck *= 0.5;
+
+    if (maxCells > dimensionalCheck)
     {
-        throw std::logic_error("Error: maxCells specified in SimulationHandler constructor [" + to_string(maxCells) + "] is greater than available pixels on screen ((WindowWidth / CellPixelsDimensions) * (WindowHeight / CellPixelsDimensions))  [" + to_string(dimensionalCheck) + "]");
+        throw std::logic_error("Error: maxCells specified in SimulationHandler constructor [" + to_string(maxCells) + "] is greater than maximum for this window resolution (it is equal to half of pixel resolution). Max cell available: [" + to_string(dimensionalCheck) + "]");
     }
 
-    char *title = (char *)"MySim";
     grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util);
     Util.foodEnabled = foodEnabled;
 
     cellsAlive.clear();
 
     InstantiateCellVector(maxCells);
-    Vector2 spawnPos;
 
     for (int i = 0; i < maxCells; i++)
     {
         do
         {
-            spawnPos = Vector2(Util.GetRandomInt(0, Util.WindowWidth / Util.CellPixelsDimension),
-                               Util.GetRandomInt(0, Util.WindowHeight / Util.CellPixelsDimension));
+            spawnPos = Vector2(Util.GetRandomInt(0, winwidthUnit), Util.GetRandomInt(0, winheightUnit));
         } while (grid.CheckIfSpaceFree(spawnPos) != true);
 
         GenerateCellGenome(spawnPos, (DirectionsIndex)Util.GetRandomInt(0, 8), i);
@@ -69,11 +73,10 @@ void SimulationHandler::GenerateCellGenome(Vector2 position, DirectionsIndex dir
 {
     // TODO GENERATE RANDOM GENOME
 
-    //Create new cell and set space in grid as occupied
+    // Create new cell and set space in grid as occupied
     cellsAlive[vectorPosition] = Cell(5, position, &Util, direction, &grid, 100);
     grid.SetGridSpace(cellsAlive[vectorPosition].cellPosition);
 
-    
     cellsAlive[vectorPosition].LoadSingleCellGenome("110C80");
     cellsAlive[vectorPosition].LoadSingleCellGenome("110D82");
     cellsAlive[vectorPosition].LoadSingleCellGenome("A10C82");
@@ -120,8 +123,10 @@ void SimulationHandler::CleanUpDeactivatedCells()
 
     for (int i = cellsCount - 1; i >= 0; i--)
     {
-        if (!cellsAlive[i].IsAlive())
+        if (!cellsAlive[i].IsAlive() && cellsAlive[i].ignoreCell == false)
         {
+            cellsAlive[i].ignoreCell = true;
+            grid.ResetGridSpace(cellsAlive[i].cellPosition);
         }
     }
 }

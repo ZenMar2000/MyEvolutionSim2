@@ -18,6 +18,7 @@ public:
     Vector2 cellPosition = Vector2(-1, -1);
     Grid *grid;
     vector<Node> GenomeArray[3];
+    bool ignoreCell = false;
 
 #pragma endregion
 
