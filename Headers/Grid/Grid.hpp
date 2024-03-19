@@ -43,6 +43,11 @@ public:
     //Update collision grid. Used after a cell moved
     void UpdateCollisionGrid(Vector2 oldPos, Vector2 newPos);
 
+    void SetGridSpace(Vector2 positionToSet);
+    void ResetGridSpace(Vector2 positionToReset);
+
+    void ClearFoodGridSpace(Vector2 positionToClear);
+
 #pragma endregion
 
 protected:

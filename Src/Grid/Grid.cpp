@@ -38,7 +38,10 @@ void Grid::RefreshGrid()
         for (int i = 0; i < cellCount; i++)
         {
             Cell *c = &cellsInSimulation->at(i);
-            window->DrawPixel(c->GetCellColor(), c->cellPosition);
+            if (c->IsAlive())
+            {
+                window->DrawPixel(c->GetCellColor(), c->cellPosition);
+            }
         }
     }
 
@@ -107,6 +110,15 @@ void Grid::UpdateCollisionGrid(Vector2 oldPosition, Vector2 newPosition)
 {
     CellCollisionGrid[oldPosition.x][oldPosition.y] = false;
     CellCollisionGrid[newPosition.x][newPosition.y] = true;
+}
+
+void Grid::SetGridSpace(Vector2 positionToSet)
+{
+    CellCollisionGrid[positionToSet.x][positionToSet.y] = true;
+}
+void Grid::ResetGridSpace(Vector2 positionToReset)
+{
+    CellCollisionGrid[positionToReset.x][positionToReset.y] = false;
 }
 
 #pragma endregion
