@@ -23,8 +23,8 @@ public:
 #pragma endregion
 
 #pragma region "Public Functions"
+
     // Create a new cell
-    void GenerateCell(Vector2 position, DirectionsIndex direction);
     void Run();
 #pragma endregion
 
@@ -47,8 +47,18 @@ protected:
 #pragma endregion
 
 #pragma region "Protected Functions"
+    // Instantiate all cells needed inside the vector cellsAlive. Must be called before GenerateCellGenome()
+    void InstantiateCellVector(int maxCells);
+
+    //Generate a Genome for a specific cell of the cellsAlive vector
+    void GenerateCellGenome(Vector2 position, DirectionsIndex direction, int vectorPosition);
+
     void CheckIfExitRequested();
+
+    //Trigger the cell brain, starting all checks and actions.
     void PerformCellActions();
+
+    //remove a cell from the simulation
     void CleanUpDeactivatedCells();
 #pragma endregion
 };

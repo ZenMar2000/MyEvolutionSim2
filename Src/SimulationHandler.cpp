@@ -7,13 +7,18 @@ SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
 {
     char *title = (char *)"MySim";
     grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util);
+    Util.foodEnabled = foodEnabled;
+
     cellsAlive.clear();
 
-    Util.foodEnabled = foodEnabled;
+    InstantiateCellVector(maxCells);
 
     for (int i = 0; i < maxCells; i++)
     {
-        GenerateCell(Vector2(Util.GetRandomInt(0, Util.WindowWidth/Util.CellPixelsDimension), Util.GetRandomInt(0, Util.WindowHeight/Util.CellPixelsDimension)),(DirectionsIndex)Util.GetRandomInt(0,8));
+        GenerateCellGenome(Vector2(Util.GetRandomInt(0, Util.WindowWidth / Util.CellPixelsDimension),
+                                   Util.GetRandomInt(0, Util.WindowHeight / Util.CellPixelsDimension)),
+                           (DirectionsIndex)Util.GetRandomInt(0, 8),
+                           i);
     }
 }
 
@@ -38,20 +43,31 @@ void SimulationHandler::Run()
     }
 }
 
-void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction)
-{
-    // TODO GENERATE RANDOM GENOME
-    cellsAlive.push_back(Cell(5, position, &Util, direction, &grid, 100));
-
-    cellsAlive.back().LoadSingleCellGenome("110C80");
-    cellsAlive.back().LoadSingleCellGenome("110D82");
-    cellsAlive.back().LoadSingleCellGenome("A10C82");
-
-    // cellsAlive.back().LoadCellGenome(vector<string>{"110C80", "110D82"});
-}
 #pragma endregion
 
 #pragma region "Protected Functions"
+
+void SimulationHandler::InstantiateCellVector(int maxCells)
+{
+    for (int i = 0; i < maxCells; i++)
+    {
+        cellsAlive.push_back(Cell());
+    }
+}
+
+void SimulationHandler::GenerateCellGenome(Vector2 position, DirectionsIndex direction, int vectorPosition)
+{
+    // TODO GENERATE RANDOM GENOME
+    cout << &cellsAlive[vectorPosition] << endl;
+    cellsAlive[vectorPosition] = Cell(5, position, &Util, direction, &grid, 50*vectorPosition);
+
+    cellsAlive[vectorPosition].LoadSingleCellGenome("110C80");
+    cellsAlive[vectorPosition].LoadSingleCellGenome("110D82");
+    cellsAlive[vectorPosition].LoadSingleCellGenome("A10C82");
+
+    // cellsAlive[vectorPosition].LoadCellGenome(vector<string>{"110C80", "110D82"});
+}
+
 void SimulationHandler::CheckIfExitRequested()
 {
     SDL_Event event;
@@ -97,39 +113,5 @@ void SimulationHandler::CleanUpDeactivatedCells()
         }
     }
 }
-
-// void SimulationHandler::LoadSingleCellGenome(string singleCellGenome, Cell *targetCell)
-// {
-//     string binGenome[4];
-//     // Inverted logic and link weight
-//     string test = singleCellGenome.substr(0, 1);
-//     binGenome[0] = Util.hex_to_bin(singleCellGenome.substr(0, 1));
-
-//     // Genome weight
-//     binGenome[1] = Util.hex_to_bin(singleCellGenome.substr(1, 1));
-
-//     // current node id
-//     binGenome[2] = Util.hex_to_bin(singleCellGenome.substr(2, 2));
-
-//     // child node id linked to current node
-//     binGenome[3] = Util.hex_to_bin(singleCellGenome.substr(4, 2));
-
-//     NodeType newCurrentNodetype = Util.GetNodeType(binGenome[2]);
-//     Node newCurrentNode = Node((NodeId)Util.bin_to_int(binGenome[2]), targetCell);
-
-//     NodeType newLinkedNodeType = Util.GetNodeType(binGenome[3]);
-//     Node newLinkedNode = Node((NodeId)Util.bin_to_int(binGenome[3]), targetCell);
-
-//     //Add child node to the Genome Array
-//     targetCell->GenomeArray[newLinkedNodeType].push_back(newLinkedNode);
-
-//     //Link the child node to the current node
-//     newCurrentNode.AddLinkedNode(&(targetCell->GenomeArray[newLinkedNodeType].back()), Util.bin_to_int(binGenome[0].substr(1, 3)));
-
-//     //Add current node to the Genome Array
-//     targetCell->GenomeArray[newCurrentNodetype].push_back(newCurrentNode);
-
-//     return;
-// }
 
 #pragma endregion

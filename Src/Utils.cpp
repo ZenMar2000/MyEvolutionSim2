@@ -3,6 +3,7 @@
 #pragma region "Constructors"
 Utils::Utils()
 {
+  srand(time(NULL));
 }
 #pragma endregion
 

@@ -4,8 +4,7 @@
 
 int main()
 {
-    SimulationHandler sim = SimulationHandler(2, false);
-    // sim.GenerateCell(Vector2(70, 30), DIRECTION_W);
+    SimulationHandler sim = SimulationHandler(3, false);
     
     sim.Run();
 

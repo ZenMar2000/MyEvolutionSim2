@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <bits/stdc++.h>
 #include <random>
+#include <time.h>
 
 #include "Vector2/Vector2.hpp"
 class Cell;
@@ -78,13 +79,24 @@ static const Vector2 Directions[8]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -
 class Utils
 {
 public:
-  // Simulation Variables
-  static const int DirectionsAmount = 8;
+ #pragma region "Simulation Variables"
+  // Speed of the simulation. Lower number = faster simulation
+  static const int UpdateDelay = 75;
+
+  // Dimension of the cell in pixels
   static const int CellPixelsDimension = 10;
+
+  // width and height of the window. Pick 2 numbers divisible by CellPixelsDimension
   static const int WindowWidth = 800;
   static const int WindowHeight = 600;
-  static const int UpdateDelay = 100;
+
+  // If food is enabled during the simulation. When a cell reach 0 food, it dies
   bool foodEnabled = true;
+  
+#pragma endregion
+
+  // No. Don't touch this variable
+  static const int DirectionsAmount = 8;
 
   unordered_map<string, char> hex_dict = {
       {"0000", '0'}, {"0001", '1'}, {"0010", '2'}, {"0011", '3'}, {"0100", '4'}, {"0101", '5'}, {"0110", '6'}, {"0111", '7'}, {"1000", '8'}, {"1001", '9'}, {"1010", 'A'}, {"1011", 'B'}, {"1100", 'C'}, {"1101", 'D'}, {"1110", 'E'}, {"1111", 'F'}};
@@ -121,7 +133,10 @@ public:
   string hex_to_bin(string hexadecimal);
   int bin_to_int(string binary);
 
+  // Get random int between min (included) and max(not included)
   int GetRandomInt(int min = 0, int max = 100);
+
+  // Get random double between 0 and 1
   double GetRandomPercent();
 
 #pragma endregion
@@ -142,9 +157,10 @@ protected:
       {NEURON},
 
       // Action Nodes
-      {ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXP,
-       ACTION_CXN, ACTION_CYP, ACTION_CYN /* , ACTION_PRM, ACTION_TGL,
-        ACTION_SOC */
+      {
+          ACTION_TCW, ACTION_TCC, ACTION_MFW, ACTION_MBW, ACTION_CXP,
+          ACTION_CXN, ACTION_CYP, ACTION_CYN /* , ACTION_PRM, ACTION_TGL,
+           ACTION_SOC */
       },
 
       // Free
