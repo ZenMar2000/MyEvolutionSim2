@@ -17,13 +17,16 @@ class Node
 public:
     struct linkInfo
     {
-        Node *linkedNode;
+        int nodeIndex;
+        NodeType nodeType;
         double linkWeight = 0;
         bool invertedOutput = false;
 
-        linkInfo(Node &newLinkedNode, double weight, bool inverted)
+        linkInfo() {}
+        linkInfo(int linkedNodeIndex, NodeType linkedNodeType, double weight, bool inverted)
         {
-            linkedNode = &newLinkedNode;
+            nodeIndex = linkedNodeIndex;
+            nodeType = linkedNodeType;
             linkWeight = weight;
             invertedOutput = inverted;
         }
@@ -43,7 +46,7 @@ public:
     NodeType GetNodeType();
 
     // Add node to the linkedNodes list
-    void AddLinkedNode(Node *nodeToLink, double linkWeight);
+    void AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight);
 
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);
@@ -56,14 +59,14 @@ public:
     // Get a vector containing all genomes of this node. Work only on Input an Neuron nodes. Action nodes does not have linked nodes.
     virtual vector<string> GetNodeGenome();
 
-    double inputReceived = 0;
-
 #pragma endregion
 
 protected:
 #pragma region "Protected Variables"
     NodeId nodeId = FREE;
     NodeType nodeType = TYPE_FREE;
+
+    double inputReceived = 0;
 
     int genomeWeight = 0;
     Node *parentNode = NULL;

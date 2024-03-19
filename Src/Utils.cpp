@@ -94,9 +94,7 @@ int Utils::GetRandomInt(int min, int max)
 }
 double Utils::GetRandomPercent()
 {
-  uniform_real_distribution<double> unif(0, 1);
-  default_random_engine re;
-  return unif(re);
+  return GetRandomInt(0,100)*0.01;
 }
 
 #pragma endregion

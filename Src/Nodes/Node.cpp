@@ -10,8 +10,13 @@ Node::Node(NodeId id, Cell *parentCell)
     this->parentCell = parentCell;
     nodeId = id;
     nodeType = util->GetNodeType(nodeId);
-    linkedChildNodes.clear();
-    inputReceived = 0;
+
+    {
+        linkedChildNodes.push_back(linkInfo());
+        linkedChildNodes.clear();
+
+        inputReceived = 0;
+    }
 }
 
 Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
@@ -26,6 +31,7 @@ Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
 #pragma Region "Functions"
 NodeId Node::GetNodeId()
 {
+
     return nodeId;
 }
 
@@ -34,7 +40,7 @@ NodeType Node::GetNodeType()
     return nodeType;
 }
 
-void Node::AddLinkedNode(Node *nodeToLink, double linkWeight)
+void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight)
 {
     NodeType nodeTp = util->GetNodeType(nodeId);
     if (nodeTp >= 3)
@@ -43,15 +49,17 @@ void Node::AddLinkedNode(Node *nodeToLink, double linkWeight)
         return;
     }
 
-    for (int i = 0; i < linkedChildNodes.size(); i++)
-    {
-        if (linkedChildNodes[i].linkedNode->GetNodeId() == nodeToLink->GetNodeId())
-        {
-            linkedChildNodes.erase(linkedChildNodes.begin() + i);
-            break;
-        }
-    }
-    linkedChildNodes.push_back(linkInfo(*nodeToLink, linkWeight, false));
+    // for (int i = 0; i < linkedChildNodes.size(); i++)
+    // {
+    //     if (parentCell->GenomeArray[linkedChildNodes[i].nodeType][linkedChildNodes[i].nodeIndex].GetNodeId() == parentCell->GenomeArray[nodeToLinkType][nodeToLinkIndex].GetNodeId())
+    //     {
+    //         linkedChildNodes.erase(linkedChildNodes.begin() + i);
+    //         break;
+    //     }
+    // }
+
+    linkInfo info = linkInfo(nodeToLinkIndex, nodeToLinkType, linkWeight, false);
+    linkedChildNodes.push_back(info);
 }
 
 void Node::RemoveLinkedNode(int index)
@@ -109,10 +117,10 @@ vector<string> Node::GetNodeGenome()
     for (int i = 0; i < genomeLen; i++)
     {
         // Get binary value and convert in in Hexadecimal
-        singleGenome = util->bin_to_hex(to_string(linkedChildNodes.at(i).invertedOutput) + bitset<3>(linkedChildNodes.at(i).linkWeight).to_string()) +
+        singleGenome = util->bin_to_hex(to_string(linkedChildNodes[i].invertedOutput) + bitset<3>(linkedChildNodes[i].linkWeight).to_string()) +
                        util->bin_to_hex(to_string(genomeWeight)) +
                        util->bin_to_hex(std::bitset<8>(nodeId).to_string()) +
-                       util->bin_to_hex(std::bitset<8>(linkedChildNodes.at(i).linkedNode->GetNodeId()).to_string());
+                       util->bin_to_hex(std::bitset<8>(parentCell->GenomeArray[linkedChildNodes[i].nodeType][linkedChildNodes[i].nodeIndex].GetNodeId()).to_string());
         nodeGenomeList.push_back(singleGenome);
     }
 
@@ -164,10 +172,10 @@ void Node::Activate_InputNode()
     // Write output data to all linked child nodes
     for (int i = 0; i < linkedChildNodes.size(); i++)
     {
-        linkInfo &info = linkedChildNodes[i];
+        linkInfo info = linkedChildNodes[i];
         output *= info.invertedOutput ? -1 : 1;
 
-        info.linkedNode->inputReceived = (output * info.linkWeight);
+        parentCell->GenomeArray[info.nodeType][info.nodeIndex].AddToInput(output * info.linkWeight);
     }
 }
 
@@ -188,13 +196,13 @@ void Node::Activate_NeuronNode()
 {
     double output = 0;
     NormalizeInputValue();
-    
+
     for (int i = 0; i < linkedChildNodes.size(); i++)
     {
-        linkInfo &info = linkedChildNodes[i];
+        linkInfo info = linkedChildNodes[i];
         output *= info.invertedOutput ? -1 : 1;
 
-        info.linkedNode->inputReceived = (output * info.linkWeight);
+        parentCell->GenomeArray[info.nodeType][info.nodeIndex].AddToInput(output * info.linkWeight);
     }
 }
 #pragma endregion

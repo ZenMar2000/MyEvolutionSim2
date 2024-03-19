@@ -23,6 +23,7 @@ public:
 #pragma endregion
 
 #pragma region "Public Functions"
+    // Create a new cell
     void GenerateCell(Vector2 position, DirectionsIndex direction);
     void Run();
 #pragma endregion

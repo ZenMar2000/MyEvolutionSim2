@@ -38,15 +38,13 @@ void SimulationHandler::Run()
 
 void SimulationHandler::GenerateCell(Vector2 position, DirectionsIndex direction)
 {
-    // Cell newCell = Cell(5, position, &Util, direction, &grid, 100);
-    Cell newCell = Cell(5, position, &Util, direction, &grid, 100);
     // TODO GENERATE RANDOM GENOME
+    cellsAlive.push_back(Cell(5, position, &Util, direction, &grid, 100));
 
-    // TEST SINGLE GENOME, LINK INPUT_BLK to ACTION_MFW
-    cellsAlive.push_back(newCell);
+    cellsAlive.back().LoadSingleCellGenome("110C80");
     cellsAlive.back().LoadSingleCellGenome("110D82");
 
-    // currentCellPoolIndex++;
+    // cellsAlive.back().LoadCellGenome(vector<string>{"110C80", "110D82"});
 }
 #pragma endregion
 

@@ -10,8 +10,7 @@
 using namespace std;
 class Node;
 class Grid;
-class InputNode;
-class ActionNode;
+
 class Cell
 {
 public:
