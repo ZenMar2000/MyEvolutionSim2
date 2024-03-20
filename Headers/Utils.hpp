@@ -84,7 +84,10 @@ class Utils
 public:
 #pragma region "Simulation Variables"
   // Speed of the simulation. Lower number = faster simulation
-  static const int UpdateDelay = 50;
+  static const int UpdateDelay = 100;
+
+  //Cells data
+  static const int baseGenomeLength = 5;
   static const int StartingFood = 100;
 
   // Dimension of the cell in pixels

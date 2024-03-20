@@ -78,7 +78,7 @@ void SimulationHandler::GenerateCellGenome(Vector2 position, DirectionsIndex dir
     Cell *selectedCell;
 
     // Instantiate new cell and set space in grid as occupied
-    cellsAlive[vectorPosition] = Cell(5, position, &Util, direction, &grid, Util.StartingFood);
+    cellsAlive[vectorPosition] = Cell(Util.baseGenomeLength, position, &Util, direction, &grid, Util.StartingFood);
     selectedCell = &cellsAlive[vectorPosition];
     grid.SetGridSpace(selectedCell->cellPosition);
 
