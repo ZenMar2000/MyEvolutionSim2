@@ -65,6 +65,7 @@ public:
     DirectionsIndex GetDirectionIndex(int offset = 0);
 
     int GetFoodReserve();
+    int GetGenomeLength();
 
 #pragma endregion
 

@@ -14,17 +14,17 @@ Vector2::Vector2(int xValue, int yValue)
 }
 
 // Functions
-int Vector2::Length() const
+double Vector2::Length() 
 {
-    return sqrt(x * x + y * y);
+    return abs(sqrt(x * x + y * y));
 }
 
-int Vector2::Distance(const Vector2 &v) const
+double Vector2::Distance(Vector2 v) 
 {
-    return sqrt(pow(x - v.x, 2) + pow(y - v.y, 2));
+    return abs(sqrt(pow(v.x - x, 2) + pow(v.y - y, 2)));
 }
 
-int Vector2::Dot(const Vector2 &v) const
+int Vector2::Dot(Vector2 v) 
 {
     return x * v.x + y * v.y;
 }

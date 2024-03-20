@@ -32,13 +32,6 @@ DirectionsIndex Utils::GetDirectionIndex(DirectionsIndex directionIndex)
   return (DirectionsIndex)(directionIndex % DirectionsAmount);
 }
 
-double Utils::NormalizeToGridDimention(Vector2 position, Coordinate coordinate)
-{
-  // TODO
-  std::cout << "Not implemented yet" << endl;
-  return 0;
-}
-
 NodeId Utils::GetRandomNode(NodeType nodeType)
 {
   return NodeTypeList[nodeType][GetRandomInt(0, NodeTypeList[nodeType].size())];
@@ -96,6 +89,22 @@ int Utils::GetRandomInt(int min, int max)
 double Utils::GetRandomPercent()
 {
   return GetRandomInt(0, 100) * 0.01;
+}
+
+double Utils::GetWindowNormalizedDistance(Vector2 myPosition, Vector2 targetPosition)
+{
+  double myPosNormX = (double)myPosition.x / (WindowWidth / CellPixelsDimension);
+  double myPosNormY = (double)myPosition.y / (WindowHeight / CellPixelsDimension);
+
+  double targetPosNormX = (double)targetPosition.x / (WindowWidth / CellPixelsDimension);
+  double targetPosNormY = (double)targetPosition.y / (WindowHeight / CellPixelsDimension);
+
+  return abs(sqrt(pow(targetPosNormX - myPosNormX, 2) + pow(targetPosNormY - myPosNormY, 2)));
+}
+
+int Utils::GetNodeTypeListSize(NodeType type)
+{
+  return NodeTypeList[type].size();
 }
 
 #pragma endregion

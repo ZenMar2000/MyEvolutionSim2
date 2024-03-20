@@ -1,9 +1,9 @@
 ## Generali
 - [x] Grafica
 - [x] Implementare movimento singolo cella su griglia effettiva
-- [ ] Generatore Celle
-	- [ ] Generatore Nodi
-		- [ ] Generatore genoma derivato da nodo
+- [x] Generatore Celle
+- [ ] Generatore Nodi
+- [x] Generatore genoma derivato da nodo
 - [ ] Logica cibo
 - [ ] Ciclo per respawnare celle vive
 - [ ] Editor per parametri da file

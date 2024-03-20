@@ -152,20 +152,43 @@ bool Node::NodeTriggered()
 
 void Node::Activate_InputNode()
 {
-    double output = 0;
     // Do specific action, selected by NodeId
     switch (nodeId)
     {
+    case INPUT_HDP:
+        HDP_Logic();
+        break;
+
+    case INPUT_VDP:
+        VDP_Logic();
+        break;
+
+    case INPUT_HDO:
+        HDO_Logic();
+        break;
+
+    case INPUT_VDO:
+        VDO_Logic();
+        break;
+
+    case INPUT_FRC:
+        FRC_Logic();
+        break;
+
+    case INPUT_FRO:
+        FRO_Logic();
+        break;
+
     case INPUT_RND:
-        output = RND_Logic();
+        RND_Logic();
         break;
 
     case INPUT_BLK:
-        output = BLK_Logic();
+        BLK_Logic();
         break;
 
     default:
-        output = 0;
+        0;
         break;
     }
 
@@ -177,16 +200,48 @@ void Node::Activate_InputNode()
 
         parentCell->GenomeArray[info.nodeType][info.nodeIndex].AddToInput(output * info.linkWeight);
     }
+
+    output = 0;
 }
 
-double Node::BLK_Logic()
+void Node::HDP_Logic()
 {
-    return parentCell->grid->CheckPosition(parentCell->cellPosition.GetSum(util->GetDirection(parentCell->GetDirectionIndex()))) == true ? 1 : 0;
+    output = util->GetWindowNormalizedDistance(parentCell->cellPosition, Vector2(0, parentCell->cellPosition.y));
 }
 
-double Node::RND_Logic()
+void Node::VDP_Logic()
 {
-    return util->GetRandomPercent();
+    output = util->GetWindowNormalizedDistance(parentCell->cellPosition, Vector2(parentCell->cellPosition.x, 0));
+}
+
+void Node::HDO_Logic()
+{
+    output = 1 - util->GetWindowNormalizedDistance(parentCell->cellPosition, Vector2(0, parentCell->cellPosition.y));
+}
+
+void Node::VDO_Logic()
+{
+    output = 1 - util->GetWindowNormalizedDistance(parentCell->cellPosition, Vector2(parentCell->cellPosition.x, 0));
+}
+
+void Node::FRC_Logic()
+{
+    output = parentCell->GetFoodReserve() / util->StartingFood;
+}
+
+void Node::FRO_Logic()
+{
+    output = 1 - (parentCell->GetFoodReserve() / util->StartingFood);
+}
+
+void Node::BLK_Logic()
+{
+    output = parentCell->grid->CheckPosition(parentCell->cellPosition.GetSum(util->GetDirection(parentCell->GetDirectionIndex()))) == true ? 1 : 0;
+}
+
+void Node::RND_Logic()
+{
+    output = util->GetRandomPercent();
 }
 
 #pragma endregion

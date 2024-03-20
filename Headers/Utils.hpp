@@ -30,35 +30,38 @@ enum DirectionsIndex
 enum NodeId
 {
   // Input from 0 to 63
-  INPUT_HDC = 0,  // Normalized Horizontal distance from left border
-  INPUT_VDC = 1,  // Normalized Vertical distance from top border
-  INPUT_FPD = 2,  // Forward population density
-  INPUT_LPD = 3,  // Left population density
-  INPUT_RPD = 4,  // Right population density
-  INPUT_FRC = 5,  // Food reserve counter
-  INPUT_FSD = 6,  // Closest food source distance
-  INPUT_FSA = 7,  // Closest food source angle, relative to forward direction
-  INPUT_CCD = 8,  // Closest cell distance
-  INPUT_CCA = 9,  // Closest cell angle, relative to forward direction
-  INPUT_CCC = 10, // Closest cell compatibility (how similar their genome is)
-  INPUT_OSC = 11, // Oscilloscope
-  INPUT_RND = 12, // Random valuse
-  INPUT_BLK = 13, // Next forward space is blocked
+  INPUT_HDP = 0,  // (Implemented) Normalized Horizontal distance from left border
+  INPUT_VDP = 1,  // (Implemented) Normalized Vertical distance from top border
+  INPUT_HDO = 2,  // (Implemented) Normalized Horizontal distance from left border, opposite value
+  INPUT_VDO = 3,  // (Implemented) Normalized Vertical distance from top border, opposite value
+  INPUT_FPD = 4,  // Forward population density
+  INPUT_LPD = 5,  // Left population density
+  INPUT_RPD = 6,  // Right population density
+  INPUT_FRC = 7,  // (Implemented) Food reserve counter
+  INPUT_FRO = 8,  // (Implemented) Food reserve counter, opposite value
+  INPUT_FSD = 9,  // Closest food source Normalized distance
+  INPUT_FSA = 10, // Closest food source angle, relative to forward direction. Return (Food position relative DirectionIndex angle) - (CellDirection index)
+  INPUT_CCD = 11, // Closest cell Normalized distance
+  INPUT_CCA = 12, // Closest cell angle, relative to forward direction. Return (Other cell position relative DirectionIndex angle) - (CellDirection index)
+  INPUT_CCC = 13, // Closest cell compatibility (how similar their genome is)
+  INPUT_OSC = 14, // Oscilloscope. Sin function between 0 and 1.
+  INPUT_RND = 15, // (Implemented) Random valuse
+  INPUT_BLK = 16, // (Implemented) Next forward space is blocked
 
   // Neurons from 64 to 127
   NEURON = 64, // Neuron
 
   // Actions from 128 to 191
-  ACTION_TCW = 128, // Turn clockwise
-  ACTION_TCC = 129, // Turn counterclockwise
-  ACTION_MFW = 130, // Move forward
-  ACTION_MBW = 131, // Move backward
-  ACTION_CXP = 132, // Cartesian movement on X axis, positive
-  ACTION_CXN = 133, // Cartesian movement on X axis, negative
-  ACTION_CYP = 134, // Cartesian movement on Y axis, positive
-  ACTION_CYN = 135, // Cartesian movement on Y axis, negative
+  ACTION_TCW = 128, // (Implemented) Turn clockwise
+  ACTION_TCC = 129, // (Implemented) Turn counterclockwise
+  ACTION_MFW = 130, // (Implemented) Move forward
+  ACTION_MBW = 131, // (Implemented) Move backward
+  ACTION_CXP = 132, // (Implemented) Cartesian movement on X axis, positive
+  ACTION_CXN = 133, // (Implemented) Cartesian movement on X axis, negative
+  ACTION_CYP = 134, // (Implemented) Cartesian movement on Y axis, positive
+  ACTION_CYN = 135, // (Implemented) Cartesian movement on Y axis, negative
   ACTION_PRM = 136, // Release pheromones.
-  ACTION_TGL = 137, // Trigger level. usually set to 0.5. It increase or reduce the % needed to trigger all action nodes.
+  ACTION_TGL = 137, // Trigger level. usually set to 0. It increase or reduce the % needed to trigger all action nodes.
   ACTION_SOC = 138, // Set oscilloscope frequency
 
   // Free range from 192 to 255
@@ -79,9 +82,10 @@ static const Vector2 Directions[8]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -
 class Utils
 {
 public:
- #pragma region "Simulation Variables"
+#pragma region "Simulation Variables"
   // Speed of the simulation. Lower number = faster simulation
-  static const int UpdateDelay = 75;
+  static const int UpdateDelay = 50;
+  static const int StartingFood = 100;
 
   // Dimension of the cell in pixels
   static const int CellPixelsDimension = 10;
@@ -92,7 +96,7 @@ public:
 
   // If food is enabled during the simulation. When a cell reach 0 food, it dies
   bool foodEnabled = true;
-  
+
 #pragma endregion
 
   // No. Don't touch this variable
@@ -103,12 +107,6 @@ public:
 
   unordered_map<char, string> bin_dict = {
       {'0', "0000"}, {'1', "0001"}, {'2', "0010"}, {'3', "0011"}, {'4', "0100"}, {'5', "0101"}, {'6', "0110"}, {'7', "0111"}, {'8', "1000"}, {'9', "1001"}, {'A', "1010"}, {'B', "1011"}, {'C', "1100"}, {'D', "1101"}, {'E', "1110"}, {'F', "1111"}};
-
-  enum Coordinate
-  {
-    x,
-    y
-  };
 
 #pragma region "Constructors"
   Utils();
@@ -122,7 +120,6 @@ public:
   DirectionsIndex GetDirectionIndex(DirectionsIndex directionIndex);
 
   // return a number between 0 and 1, where 0 is coordinate 0 and 1 is the max width or height of the grid
-  double NormalizeToGridDimention(Vector2 position, Coordinate coordinate);
 
   NodeId GetRandomNode(NodeType nodeType);
 
@@ -139,6 +136,10 @@ public:
   // Get random double between 0 and 1
   double GetRandomPercent();
 
+  double GetWindowNormalizedDistance(Vector2 targetPosition, Vector2 startingPosition = Vector2());
+
+  int GetNodeTypeListSize(NodeType type);
+
 #pragma endregion
 
 protected:
@@ -148,9 +149,8 @@ protected:
   // 0 = Input, 1 = Neuron, 2 = Action, 3 = Free
   vector<NodeId> NodeTypeList[4] = {
       // Input Nodes
-      {/* INPUT_HDC, INPUT_VDC, INPUT_FPD, INPUT_FPD, INPUT_RPD,
-       INPUT_FRC, INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA,
-       INPUT_CCC, INPUT_OSC,  */
+      {INPUT_HDP, INPUT_VDP, INPUT_HDO, INPUT_VDO, /* INPUT_FPD, INPUT_FPD, INPUT_RPD,*/
+       INPUT_FRC, INPUT_FRO,                       /* INPUT_FSD, INPUT_FSA, INPUT_CCD, INPUT_CCA,INPUT_CCC, INPUT_OSC,  */
        INPUT_RND, INPUT_BLK},
 
       // Neuron

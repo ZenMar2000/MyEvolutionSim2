@@ -16,15 +16,18 @@ public:
     Vector2();
     Vector2(int xValue, int yValue);
 
-    // Functions
-    int Length() const;
-    int Distance(const Vector2 &v) const;
-    int Dot(const Vector2 &v) const;
+    // Get the length of current Vector2
+    double Length();
 
-    //Sum the vector2 passed to the current vector2
+    // Get the distance between the current vector and the one passed;
+    double Distance(Vector2 v);
+
+    int Dot(Vector2 v);
+
+    // Sum the vector2 passed to the current vector2
     void Sum(Vector2 v);
 
-    //Get the sum between current vector2 and the vector passed. Performs NO operations to the current Vector2
+    // Get the sum between current vector2 and the vector passed. Performs NO operations to the current Vector2
     Vector2 GetSum(Vector2 v);
 
     void Print();

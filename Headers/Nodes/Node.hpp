@@ -66,6 +66,7 @@ protected:
     NodeId nodeId = FREE;
     NodeType nodeType = TYPE_FREE;
 
+    double output = 0;
     double inputReceived = 0;
 
     int genomeWeight = 0;
@@ -88,8 +89,16 @@ protected:
 
 #pragma region "INPUT NODE"
     void Activate_InputNode();
-    double BLK_Logic();
-    double RND_Logic();
+    void HDP_Logic();
+    void VDP_Logic();
+    void HDO_Logic();
+    void VDO_Logic();
+
+    void FRC_Logic();
+    void FRO_Logic();
+
+    void BLK_Logic();
+    void RND_Logic();
 #pragma endregion
 
 #pragma region "NEURON NODE"
@@ -99,7 +108,6 @@ protected:
 
 #pragma region "ACTION NODE"
     void Activate_ActionNode();
-
 #pragma endregion
 
 #pragma endregion

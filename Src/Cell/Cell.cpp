@@ -215,6 +215,10 @@ int Cell::GetFoodReserve()
     return foodReserve;
 }
 
+int Cell::GetGenomeLength()
+{
+    return genomeLength;
+}
 #pragma endregion
 
 #pragma region "Protected Functions"

@@ -60,6 +60,8 @@ protected:
 
     //remove a cell from the simulation
     void CleanUpDeactivatedCells();
+
+    string BuildSingleGenome(bool invertedLogic, int linkWeight, int genomeWeight, NodeId firstNode, NodeId secondNode);
 #pragma endregion
 };
 
