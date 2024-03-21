@@ -3,7 +3,7 @@
 #include "../Headers/SimulationHandler.hpp"
 
 #pragma region "Constructors"
-SimulationHandler::SimulationHandler(int maxCells, int maxFood, bool foodEnabled)
+SimulationHandler::SimulationHandler(int maxCells, int maxFood, bool foodEnabled, bool foodRespawn)
 {
     Vector2 spawnPos;
     winwidthUnit = Util.WindowWidth / Util.CellPixelsDimension;
@@ -28,7 +28,7 @@ SimulationHandler::SimulationHandler(int maxCells, int maxFood, bool foodEnabled
         GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i);
     }
 
-    InstantiateAllFood(maxCells, maxFood, dimensionalCheck);
+    InstantiateAllFood(maxCells, maxFood, dimensionalCheck, foodRespawn);
 }
 
 #pragma endregion
@@ -50,13 +50,12 @@ void SimulationHandler::Run()
         CleanUpDeactivatedCells();
 
         // refresh the graphical grid with updated positions of the cells
-        grid.RefreshGrid(currentSimulationStep, currentGeneration);
-        currentSimulationStep++;
+        grid.RefreshGrid(currentSimulationStep, currentGeneration, simulationCutOff);
 
-        if (currentSimulationStep > simulationCutOff && survivors.size() <= 0)
-        {
-            SaveCurrentGeneration();
-        }
+        // if (currentSimulationStep > simulationCutOff && survivors.size() <= 0)
+        // {
+        //     SaveCurrentGeneration();
+        // }
 
         if (cellsAliveCounter <= 0)
         {
@@ -65,6 +64,7 @@ void SimulationHandler::Run()
                 break;
             }
         }
+        currentSimulationStep++;
     }
 }
 
@@ -74,16 +74,14 @@ void SimulationHandler::Run()
 
 void SimulationHandler::SaveCurrentGeneration()
 {
-    survivors.clear();
-    for (int i = 0; i < cellsAlive.size(); i++)
-    {
-        if (cellsAlive[i].IsAlive())
-        {
-            survivors.push_back(cellsAlive[i]);
-        }
-    }
+    // for (int i = 0; i < cellsAlive.size(); i++)
+    // {
+    //     if (cellsAlive[i].IsAlive())
+    //     {
+    //         survivors.push_back(cellsAlive[i]);
+    //     }
+    // }
 }
-
 
 bool SimulationHandler::BeginNewGeneration()
 {
@@ -95,22 +93,31 @@ bool SimulationHandler::BeginNewGeneration()
     cout << "Gen " << currentGeneration << " max steps: " << currentSimulationStep << endl;
 
     currentSimulationStep = 0;
-    simulationCutOff++;
     currentGeneration++;
 
     int maxSpawnedCells = survivors.size() * 2;
     if (maxSpawnedCells > dimensionalCheck)
     {
         maxSpawnedCells = dimensionalCheck;
+        simulationCutOff += Util.cutoffIncrease;
     }
-    
+    else
+    {
+        if (simulationCutOff > Util.baseCutOffValue)
+        {
+            simulationCutOff -= Util.cutoffDecrease;
+        }
+    }
     InstantiateCellVector(maxSpawnedCells);
 
-    int currentSurvivorIndex = survivors.size();
+    int currentSurvivorIndex = survivors.size() - 1;
     for (int i = 0; i < cellsAlive.size(); i += 2)
     {
-        GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i, survivors[currentSurvivorIndex].GetCellGenome());
-        GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + 1, survivors[currentSurvivorIndex].GetCellGenome());
+        for (int j = 0; j < 2; j++)
+        {
+            GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + j, survivors[currentSurvivorIndex].GetCellGenome(), survivors[currentSurvivorIndex].GetCellColor());
+        }
+        // GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + 1, survivors[currentSurvivorIndex].GetCellGenome());
         currentSurvivorIndex--;
     }
 
@@ -208,8 +215,8 @@ void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPositi
     for (int i = 0; i < selectedNodes.size(); i++)
     {
         bool invertedLogic = Util.GetRandomInt(0, 2);
-        int linkWeight = Util.GetRandomInt(1, 5);
-        int genomeWeight = Util.GetRandomInt(1, 5);
+        int linkWeight = Util.GetRandomInt(1, Util.maxLinkWeight + 1) % 8;
+        int genomeWeight = Util.GetRandomInt(1, Util.maxGenomeWeight + 1) % 8;
 
         newGenome.push_back(BuildSingleGenome(invertedLogic, linkWeight, genomeWeight, selectedNodes[i].first, selectedNodes[i].second));
     }
@@ -218,7 +225,7 @@ void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPositi
     cellsAlive[vectorPosition].LoadCellGenome(newGenome);
 }
 
-void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPosition, vector<string> genome)
+void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPosition, vector<string> genome, Color color)
 {
     cellsAliveCounter++;
     // Get spawn position
@@ -238,6 +245,7 @@ void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPositi
 
     // Load full genome to cell
     cellsAlive[vectorPosition].LoadCellGenome(genome);
+    selectedCell->SetCellColor(color);
 }
 
 void SimulationHandler::CheckIfExitRequested()
@@ -284,13 +292,18 @@ void SimulationHandler::CleanUpDeactivatedCells()
             cellsAlive[i].ignoreCell = true;
             grid.ResetCellGridSpace(cellsAlive[i].cellPosition);
             cellsAliveCounter--;
+
+            if (currentSimulationStep > simulationCutOff)
+            {
+                survivors.push_back(cellsAlive[i]);
+            }
         }
     }
 }
-void SimulationHandler::InstantiateAllFood(int maxCells, int maxFood, int dimensionalCheck)
+void SimulationHandler::InstantiateAllFood(int maxCells, int maxFood, int dimensionalCheck, bool foodRespawn)
 {
     int foodDimensionalCheck = (dimensionalCheck - maxCells) * 0.75;
-    if (maxFood >= foodDimensionalCheck)
+    if (maxFood > foodDimensionalCheck)
     {
         throw std::logic_error("Error: maxFood specified [" + to_string(maxFood) + "] is greater than maximum for this window resolution and CellPixelsDimension. Max food available: [" + to_string(foodDimensionalCheck) + "]");
     }
@@ -306,7 +319,7 @@ void SimulationHandler::InstantiateAllFood(int maxCells, int maxFood, int dimens
             } while (grid.CheckIfCellSpaceFree(foodSpawnPos) == false && grid.CheckIfFoodSpaceFree(foodSpawnPos) == false);
 
             grid.SetFoodGridSpace(foodSpawnPos);
-            foodAvailable.push_back(FoodElement(foodSpawnPos));
+            foodAvailable.push_back(FoodElement(foodSpawnPos, foodRespawn));
         }
     }
 }

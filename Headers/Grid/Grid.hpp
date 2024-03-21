@@ -25,7 +25,7 @@ public:
 #pragma endregion
 
 #pragma region "Public Functions"
-    void RefreshGrid(int currentSimulationStep, int);
+    void RefreshGrid(int currentSimulationStep, int currentGeneration, int simulationCutOff);
 
     void AddCellsToGrid(vector<Cell> &cellsAlive);
     void AddFoodToGrid(vector<FoodElement> &foodAvailable);

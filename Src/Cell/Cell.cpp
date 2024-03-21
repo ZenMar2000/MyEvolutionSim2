@@ -151,9 +151,15 @@ vector<string> Cell::GetCellGenome()
     return cellGenome;
 }
 
+
 bool Cell::IsAlive()
 {
     return isAlive;
+}
+
+void Cell::SetCellColor(Color color)
+{
+    cellColor = color;
 }
 
 Color Cell::GetCellColor()

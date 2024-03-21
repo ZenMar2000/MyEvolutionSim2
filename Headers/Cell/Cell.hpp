@@ -45,6 +45,9 @@ public:
     void LoadSingleCellGenome(string singleCellGenome);
     
     bool IsAlive();
+
+    void SetCellColor(Color color);
+
     Color GetCellColor();
 
     // Signal to all nodes to elaborate data.

@@ -77,6 +77,13 @@ enum NodeType
   TYPE_FREE = 3
 };
 
+enum SimulationType
+{
+  CUTOFF_VALUE,
+  CUTOFF_VALUE_INCREASING,
+  TOP_HALF
+};
+
 static const Vector2 Directions[8]{Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0)};
 
 class Utils
@@ -86,21 +93,28 @@ public:
   // Speed of the simulation. Lower number = faster simulation
   static const int UpdateDelay = 1;
 
-  //Cells data
-  static const int baseGenomeLength = 10;
+  // MaxValue is 7
+  static const int maxLinkWeight = 3;
+
+  // MaxValue is 7
+  static const int maxGenomeWeight = 3;
 
   // Dimension of the cell in pixels
-  static const int CellPixelsDimension = 5;
+  static const int baseGenomeLength = 10;
+  static const int CellPixelsDimension = 10;
 
   // width and height of the window. Pick 2 numbers divisible by CellPixelsDimension
   static const int WindowWidth = 800;
   static const int WindowHeight = 600;
 
   // If food is enabled during the simulation. When a cell reach 0 food, it dies
+  static const int baseCutOffValue = 101;
   static const int StartingFood = 100;
-  bool foodEnabled = true;
   static const int foodValue = 15;
+  bool foodEnabled = true;
 
+  static const int cutoffIncrease = 1;
+  static const int cutoffDecrease = 1;
 
 #pragma endregion
 

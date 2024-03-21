@@ -11,4 +11,6 @@
 ---
 
 ## Importanti x prossima volta
+
 - Implementare nodi Neuron
+- Implementare PoolOfCells e CellsAlive diventa pointer a PoolOfCells

@@ -19,7 +19,7 @@ public:
 #pragma endregion
 
 #pragma region "Constructors"
-    SimulationHandler(int maxCells, int maxFood, bool foodEnabled);
+    SimulationHandler(int maxCells, int maxFood, bool foodEnabled, bool foodRespawn);
 
 #pragma endregion
 
@@ -48,7 +48,7 @@ protected:
     int winheightUnit = 0;
 
     int currentSimulationStep = 0;
-    int simulationCutOff = 100;
+    int simulationCutOff = Util.baseCutOffValue;
     int currentGeneration = 0;
     int cellsAliveCounter = 0;
     int dimensionalCheck = 0;
@@ -63,7 +63,7 @@ protected:
     void GenerateCell(DirectionsIndex direction, int vectorPosition);
 
     // Generate a cell with a specific genome inside the cellsAlive vector
-    void GenerateCell(DirectionsIndex direction, int vectorPosition, vector<string> genome);
+    void GenerateCell(DirectionsIndex direction, int vectorPosition, vector<string> genome, Color color);
 
     void CheckIfExitRequested();
 
@@ -73,7 +73,7 @@ protected:
     // remove a cell from the simulation
     void CleanUpDeactivatedCells();
 
-    void InstantiateAllFood(int maxCells, int maxFood, int dimensionalCheck);
+    void InstantiateAllFood(int maxCells, int maxFood, int dimensionalCheck, bool foodRespawn);
 
     string BuildSingleGenome(bool invertedLogic, int linkWeight, int genomeWeight, NodeId firstNode, NodeId secondNode);
 
