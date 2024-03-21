@@ -32,6 +32,15 @@ void SDLWindow::UpdateWindow()
     SDL_RenderPresent(renderer);
     SDL_Delay(util->UpdateDelay);
 }
+
+void SDLWindow::UpdateWindowTitle(string title)
+{
+    char c[title.size() + 1];
+    title.copy(c, title.size() + 1);
+    c[title.size()] = '\0';
+
+    SDL_SetWindowTitle(window, c);
+}
 #pragma endregion
 
 #pragma region "Protected functions"
@@ -44,31 +53,16 @@ void SDLWindow::Init(const char *title, uint width, uint height)
             cout << SDL_GetError();
             return;
         }
-
         // Initialize window and renderer
-        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,0);
-        renderer = SDL_CreateRenderer(window,-1, SDL_RENDERER_ACCELERATED);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
         // SDL_CreateWindowAndRenderer(width, height, 0, &window, &renderer);
-
         // set renderer dimension to 10
         SDL_RenderSetScale(renderer, util->CellPixelsDimension, util->CellPixelsDimension);
 
         // Set clear the window to all black
         ClearWindow();
-
-        // Set renderer color to white
-        // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        // SDL_RenderDrawPoint(renderer, 79, 0);
-        // for (int i = 0; i < height - 1; i++)
-        // {
-        //     SDL_RenderDrawPoint(renderer, i, i);
-        //     SDL_RenderPresent(renderer);
-        //     SDL_Delay(100);
-
-        // // }
-        // UpdateWindow();
-        // SDL_Delay(1000);
     }
-    
+
 #pragma endregion
 }

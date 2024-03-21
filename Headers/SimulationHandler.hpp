@@ -44,6 +44,9 @@ protected:
     int winwidthUnit = 0;
     int winheightUnit = 0;
 
+    int currentSimulationStep = 0;
+    int simulationCutOff = 101;
+
 #pragma endregion
 
 #pragma region "Protected Functions"

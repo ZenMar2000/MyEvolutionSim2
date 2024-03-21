@@ -45,6 +45,7 @@ void SimulationHandler::Run()
     grid.AddFoodToGrid(foodAvailable);
     while (isRunning)
     {
+        
         // Check if exit button pressed (escape button)
         CheckIfExitRequested();
 
@@ -53,7 +54,8 @@ void SimulationHandler::Run()
         CleanUpDeactivatedCells();
 
         // refresh the graphical grid with updated positions of the cells
-        grid.RefreshGrid();
+        grid.RefreshGrid(currentSimulationStep);
+        currentSimulationStep++;
     }
 }
 

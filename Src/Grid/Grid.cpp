@@ -36,8 +36,9 @@ Grid::Grid(char *title, uint width, uint height, Utils *util)
 
 #pragma region "Public Functions"
 
-void Grid::RefreshGrid()
+void Grid::RefreshGrid(int currentSimulationStep)
 {
+    window->UpdateWindowTitle("MySim: " + to_string(currentSimulationStep));
 
     // 1) Clear window graphic
     window->ClearWindow();

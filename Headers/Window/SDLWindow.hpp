@@ -20,7 +20,7 @@ public:
     void ClearWindow();
     void DrawPixel(Color cellColor, Vector2 position);
     void UpdateWindow();
-
+    void UpdateWindowTitle(string title);
 #pragma endregion
 
 protected:
