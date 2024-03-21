@@ -38,9 +38,9 @@ protected:
     // Used by this class to perform single cell actions
     //   and from the grid to update the graphical position
     vector<Cell> PoolsOfCells;
-    vector<Cell *> cellsAlive;
+    vector<Cell> cellsAlive;
     vector<Cell> survivors;
-    
+
     vector<FoodElement> foodAvailable;
     bool isRunning = false;
 
