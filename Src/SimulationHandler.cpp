@@ -11,8 +11,7 @@ SimulationHandler::SimulationHandler(int maxCells, int maxFood, bool foodEnabled
 
     char *title = (char *)"MySim";
 
-    int dimensionalCheck = winwidthUnit * winheightUnit;
-    dimensionalCheck *= 0.5;
+    dimensionalCheck = (winwidthUnit * winheightUnit) * 0.5;
 
     if (maxCells > dimensionalCheck)
     {
@@ -22,13 +21,10 @@ SimulationHandler::SimulationHandler(int maxCells, int maxFood, bool foodEnabled
     grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util);
     Util.foodEnabled = foodEnabled;
 
-    cellsAlive.clear();
-
     InstantiateCellVector(maxCells);
 
     for (int i = 0; i < maxCells; i++)
     {
-
         GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i);
     }
 
@@ -45,7 +41,7 @@ void SimulationHandler::Run()
     grid.AddFoodToGrid(foodAvailable);
     while (isRunning)
     {
-        
+
         // Check if exit button pressed (escape button)
         CheckIfExitRequested();
 
@@ -54,8 +50,21 @@ void SimulationHandler::Run()
         CleanUpDeactivatedCells();
 
         // refresh the graphical grid with updated positions of the cells
-        grid.RefreshGrid(currentSimulationStep);
+        grid.RefreshGrid(currentSimulationStep, currentGeneration);
         currentSimulationStep++;
+
+        if (currentSimulationStep > simulationCutOff && survivors.size() <= 0)
+        {
+            SaveCurrentGeneration();
+        }
+
+        if (cellsAliveCounter <= 0)
+        {
+            if (BeginNewGeneration() == false)
+            {
+                break;
+            }
+        }
     }
 }
 
@@ -63,8 +72,55 @@ void SimulationHandler::Run()
 
 #pragma region "Protected Functions"
 
+void SimulationHandler::SaveCurrentGeneration()
+{
+    survivors.clear();
+    for (int i = 0; i < cellsAlive.size(); i++)
+    {
+        if (cellsAlive[i].IsAlive())
+        {
+            survivors.push_back(cellsAlive[i]);
+        }
+    }
+}
+
+bool SimulationHandler::BeginNewGeneration()
+{
+    if (survivors.size() <= 0)
+    {
+        cout << "Simulation ended. Unfortunately no cells survived with current parameters." << endl;
+        return false;
+    }
+    cout << "Gen " << currentGeneration << " max steps: " << currentSimulationStep << endl;
+
+    currentSimulationStep = 0;
+    simulationCutOff++;
+    currentGeneration++;
+
+    int maxSpawnedCells = survivors.size() * 2;
+    if (maxSpawnedCells > dimensionalCheck)
+    {
+        maxSpawnedCells = dimensionalCheck;
+    }
+    
+    InstantiateCellVector(maxSpawnedCells);
+
+    int currentSurvivorIndex = survivors.size();
+    for (int i = 0; i < cellsAlive.size(); i += 2)
+    {
+        GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i, survivors[currentSurvivorIndex].GetCellGenome());
+        GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + 1, survivors[currentSurvivorIndex].GetCellGenome());
+        currentSurvivorIndex--;
+    }
+
+    grid.AddCellsToGrid(cellsAlive);
+    survivors.clear();
+    return true;
+}
 void SimulationHandler::InstantiateCellVector(int maxCells)
 {
+    cellsAlive.clear();
+
     for (int i = 0; i < maxCells; i++)
     {
         cellsAlive.push_back(Cell());
@@ -73,7 +129,8 @@ void SimulationHandler::InstantiateCellVector(int maxCells)
 
 void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPosition)
 {
-    //Get spawn position
+    cellsAliveCounter++;
+    // Get spawn position
     Vector2 spawnPos;
     do
     {
@@ -150,14 +207,36 @@ void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPositi
     for (int i = 0; i < selectedNodes.size(); i++)
     {
         bool invertedLogic = Util.GetRandomInt(0, 2);
-        int linkWeight = Util.GetRandomInt(1, 8);
-        int genomeWeight = Util.GetRandomInt(1, 8);
+        int linkWeight = Util.GetRandomInt(1, 5);
+        int genomeWeight = Util.GetRandomInt(1, 5);
 
         newGenome.push_back(BuildSingleGenome(invertedLogic, linkWeight, genomeWeight, selectedNodes[i].first, selectedNodes[i].second));
     }
 
     // Load full genome to cell
     cellsAlive[vectorPosition].LoadCellGenome(newGenome);
+}
+
+void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPosition, vector<string> genome)
+{
+    cellsAliveCounter++;
+    // Get spawn position
+    Vector2 spawnPos;
+    do
+    {
+        spawnPos = Vector2(Util.GetRandomInt(0, winwidthUnit), Util.GetRandomInt(0, winheightUnit));
+    } while (grid.CheckIfCellSpaceFree(spawnPos) == false);
+
+    // TODO Add logic for spawning also Neuron Nodes
+    Cell *selectedCell;
+
+    // Instantiate new cell and set space in grid as occupied
+    cellsAlive[vectorPosition] = Cell(Util.baseGenomeLength, spawnPos, &Util, direction, &grid, Util.StartingFood);
+    selectedCell = &cellsAlive[vectorPosition];
+    grid.SetCellGridSpace(selectedCell->cellPosition);
+
+    // Load full genome to cell
+    cellsAlive[vectorPosition].LoadCellGenome(genome);
 }
 
 void SimulationHandler::CheckIfExitRequested()
@@ -203,6 +282,7 @@ void SimulationHandler::CleanUpDeactivatedCells()
         {
             cellsAlive[i].ignoreCell = true;
             grid.ResetCellGridSpace(cellsAlive[i].cellPosition);
+            cellsAliveCounter--;
         }
     }
 }

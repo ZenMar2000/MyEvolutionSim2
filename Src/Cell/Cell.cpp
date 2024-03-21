@@ -76,7 +76,6 @@ void Cell::LoadSingleCellGenome(string singleCellGenome)
     // Get linked node type
     NodeId newLinkedNodeId = (NodeId)util->bin_to_int(binGenome[3]);
     NodeType newLinkedNodeType = util->GetNodeType(newLinkedNodeId);
-    // Node *linkedNode;
 
     int linkedNodeIndex;
 
@@ -107,7 +106,7 @@ void Cell::LoadSingleCellGenome(string singleCellGenome)
         linkedNodeIndex = nodeCheck;
     }
 
-    currNode->AddLinkedNode(GenomeArray[newLinkedNodeType].size() - 1, newLinkedNodeType, linkWeight, invertedLogic);
+    currNode->AddLinkedNode(GenomeArray[newLinkedNodeType].size() - 1, newLinkedNodeType, newLinkedNodeId, linkWeight, invertedLogic);
 }
 
 void Cell::ClearCellGenome()
@@ -119,23 +118,35 @@ vector<string> Cell::GetCellGenome()
     vector<string> cellGenome;
     // TODO Refactor code
 
-    // for (int nodeTypeIndex = 0; nodeTypeIndex < 4; nodeTypeIndex++)
-    // {
-    //     if (GenomeArray[nodeTypeIndex].size() > 0)
-    //     {
-    //         for (int singleNodeIndex = 0; singleNodeIndex < GenomeArray[nodeTypeIndex].size(); singleNodeIndex++)
-    //         {
-    //             vector<string> nodeGenome = GenomeArray[nodeTypeIndex][singleNodeIndex].GetNodeGenome();
-    //             if (nodeGenome.size() > 0)
-    //             {
-    //                 for (int i = 0; i < nodeGenome.size(); i++)
-    //                 {
-    //                     cellGenome.push_back(nodeGenome[i]);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    for (int nodeTypeIndex = TYPE_INPUT; nodeTypeIndex < TYPE_ACTION; nodeTypeIndex++)
+    {
+        if (GenomeArray[nodeTypeIndex].size() > 0)
+        {
+            for (int singleNodeIndex = 0; singleNodeIndex < GenomeArray[nodeTypeIndex].size(); singleNodeIndex++)
+            {
+                if (GenomeArray->size() <= 0)
+                {
+                    int i = 0;
+                }
+
+                vector<string> nodeGenome = GenomeArray[nodeTypeIndex][singleNodeIndex].GetNodeGenome();
+                if (nodeGenome.size() > 0)
+                {
+                    for (int i = 0; i < nodeGenome.size(); i++)
+                    {
+                        string converted = "";
+
+                        converted += util->bin_to_hex(nodeGenome[i].substr(0, 4));
+                        converted += util->bin_to_hex(nodeGenome[i].substr(5, 4));
+                        converted += util->bin_to_hex(nodeGenome[i].substr(8, 8));
+                        converted += util->bin_to_hex(nodeGenome[i].substr(16, 8));
+
+                        cellGenome.push_back(converted);
+                    }
+                }
+            }
+        }
+    }
 
     return cellGenome;
 }

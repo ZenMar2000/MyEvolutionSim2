@@ -40,7 +40,7 @@ NodeType Node::GetNodeType()
     return nodeType;
 }
 
-void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight, bool invertedLogic)
+void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, NodeId nodeToLinkId, double linkWeight, bool invertedLogic)
 {
     NodeType nodeTp = util->GetNodeType(nodeId);
     if (nodeTp >= 3)
@@ -58,7 +58,7 @@ void Node::AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double li
     //     }
     // }
 
-    linkInfo info = linkInfo(nodeToLinkIndex, nodeToLinkType, linkWeight, invertedLogic);
+    linkInfo info = linkInfo(nodeToLinkIndex, nodeToLinkType, nodeToLinkId, linkWeight, invertedLogic);
     linkedChildNodes.push_back(info);
 }
 
@@ -111,16 +111,18 @@ vector<string> Node::GetNodeGenome()
 {
     nodeGenomeList.clear();
 
-    int genomeLen = sizeof(linkedChildNodes);
+    int genomeLen = linkedChildNodes.size();
     string singleGenome;
 
     for (int i = 0; i < genomeLen; i++)
     {
         // Get binary value and convert in in Hexadecimal
-        singleGenome = util->bin_to_hex(to_string(linkedChildNodes[i].invertedOutput) + bitset<3>(linkedChildNodes[i].linkWeight).to_string()) +
-                       util->bin_to_hex(to_string(genomeWeight)) +
-                       util->bin_to_hex(std::bitset<8>(nodeId).to_string()) +
-                       util->bin_to_hex(std::bitset<8>(parentCell->GenomeArray[linkedChildNodes[i].nodeType][linkedChildNodes[i].nodeIndex].GetNodeId()).to_string());
+        singleGenome = bitset<1>(linkedChildNodes[i].invertedOutput).to_string();
+        singleGenome += bitset<3>(linkedChildNodes[i].linkWeight).to_string();
+        singleGenome += std::bitset<4>(genomeWeight).to_string();
+        singleGenome += std::bitset<8>(nodeId).to_string();
+        singleGenome += std::bitset<8>(linkedChildNodes[i].linkedNodeId).to_string();
+
         nodeGenomeList.push_back(singleGenome);
     }
 
@@ -198,7 +200,7 @@ void Node::Activate_InputNode()
         linkInfo info = linkedChildNodes[i];
         output *= info.invertedOutput ? -1 : 1;
 
-        parentCell->GenomeArray[info.nodeType][info.nodeIndex].AddToInput(output * info.linkWeight);
+        parentCell->GenomeArray[info.linkedNodeType][info.linkedNodeIndex].AddToInput(output * info.linkWeight);
     }
 
     output = 0;
@@ -257,7 +259,7 @@ void Node::Activate_NeuronNode()
         linkInfo info = linkedChildNodes[i];
         output *= info.invertedOutput ? -1 : 1;
 
-        parentCell->GenomeArray[info.nodeType][info.nodeIndex].AddToInput(output * info.linkWeight);
+        parentCell->GenomeArray[info.linkedNodeType][info.linkedNodeIndex].AddToInput(output * info.linkWeight);
     }
 }
 #pragma endregion

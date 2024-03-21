@@ -39,13 +39,17 @@ protected:
     //   and from the grid to update the graphical position
     vector<Cell> cellsAlive;
     vector<FoodElement> foodAvailable;
+    vector<Cell> survivors;
     bool isRunning = false;
 
     int winwidthUnit = 0;
     int winheightUnit = 0;
 
     int currentSimulationStep = 0;
-    int simulationCutOff = 101;
+    int simulationCutOff = 100;
+    int currentGeneration = 0;
+    int cellsAliveCounter = 0;
+    int dimensionalCheck = 0;
 
 #pragma endregion
 
@@ -53,20 +57,28 @@ protected:
     // Instantiate all cells needed inside the vector cellsAlive. Must be called before GenerateCell()
     void InstantiateCellVector(int maxCells);
 
-    //Generate a Genome for a specific cell of the cellsAlive vector
+    // Generate a cell with a random genome inside the cellsAlive vector
     void GenerateCell(DirectionsIndex direction, int vectorPosition);
+
+    // Generate a cell with a specific genome inside the cellsAlive vector
+    void GenerateCell(DirectionsIndex direction, int vectorPosition, vector<string> genome);
 
     void CheckIfExitRequested();
 
-    //Trigger the cell brain, starting all checks and actions.
+    // Trigger the cell brain, starting all checks and actions.
     void PerformCellActions();
 
-    //remove a cell from the simulation
+    // remove a cell from the simulation
     void CleanUpDeactivatedCells();
 
-    void InstantiateAllFood( int maxCells, int maxFood, int dimensionalCheck);
+    void InstantiateAllFood(int maxCells, int maxFood, int dimensionalCheck);
 
     string BuildSingleGenome(bool invertedLogic, int linkWeight, int genomeWeight, NodeId firstNode, NodeId secondNode);
+
+    bool BeginNewGeneration();
+
+    void SaveCurrentGeneration();
+
 #pragma endregion
 };
 

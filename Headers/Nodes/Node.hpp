@@ -17,16 +17,18 @@ class Node
 public:
     struct linkInfo
     {
-        int nodeIndex;
-        NodeType nodeType;
+        int linkedNodeIndex;
+        NodeType linkedNodeType;
+        NodeId linkedNodeId;
         double linkWeight = 0;
         bool invertedOutput = false;
 
         linkInfo() {}
-        linkInfo(int linkedNodeIndex, NodeType linkedNodeType, double weight, bool inverted)
+        linkInfo(int newNodeIndex, NodeType newNodeType, NodeId newNodeId, double weight, bool inverted)
         {
-            nodeIndex = linkedNodeIndex;
-            nodeType = linkedNodeType;
+            linkedNodeIndex = newNodeIndex;
+            linkedNodeType = newNodeType;
+            linkedNodeId = newNodeId;
             linkWeight = weight;
             invertedOutput = inverted;
         }
@@ -46,7 +48,7 @@ public:
     NodeType GetNodeType();
 
     // Add node to the linkedNodes list
-    void AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, double linkWeight, bool invertedLogic);
+    void AddLinkedNode(int nodeToLinkIndex, NodeType nodeToLinkType, NodeId nodeToLinkId, double linkWeight, bool invertedLogic);
 
     // Remove node at specified index from the linkedNodes list
     void RemoveLinkedNode(int index);

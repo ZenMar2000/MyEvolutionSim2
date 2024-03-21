@@ -84,13 +84,13 @@ class Utils
 public:
 #pragma region "Simulation Variables"
   // Speed of the simulation. Lower number = faster simulation
-  static const int UpdateDelay = 125;
+  static const int UpdateDelay = 1;
 
   //Cells data
-  static const int baseGenomeLength = 5;
+  static const int baseGenomeLength = 10;
 
   // Dimension of the cell in pixels
-  static const int CellPixelsDimension = 10;
+  static const int CellPixelsDimension = 5;
 
   // width and height of the window. Pick 2 numbers divisible by CellPixelsDimension
   static const int WindowWidth = 800;

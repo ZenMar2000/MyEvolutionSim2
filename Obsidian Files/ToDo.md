@@ -11,5 +11,4 @@
 ---
 
 ## Importanti x prossima volta
-- Logica cibo
 - Implementare nodi Neuron

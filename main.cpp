@@ -4,7 +4,7 @@
 
 int main()
 {
-    SimulationHandler sim = SimulationHandler(500, 100, true);
+    SimulationHandler sim = SimulationHandler(750, 200, true);
 
     sim.Run();
 
