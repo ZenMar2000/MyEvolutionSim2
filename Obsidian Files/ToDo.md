@@ -13,4 +13,5 @@
 ## Importanti x prossima volta
 
 - Implementare nodi Neuron
-- Implementare PoolOfCells e CellsAlive diventa pointer a PoolOfCells
+- Respawnare food dopo aver spawnato cellule nelle generazioni successive
+- logica che seleziona nodi random, quando ci sono alte lunghezze genoma a volte va in eccezione anche se potrebbe creare combinazioni (es. genomeLength 50)

@@ -91,7 +91,7 @@ class Utils
 public:
 #pragma region "Simulation Variables"
   // Speed of the simulation. Lower number = faster simulation
-  static const int UpdateDelay = 1;
+  static const int UpdateDelay = 50;
 
   // MaxValue is 7
   static const int maxLinkWeight = 3;
@@ -108,8 +108,8 @@ public:
   static const int WindowHeight = 600;
 
   // If food is enabled during the simulation. When a cell reach 0 food, it dies
-  static const int baseCutOffValue = 101;
-  static const int StartingFood = 100;
+  static const int baseCutOffValue = 100;
+  static const int StartingFood = 99;
   static const int foodValue = 15;
   bool foodEnabled = true;
 

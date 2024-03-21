@@ -116,6 +116,11 @@ bool SimulationHandler::BeginNewGeneration()
         for (int j = 0; j < 2; j++)
         {
             GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + j, survivors[currentSurvivorIndex].GetCellGenome(), survivors[currentSurvivorIndex].GetCellColor());
+           
+            if (i == cellsAlive.size() - 1)
+            {
+                int sssss = 0;
+            }
         }
         // GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + 1, survivors[currentSurvivorIndex].GetCellGenome());
         currentSurvivorIndex--;
