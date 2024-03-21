@@ -84,6 +84,7 @@ void SimulationHandler::SaveCurrentGeneration()
     }
 }
 
+
 bool SimulationHandler::BeginNewGeneration()
 {
     if (survivors.size() <= 0)
