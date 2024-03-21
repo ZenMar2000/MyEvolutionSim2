@@ -6,12 +6,18 @@
 #include "../Window/SDLWindow.hpp"
 #include "../Utils.hpp"
 #include "../Cell/Cell.hpp"
+#include "../FoodElement/FoodElement.hpp"
 
 using namespace std;
 class Cell;
 class Grid
 {
 public:
+#pragma region "Public Variables"
+    Color FoodColor = Color(255, 255, 255);
+
+#pragma endregion
+
 #pragma region "Constructors"
     Grid();
     Grid(char *title, uint width, uint heightn, Utils *util);
@@ -21,14 +27,14 @@ public:
 #pragma region "Public Functions"
     void RefreshGrid();
 
-    void SpawnCells(vector<Cell> &cellsAlive);
-    void SpawnSingleCell(Cell cell);
-
-    void SpawnFoodPips(/* TODO ADD FOOD CLASS */);
-    void RespawnSingleFoodPip(/* TODO ADD FOOD CLASS */);
+    void AddCellsToGrid(vector<Cell> &cellsAlive);
+    void AddFoodToGrid(vector<FoodElement> &foodAvailable);
 
     // Return true if position passed is free
-    bool CheckIfSpaceFree(Vector2 position);
+    bool CheckIfCellSpaceFree(Vector2 position);
+
+    // Return true if position passed is free
+    bool CheckIfFoodSpaceFree(Vector2 position);
 
     // Return trurn true if position passed is inside grid
     bool CheckIfInsideBorder(Vector2 position);
@@ -43,11 +49,11 @@ public:
     // Update collision grid. Used after a cell moved
     void UpdateCollisionGrid(Vector2 oldPos, Vector2 newPos);
 
-    void SetGridSpace(Vector2 positionToSet);
-    void ResetGridSpace(Vector2 positionToReset);
+    void SetCellGridSpace(Vector2 positionToSet);
+    void ResetCellGridSpace(Vector2 positionToReset);
 
-    void ClearFoodGridSpace(Vector2 positionToClear);
-
+    void SetFoodGridSpace(Vector2 positionToSet);
+    void ResetFoodGridSpace(Vector2 positionToReset);
 #pragma endregion
 
 protected:
@@ -60,11 +66,12 @@ protected:
     int gridHeight;
 
     vector<Cell> *cellsInSimulation;
+    vector<FoodElement> *foodInSimulation;
+
     vector<vector<bool>> CellCollisionGrid;
     vector<vector<bool>> FoodCollisionGrid;
 
 #pragma endregion
-
 
 #pragma region "Protected Functions"
 

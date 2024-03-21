@@ -4,8 +4,8 @@
 
 int main()
 {
-    SimulationHandler sim = SimulationHandler(200, false);
-    
+    SimulationHandler sim = SimulationHandler(500, 100, true);
+
     sim.Run();
 
     return 0;

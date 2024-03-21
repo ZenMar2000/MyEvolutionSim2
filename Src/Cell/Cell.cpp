@@ -15,7 +15,7 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex
     foodReserve = startingFood;
     directionIndex = (DirectionsIndex)(direction % util->DirectionsAmount);
 
-    cellColor = Color(util->GetRandomInt(10, 240), util->GetRandomInt(10, 240), util->GetRandomInt(10, 240));
+    cellColor = Color(util->GetRandomInt(10, 222), util->GetRandomInt(10, 222), util->GetRandomInt(10, 222));
 
     // for (int i = 0; i < GenomeArray->size(); i++)
     // {
@@ -26,7 +26,7 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex
 #pragma endregion
 
 #pragma region "Public Functions"
-void Cell::GenerateCellGenome()
+void Cell::GenerateCell()
 {
     vector<string> cellGenome;
 
@@ -175,12 +175,13 @@ void Cell::DirectionalMove(bool isBackward)
     grid->FixBorderCollisions(&newPos);
 
     // Check destination space if occupied
-    if (grid->CheckIfSpaceFree(newPos))
+    if (grid->CheckIfCellSpaceFree(newPos))
     {
         grid->UpdateCollisionGrid(cellPosition, newPos);
         cellPosition.x = newPos.x;
         cellPosition.y = newPos.y;
     }
+    CheckIfFoodReached();
 }
 
 void Cell::CartesianMove(DirectionsIndex directionIndex)
@@ -192,11 +193,21 @@ void Cell::CartesianMove(DirectionsIndex directionIndex)
     grid->FixBorderCollisions(&newPos);
 
     // Check destination space if occupied
-    if (grid->CheckIfSpaceFree(newPos))
+    if (grid->CheckIfCellSpaceFree(newPos))
     {
         grid->UpdateCollisionGrid(cellPosition, newPos);
         cellPosition.x = newPos.x;
         cellPosition.y = newPos.y;
+    }
+    CheckIfFoodReached();
+}
+
+void Cell::CheckIfFoodReached()
+{
+    if (!grid->CheckIfFoodSpaceFree(cellPosition))
+    {
+        foodReserve += util->foodValue;
+        grid->ResetFoodGridSpace(cellPosition);
     }
 }
 

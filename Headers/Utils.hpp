@@ -84,11 +84,10 @@ class Utils
 public:
 #pragma region "Simulation Variables"
   // Speed of the simulation. Lower number = faster simulation
-  static const int UpdateDelay = 100;
+  static const int UpdateDelay = 125;
 
   //Cells data
   static const int baseGenomeLength = 5;
-  static const int StartingFood = 100;
 
   // Dimension of the cell in pixels
   static const int CellPixelsDimension = 10;
@@ -98,7 +97,10 @@ public:
   static const int WindowHeight = 600;
 
   // If food is enabled during the simulation. When a cell reach 0 food, it dies
+  static const int StartingFood = 100;
   bool foodEnabled = true;
+  static const int foodValue = 15;
+
 
 #pragma endregion
 

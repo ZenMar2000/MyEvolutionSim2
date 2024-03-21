@@ -38,14 +38,44 @@ Grid::Grid(char *title, uint width, uint height, Utils *util)
 
 void Grid::RefreshGrid()
 {
-    int cellCount = cellsInSimulation->size();
+
     // 1) Clear window graphic
     window->ClearWindow();
 
-    // 2)Update cells raphical position
-    if (cellCount > 0)
+    // 2) Update food graphical position
+    if (foodInSimulation->size() > 0)
     {
-        for (int i = 0; i < cellCount; i++)
+
+        if (util->foodEnabled)
+        {
+            for (int i = 0; i < foodInSimulation->size(); i++)
+            {
+                FoodElement *f = &foodInSimulation->at(i);
+
+                if (CheckIfFoodSpaceFree(f->FoodPosition) && f->IsfoodRespawnable())
+                {
+                    Vector2 foodSpawnPos;
+                    do
+                    {
+                        foodSpawnPos = Vector2(util->GetRandomInt(0, util->WindowWidth / util->CellPixelsDimension), util->GetRandomInt(0, util->WindowHeight / util->CellPixelsDimension));
+                    } while (CheckIfCellSpaceFree(foodSpawnPos) == false && CheckIfFoodSpaceFree(foodSpawnPos) == false);
+
+                    f->RespawnFood(foodSpawnPos);
+                    SetFoodGridSpace(f->FoodPosition);
+                }
+
+                if (f->IsFoodEnabled())
+                {
+                    window->DrawPixel(FoodColor, f->FoodPosition);
+                }
+            }
+        }
+    }
+
+    // 3)Update cells graphical position
+    if (cellsInSimulation->size())
+    {
+        for (int i = 0; i < cellsInSimulation->size(); i++)
         {
             Cell *c = &cellsInSimulation->at(i);
             if (c->IsAlive())
@@ -54,12 +84,11 @@ void Grid::RefreshGrid()
             }
         }
     }
-
-    // 3) Update window Graphic
+    // 4) Update window Graphic
     window->UpdateWindow();
 }
 
-void Grid::SpawnCells(vector<Cell> &cellsAlive)
+void Grid::AddCellsToGrid(vector<Cell> &cellsAlive)
 {
     cellsInSimulation = &cellsAlive;
     Cell c;
@@ -70,22 +99,15 @@ void Grid::SpawnCells(vector<Cell> &cellsAlive)
     }
 }
 
-void Grid::SpawnSingleCell(Cell cell)
+void Grid::AddFoodToGrid(vector<FoodElement> &foodAvailable)
 {
-    // cellsInSimulation->push_back(cell);
-}
-
-void Grid::SpawnFoodPips(){
-
-};
-void Grid::RespawnSingleFoodPip(){
-
+    foodInSimulation = &foodAvailable;
 };
 
 bool Grid::CheckPosition(Vector2 position)
 {
     FixBorderCollisions(&position);
-    return (CheckIfInsideBorder(position) || CheckIfSpaceFree(position));
+    return (CheckIfInsideBorder(position) || CheckIfCellSpaceFree(position));
 }
 
 void Grid::FixBorderCollisions(Vector2 *position)
@@ -101,10 +123,14 @@ void Grid::FixBorderCollisions(Vector2 *position)
         position->y = 0;
 };
 
-bool Grid::CheckIfSpaceFree(Vector2 position)
+bool Grid::CheckIfCellSpaceFree(Vector2 position)
 {
-    bool ret = !CellCollisionGrid[position.x][position.y];
-    return ret;
+    return !CellCollisionGrid[position.x][position.y];
+}
+
+bool Grid::CheckIfFoodSpaceFree(Vector2 position)
+{
+    return !FoodCollisionGrid[position.x][position.y];
 }
 
 bool Grid::CheckIfInsideBorder(Vector2 position)
@@ -122,13 +148,22 @@ void Grid::UpdateCollisionGrid(Vector2 oldPosition, Vector2 newPosition)
     CellCollisionGrid[newPosition.x][newPosition.y] = true;
 }
 
-void Grid::SetGridSpace(Vector2 positionToSet)
+void Grid::SetCellGridSpace(Vector2 positionToSet)
 {
     CellCollisionGrid[positionToSet.x][positionToSet.y] = true;
 }
-void Grid::ResetGridSpace(Vector2 positionToReset)
+void Grid::ResetCellGridSpace(Vector2 positionToReset)
 {
     CellCollisionGrid[positionToReset.x][positionToReset.y] = false;
+}
+
+void Grid::SetFoodGridSpace(Vector2 positionToSet)
+{
+    FoodCollisionGrid[positionToSet.x][positionToSet.y] = true;
+}
+void Grid::ResetFoodGridSpace(Vector2 positionToReset)
+{
+    FoodCollisionGrid[positionToReset.x][positionToReset.y] = false;
 }
 
 #pragma endregion

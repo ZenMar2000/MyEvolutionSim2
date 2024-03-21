@@ -31,7 +31,7 @@ public:
 #pragma region "Public Functions"
     // Generate a random sequence of nodes and link between them.
     // Use LoadGenome() to use a specific Genome sequence.
-    void GenerateCellGenome();
+    void GenerateCell();
 
     // Load the full cell genome from hex values.
     // Use GenerateGenome() to get a random sequence.
@@ -57,6 +57,8 @@ public:
     // Move dictated by cartesian logic and not by direction. Move Up, down, left or right.
     void CartesianMove(DirectionsIndex directionIndex);
 
+    void CheckIfFoodReached();
+    
     // Turn cell facing direction clockwise or counterclockwise. 1 = -45deg, -1 = +45deg.
     // Positive values are clockwise rotations, while negative values are counter clockwise.
     // Usually rotated by 1 or -1

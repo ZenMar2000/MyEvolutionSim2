@@ -7,6 +7,7 @@
 #include "Grid/Grid.hpp"
 #include "Utils.hpp"
 #include "Nodes/Node.hpp"
+#include "FoodElement/FoodElement.hpp"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
 #pragma endregion
 
 #pragma region "Constructors"
-    SimulationHandler(int maxCells, bool foodEnabled);
+    SimulationHandler(int maxCells, int maxFood, bool foodEnabled);
 
 #pragma endregion
 
@@ -37,21 +38,20 @@ protected:
     // Used by this class to perform single cell actions
     //   and from the grid to update the graphical position
     vector<Cell> cellsAlive;
+    vector<FoodElement> foodAvailable;
     bool isRunning = false;
 
-    // vector<Cell> cellsPool;
-    // int currentCellPoolIndex = 0;
-
-    // Load a single Genome into the cell from hex values.
+    int winwidthUnit = 0;
+    int winheightUnit = 0;
 
 #pragma endregion
 
 #pragma region "Protected Functions"
-    // Instantiate all cells needed inside the vector cellsAlive. Must be called before GenerateCellGenome()
+    // Instantiate all cells needed inside the vector cellsAlive. Must be called before GenerateCell()
     void InstantiateCellVector(int maxCells);
 
     //Generate a Genome for a specific cell of the cellsAlive vector
-    void GenerateCellGenome(Vector2 position, DirectionsIndex direction, int vectorPosition);
+    void GenerateCell(DirectionsIndex direction, int vectorPosition);
 
     void CheckIfExitRequested();
 
@@ -60,6 +60,8 @@ protected:
 
     //remove a cell from the simulation
     void CleanUpDeactivatedCells();
+
+    void InstantiateAllFood( int maxCells, int maxFood, int dimensionalCheck);
 
     string BuildSingleGenome(bool invertedLogic, int linkWeight, int genomeWeight, NodeId firstNode, NodeId secondNode);
 #pragma endregion

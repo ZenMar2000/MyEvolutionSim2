@@ -3,11 +3,12 @@
 #include "../Headers/SimulationHandler.hpp"
 
 #pragma region "Constructors"
-SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
+SimulationHandler::SimulationHandler(int maxCells, int maxFood, bool foodEnabled)
 {
     Vector2 spawnPos;
-    int winwidthUnit = Util.WindowWidth / Util.CellPixelsDimension;
-    int winheightUnit = Util.WindowHeight / Util.CellPixelsDimension;
+    winwidthUnit = Util.WindowWidth / Util.CellPixelsDimension;
+    winheightUnit = Util.WindowHeight / Util.CellPixelsDimension;
+
     char *title = (char *)"MySim";
 
     int dimensionalCheck = winwidthUnit * winheightUnit;
@@ -15,7 +16,7 @@ SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
 
     if (maxCells > dimensionalCheck)
     {
-        throw std::logic_error("Error: maxCells specified in SimulationHandler constructor [" + to_string(maxCells) + "] is greater than maximum for this window resolution (it is equal to half of pixel resolution). Max cell available: [" + to_string(dimensionalCheck) + "]");
+        throw std::logic_error("Error: maxCells specified in SimulationHandler constructor [" + to_string(maxCells) + "] is greater than maximum for this window resolution and CellPixelsDimension (it is equal to half of pixel resolution). Max cell available: [" + to_string(dimensionalCheck) + "]");
     }
 
     grid = Grid(title, Util.WindowWidth, Util.WindowHeight, &Util);
@@ -27,13 +28,11 @@ SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
 
     for (int i = 0; i < maxCells; i++)
     {
-        do
-        {
-            spawnPos = Vector2(Util.GetRandomInt(0, winwidthUnit), Util.GetRandomInt(0, winheightUnit));
-        } while (grid.CheckIfSpaceFree(spawnPos) != true);
 
-        GenerateCellGenome(spawnPos, (DirectionsIndex)Util.GetRandomInt(0, 8), i);
+        GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i);
     }
+
+    InstantiateAllFood(maxCells, maxFood, dimensionalCheck);
 }
 
 #pragma endregion
@@ -42,7 +41,8 @@ SimulationHandler::SimulationHandler(int maxCells, bool foodEnabled)
 void SimulationHandler::Run()
 {
     isRunning = true;
-    grid.SpawnCells(cellsAlive);
+    grid.AddCellsToGrid(cellsAlive);
+    grid.AddFoodToGrid(foodAvailable);
     while (isRunning)
     {
         // Check if exit button pressed (escape button)
@@ -69,8 +69,15 @@ void SimulationHandler::InstantiateCellVector(int maxCells)
     }
 }
 
-void SimulationHandler::GenerateCellGenome(Vector2 position, DirectionsIndex direction, int vectorPosition)
+void SimulationHandler::GenerateCell(DirectionsIndex direction, int vectorPosition)
 {
+    //Get spawn position
+    Vector2 spawnPos;
+    do
+    {
+        spawnPos = Vector2(Util.GetRandomInt(0, winwidthUnit), Util.GetRandomInt(0, winheightUnit));
+    } while (grid.CheckIfCellSpaceFree(spawnPos) == false);
+
     // TODO Add logic for spawning also Neuron Nodes
 
     vector<string> newGenome;
@@ -78,9 +85,9 @@ void SimulationHandler::GenerateCellGenome(Vector2 position, DirectionsIndex dir
     Cell *selectedCell;
 
     // Instantiate new cell and set space in grid as occupied
-    cellsAlive[vectorPosition] = Cell(Util.baseGenomeLength, position, &Util, direction, &grid, Util.StartingFood);
+    cellsAlive[vectorPosition] = Cell(Util.baseGenomeLength, spawnPos, &Util, direction, &grid, Util.StartingFood);
     selectedCell = &cellsAlive[vectorPosition];
-    grid.SetGridSpace(selectedCell->cellPosition);
+    grid.SetCellGridSpace(selectedCell->cellPosition);
 
     // Generate Random Genome
     for (int repeat = 0; repeat < selectedCell->GetGenomeLength(); repeat++)
@@ -141,8 +148,8 @@ void SimulationHandler::GenerateCellGenome(Vector2 position, DirectionsIndex dir
     for (int i = 0; i < selectedNodes.size(); i++)
     {
         bool invertedLogic = Util.GetRandomInt(0, 2);
-        int linkWeight = Util.GetRandomInt(0, 8);
-        int genomeWeight = Util.GetRandomInt(0, 8);
+        int linkWeight = Util.GetRandomInt(1, 8);
+        int genomeWeight = Util.GetRandomInt(1, 8);
 
         newGenome.push_back(BuildSingleGenome(invertedLogic, linkWeight, genomeWeight, selectedNodes[i].first, selectedNodes[i].second));
     }
@@ -193,7 +200,30 @@ void SimulationHandler::CleanUpDeactivatedCells()
         if (!cellsAlive[i].IsAlive() && cellsAlive[i].ignoreCell == false)
         {
             cellsAlive[i].ignoreCell = true;
-            grid.ResetGridSpace(cellsAlive[i].cellPosition);
+            grid.ResetCellGridSpace(cellsAlive[i].cellPosition);
+        }
+    }
+}
+void SimulationHandler::InstantiateAllFood(int maxCells, int maxFood, int dimensionalCheck)
+{
+    int foodDimensionalCheck = (dimensionalCheck - maxCells) * 0.75;
+    if (maxFood >= foodDimensionalCheck)
+    {
+        throw std::logic_error("Error: maxFood specified [" + to_string(maxFood) + "] is greater than maximum for this window resolution and CellPixelsDimension. Max food available: [" + to_string(foodDimensionalCheck) + "]");
+    }
+
+    if (Util.foodEnabled)
+    {
+        Vector2 foodSpawnPos;
+        for (int i = 0; i < maxFood; i++)
+        {
+            do
+            {
+                foodSpawnPos = Vector2(Util.GetRandomInt(0, winwidthUnit), Util.GetRandomInt(0, winheightUnit));
+            } while (grid.CheckIfCellSpaceFree(foodSpawnPos) == false && grid.CheckIfFoodSpaceFree(foodSpawnPos) == false);
+
+            grid.SetFoodGridSpace(foodSpawnPos);
+            foodAvailable.push_back(FoodElement(foodSpawnPos));
         }
     }
 }
