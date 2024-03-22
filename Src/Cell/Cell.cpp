@@ -15,13 +15,14 @@ Cell::Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex
     foodReserve = startingFood;
     directionIndex = (DirectionsIndex)(direction % util->DirectionsAmount);
 
-    cellColor = Color(util->GetRandomInt(10, 222), util->GetRandomInt(10, 222), util->GetRandomInt(10, 222));
+    cellColor = util->GetRandomColor();
 
     // for (int i = 0; i < GenomeArray->size(); i++)
     // {
     //     GenomeArray[i].clear();
     // }
 }
+
 
 #pragma endregion
 
@@ -116,7 +117,6 @@ void Cell::ClearCellGenome()
 vector<string> Cell::GetCellGenome()
 {
     vector<string> cellGenome;
-    // TODO Refactor code
 
     for (int nodeTypeIndex = TYPE_INPUT; nodeTypeIndex < TYPE_ACTION; nodeTypeIndex++)
     {
@@ -150,7 +150,6 @@ vector<string> Cell::GetCellGenome()
 
     return cellGenome;
 }
-
 
 bool Cell::IsAlive()
 {

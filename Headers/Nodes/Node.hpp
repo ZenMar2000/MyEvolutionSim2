@@ -37,9 +37,7 @@ public:
 #pragma region "Constructors"
     Node();
     Node(NodeId id, Cell *parentCell);
-
-    // TODO Understand if useful
-    // Node(NodeId id, Cell *parentCell, Node *parentNode);
+    
 #pragma endregion
 
 #pragma Region "Functions"

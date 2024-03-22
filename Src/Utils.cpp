@@ -107,6 +107,10 @@ int Utils::GetNodeTypeListSize(NodeType type)
   return NodeTypeList[type].size();
 }
 
+Color Utils::GetRandomColor()
+{
+  return Color(GetRandomInt(10, 222), GetRandomInt(10, 222), GetRandomInt(10, 222));
+}
 #pragma endregion
 
 #pragma region "Protected Functions"

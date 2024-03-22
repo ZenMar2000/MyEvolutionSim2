@@ -14,6 +14,23 @@ class Cell;
     7		3
     6	5	4
 */
+
+
+struct Color
+{
+  int r;       // red component
+  int g;       // green component
+  int b;       // blue component
+  int a = 255; // alpha
+
+  Color(int red, int green, int blue)
+  {
+    r = red;
+    g = green;
+    b = blue;
+  }
+};
+
 enum DirectionsIndex
 {
   DIRECTION_NW = 0,
@@ -91,16 +108,16 @@ class Utils
 public:
 #pragma region "Simulation Variables"
   // Speed of the simulation. Lower number = faster simulation
-  static const int UpdateDelay = 50;
+  static const int UpdateDelay = 0;
 
   // MaxValue is 7
-  static const int maxLinkWeight = 3;
+  static const int maxLinkWeight = 1;
 
   // MaxValue is 7
   static const int maxGenomeWeight = 3;
 
   // Dimension of the cell in pixels
-  static const int baseGenomeLength = 10;
+  static const int baseGenomeLength = 20;
   static const int CellPixelsDimension = 10;
 
   // width and height of the window. Pick 2 numbers divisible by CellPixelsDimension
@@ -108,13 +125,14 @@ public:
   static const int WindowHeight = 600;
 
   // If food is enabled during the simulation. When a cell reach 0 food, it dies
-  static const int baseCutOffValue = 100;
-  static const int StartingFood = 99;
-  static const int foodValue = 15;
+  static const int baseCutOffValue = 50;
+  static const int StartingFood = 50;
+  static const int foodValue = 30;
   bool foodEnabled = true;
 
   static const int cutoffIncrease = 1;
   static const int cutoffDecrease = 1;
+  static const bool cutoffDecreaseEnabled = false;
 
 #pragma endregion
 
@@ -159,6 +177,8 @@ public:
 
   int GetNodeTypeListSize(NodeType type);
 
+  Color GetRandomColor();
+
 #pragma endregion
 
 protected:
@@ -193,18 +213,4 @@ protected:
 #pragma endregion
 };
 
-struct Color
-{
-  int r; // red component
-  int g; // green component
-  int b; // blue component
-  int a; // alpha
-
-  Color(int red, int green, int blue)
-  {
-    r = red;
-    g = green;
-    b = blue;
-  }
-};
 #endif

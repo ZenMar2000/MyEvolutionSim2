@@ -19,13 +19,6 @@ Node::Node(NodeId id, Cell *parentCell)
     }
 }
 
-// Node::Node(NodeId id, Cell *parentCell, Node *parentNode)
-// {
-//     this->parentCell = parentCell;
-//     this->parentNode = parentNode;
-//     nodeId = id;
-// }
-
 #pragma endregion
 
 #pragma Region "Functions"

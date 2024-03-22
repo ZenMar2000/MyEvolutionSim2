@@ -16,8 +16,12 @@ class Cell
 public:
 #pragma region "Public Variables"
     Vector2 cellPosition = Vector2(-1, -1);
-    Grid *grid;
+    Grid *grid = NULL;
+
+    // Array containing all nodes.
+    // Positions inside the array corresponds to enum NodeType
     vector<Node> GenomeArray[3];
+
     bool ignoreCell = false;
 
 #pragma endregion
@@ -25,7 +29,6 @@ public:
 #pragma region "Constructors"
     Cell();
     Cell(int genomeLength, Vector2 spawnPosition, Utils *util, DirectionsIndex direction, Grid *grid, int startingFood = 10);
-
 #pragma endregion
 
 #pragma region "Public Functions"
@@ -43,7 +46,7 @@ public:
     vector<string> GetCellGenome();
 
     void LoadSingleCellGenome(string singleCellGenome);
-    
+
     bool IsAlive();
 
     void SetCellColor(Color color);
@@ -61,7 +64,7 @@ public:
     void CartesianMove(DirectionsIndex directionIndex);
 
     void CheckIfFoodReached();
-    
+
     // Turn cell facing direction clockwise or counterclockwise. 1 = -45deg, -1 = +45deg.
     // Positive values are clockwise rotations, while negative values are counter clockwise.
     // Usually rotated by 1 or -1
@@ -79,11 +82,6 @@ protected:
     // Max length of the genome array
     int genomeLength = 0;
     int currentGenomeLength = 0;
-
-    // Node *Genome;
-
-    // Array containing all nodes.
-    // Positions inside the array corresponds to the first 2 binary values of enum NodeType
 
     // Food counter. When reaching 0, the cell dies.
     int foodReserve = 0;
@@ -104,14 +102,14 @@ protected:
 #pragma region "Protected Functions"
     // Use the generated or loaded genome to create and physically link nodes.
     // void LinkAllNodes(vector<string> cellGenome);
-    
-    //Check if a node is already existing in the GenomeArray. Return -1 if nothing is found
-    int CheckIfNodeExists(NodeId nodeId, NodeType nodeType);
 
+    // Check if a node is already existing in the GenomeArray. Return -1 if nothing is found
+    int CheckIfNodeExists(NodeId nodeId, NodeType nodeType);
 
     void ReduceFood();
 
-    //Pass all nodes in the GenomeArray specified by the type and activate each one, performing all relative instructions 
+
+    // Pass all nodes in the GenomeArray specified by the type and activate each one, performing all relative instructions
     void ActivateNodes(NodeType type);
 #pragma endregion
 };

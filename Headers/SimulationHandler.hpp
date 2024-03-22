@@ -37,7 +37,6 @@ protected:
     // Vector containing all cells currently alive.
     // Used by this class to perform single cell actions
     //   and from the grid to update the graphical position
-    vector<Cell> PoolsOfCells;
     vector<Cell> cellsAlive;
     vector<Cell> survivors;
 
@@ -80,6 +79,8 @@ protected:
     bool BeginNewGeneration();
 
     void SaveCurrentGeneration();
+
+    void ChangeRandomBit(std::string &str);
 
 #pragma endregion
 };

@@ -101,22 +101,60 @@ bool SimulationHandler::BeginNewGeneration()
         maxSpawnedCells = dimensionalCheck;
         simulationCutOff += Util.cutoffIncrease;
     }
-    else
+    else if (Util.cutoffDecreaseEnabled)
     {
         if (simulationCutOff > Util.baseCutOffValue)
         {
             simulationCutOff -= Util.cutoffDecrease;
+            if (simulationCutOff < Util.baseCutOffValue)
+            {
+                simulationCutOff = Util.baseCutOffValue;
+            }
         }
     }
     InstantiateCellVector(maxSpawnedCells);
 
     int currentSurvivorIndex = survivors.size() - 1;
+    int mutationsHappened = 0;
     for (int i = 0; i < cellsAlive.size(); i += 2)
     {
         for (int j = 0; j < 2; j++)
         {
-            GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + j, survivors[currentSurvivorIndex].GetCellGenome(), survivors[currentSurvivorIndex].GetCellColor());
-           
+            vector<string> currentCellGenome = survivors[currentSurvivorIndex].GetCellGenome();
+            Color currentCellColor = survivors[currentSurvivorIndex].GetCellColor();
+            if (Util.GetRandomInt(0, 1500) == 0)
+            {
+                // Mutation happened
+                mutationsHappened++;
+                NodeId inNode = Util.GetRandomNode(TYPE_INPUT);
+                NodeId actNode = Util.GetRandomNode(TYPE_ACTION);
+
+                int mutatedNodeIndex = -1;
+                for (int i = 0; i < currentCellGenome.size(); i++)
+                {
+                    if (inNode == stoi(currentCellGenome[i].substr(2, 2), 0, 16) && actNode == stoi(currentCellGenome[i].substr(3, 2), 0, 16))
+                    {
+                        mutatedNodeIndex = i;
+                        break;
+                    }
+                }
+
+                if (mutatedNodeIndex == -1)
+                {
+                    mutatedNodeIndex = Util.GetRandomInt(0, currentCellGenome.size());
+                }
+
+                bool invertedLogic = Util.GetRandomInt(0, 2);
+                int linkWeight = Util.GetRandomInt(1, Util.maxLinkWeight + 1) % 8;
+                int genomeWeight = Util.GetRandomInt(1, Util.maxGenomeWeight + 1) % 8;
+
+                currentCellGenome[mutatedNodeIndex] = BuildSingleGenome(invertedLogic, linkWeight, genomeWeight, inNode, actNode);
+
+                currentCellColor = Util.GetRandomColor();
+            }
+
+            GenerateCell((DirectionsIndex)Util.GetRandomInt(0, 8), i + j, currentCellGenome, currentCellColor);
+
             if (i == cellsAlive.size() - 1)
             {
                 int sssss = 0;
@@ -128,8 +166,30 @@ bool SimulationHandler::BeginNewGeneration()
 
     grid.AddCellsToGrid(cellsAlive);
     survivors.clear();
+
+    // if (mutationsHappened > 0)
+    // {
+    //     cout << "    " << mutationsHappened << " mutation" << (mutationsHappened == 1 ?" ": "s ") << "happened!" << endl;
+    // }
     return true;
 }
+
+void SimulationHandler::ChangeRandomBit(string &str)
+{
+    // random_device rd;
+    // mt19937 gen(rd());
+    // uniform_int_distribution<int> distribution(0, str.size() * 8 - 1);
+
+    // int randomBitIndex = distribution(gen);
+    // int charIndex = randomBitIndex / 8;
+    // int bitOffset = randomBitIndex % 8;
+
+    int charIndex = Util.GetRandomInt(0, 8);
+    int bitOffset = Util.GetRandomInt(0, 8);
+
+    str[charIndex] ^= (1 << bitOffset);
+}
+
 void SimulationHandler::InstantiateCellVector(int maxCells)
 {
     cellsAlive.clear();

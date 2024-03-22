@@ -15,3 +15,4 @@
 - Implementare nodi Neuron
 - Respawnare food dopo aver spawnato cellule nelle generazioni successive
 - logica che seleziona nodi random, quando ci sono alte lunghezze genoma a volte va in eccezione anche se potrebbe creare combinazioni (es. genomeLength 50)
+- capire come usare unique_ptr 
