@@ -27,10 +27,20 @@ Sure you can, just put me in the credits if you use it.
 
 For contributors, I'd like to keep it as is.
 
+# Launch and build the project in Fedora Linux
+1) Using Visual Studio code, install c++ extensions and cmake tools
+2) Pull repository
+3) Check if gcc is installed with ```gcc -v```
+4) Install cmake with ```sudo dnf install cmake``` 
+5) Install g++ with ```sudo dnf install g++``` 
+6) Install SDL2 with ```sudo yum install SDL2-devel```
+7) Configure the cmake file with ___Ctrl Shift P___ and ```Cmake: Configure```
+
+Ready to be launched!
+
 ## Credits
 
 Video inspiration, some stuff implemented is loosely inspired by it: https://www.youtube.com/watch?v=N3tRFayqVtk
 
 And his relative repository: https://github.com/davidrmiller/biosim4
-
 
