@@ -1,6 +1,6 @@
 # What is this project?
 
-This is a simulation on how cells interact and evolve in a virtual environment. Each cell has an unique genome, and this genome composes what it's essentially the cell brain.
+This is a simulation on how cells interact and evolve in a virtual environment. Each cell has an unique genome, and this genome composes what it is essentially the cell brain.
 
 Each cell will independently take actions based on what their little brain will tell them to do, no input from the user is done. 
 Also, food is required by the cells to live, so eating is essential for survival.
